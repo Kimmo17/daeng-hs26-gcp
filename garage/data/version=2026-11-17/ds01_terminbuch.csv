@@ -1,0 +1,200 @@
+eintrag_nr,buchseite,datum,zeit,kunde_pseudo,arbeit_freitext,status_vermerk,radiert,nachgetragen,auftragsart_codiert
+1,140,2026-09-28,07:30,K-0006,kl. Service,,nein,nein,Service
+2,140,2026-09-28,08:00,K-0348,MFK-Vorb.,erl.,nein,nein,MFK-Vorbereitung
+3,140,2026-09-28,09:00,K-0129,Zahnriemen,erl.,nein,nein,Reparatur
+4,140,2026-09-28,10:00,K-0193,Klima prüfen,abgesagt,nein,nein,Reparatur
+5,140,2026-09-28,14:30,K-0371,MFK,erl.,nein,nein,MFK-Vorbereitung
+6,140,2026-09-28,15:00,K-0148,MFK vorbereiten,erl.,nein,nein,MFK-Vorbereitung
+7,140,2026-09-28,15:30,K-0013,MFK vorbereiten,,nein,nein,MFK-Vorbereitung
+8,141,2026-09-29,07:30,K-0344,(unleserlich),erl.,nein,nein,unklar
+9,141,2026-09-29,08:30,K-0220,Service + Öl,erl.,nein,nein,Service
+10,141,2026-09-29,09:00,K-0118,Bremsbeläge hinten,,nein,nein,Reparatur
+11,141,2026-09-29,10:30,K-0321,Auspuff,,nein,nein,Reparatur
+12,141,2026-09-29,14:00,K-0366,Bremsbeläge hinten,,nein,nein,Reparatur
+13,141,2026-09-29,14:30,K-0129,Service + Öl,,nein,nein,Service
+14,141,2026-09-29,15:30,K-0158,Ölwechsel,erl.,nein,nein,Service
+15,141,2026-09-29,16:30,K-0206,Bremsbeläge hinten,erl.,nein,nein,Reparatur
+16,142,2026-09-30,08:00,K-0218,Serv.,,nein,nein,Service
+17,142,2026-09-30,09:00,K-0033,kl. Service,,nein,nein,Service
+18,142,2026-09-30,10:00,K-0190,MFK-Vorb.,erl.,nein,nein,MFK-Vorbereitung
+19,142,2026-09-30,10:30,K-0075,MFK-Vorb.,erl.,nein,nein,MFK-Vorbereitung
+20,142,2026-09-30,13:30,K-0048,Service,erl.,nein,nein,Service
+21,142,2026-09-30,15:00,K-0313,Auspuff,,nein,nein,Reparatur
+22,142,2026-09-30,16:00,K-0062,Vorführen,,nein,nein,MFK-Vorbereitung
+23,142,2026-09-30,16:30,K-0138,Service + Öl,,ja,nein,Service
+24,142,2026-09-30,,K-0080,Abschlepp,,nein,ja,Reparatur
+25,143,2026-10-01,08:30,K-0267,Kupplung,,nein,nein,Reparatur
+26,143,2026-10-01,09:00,K-0008,Zahnriemen,verschoben,nein,nein,Reparatur
+27,143,2026-10-01,10.00,K-0038,Zahnriemen,erl.,ja,nein,Reparatur
+28,143,2026-10-01,11:00,K-0331,grosser Service,erl.,nein,nein,Service
+29,143,2026-10-01,14.00,K-0014,Bremsen vorne,erl.,nein,nein,Reparatur
+30,143,2026-10-01,14:30,K-0350,MFK vorbereiten,erl.,nein,nein,MFK-Vorbereitung
+31,143,2026-10-01,15:00,K-0063,Klima prüfen,erl.,ja,nein,Reparatur
+32,143,2026-10-01,16:00,K-0293,MFK-Vorb.,,nein,nein,MFK-Vorbereitung
+33,144,2026-10-02,07:30,K-0071,Service + Öl,erl.,ja,nein,Service
+34,144,2026-10-02,08:30,K-0200,Serv.,erl.,nein,nein,Service
+35,144,2026-10-02,09:00,K-0041,Zahnriemen,erl.,nein,nein,Reparatur
+36,144,2026-10-02,11:00,K-0177,Kupplung,erl.,nein,nein,Reparatur
+37,144,2026-10-02,13:30,K-0255,MFK-Vorb.,abgesagt,nein,nein,MFK-Vorbereitung
+38,144,2026-10-02,14:00,K-0148,kl. Service,erl.,nein,nein,Service
+39,144,2026-10-02,15:00,K-0266,grosser Service,erl.,nein,nein,Service
+40,144,2026-10-02,15:30,K-0270,Service,,nein,nein,Service
+41,144,2026-10-02,,K-0049,,,nein,ja,unklar
+42,144,2026-10-02,08:00,K-0008,Zahnriemen,,nein,nein,Reparatur
+43,145,2026-10-05,09:00,K-0052,Kupplung,,nein,nein,Reparatur
+44,145,2026-10-05,10:00,K-0224,Service,erl.,nein,nein,Service
+45,145,2026-10-05,10:30,K-0031,Ölwechsel,,nein,nein,Service
+46,145,2026-10-05,14:00,K-0331,Kupplung,,nein,nein,Reparatur
+47,145,2026-10-05,14:30,K-0142,Klima prüfen,,nein,nein,Reparatur
+48,145,2026-10-05,15:30,K-0150,Service,verschoben,nein,nein,Service
+49,145,2026-10-05,16:00,K-0134,Serv.,erl.,nein,nein,Service
+50,145,2026-10-05,16:30,K-0211,,,nein,nein,unklar
+51,145,2026-10-05,,K-0132,Unfall Front,,nein,ja,Reparatur
+52,146,2026-10-06,08:00,K-0200,MFK vorbereiten,erl.,nein,nein,MFK-Vorbereitung
+53,146,2026-10-06,09.00,K-0030,Klima prüfen,,nein,nein,Reparatur
+54,146,2026-10-06,10:30,K-0013,kl. Service,erl.,nein,nein,Service
+55,146,2026-10-06,11:00,K-0149,grosser Service,,nein,nein,Service
+56,146,2026-10-06,13:30,K-0153,Auspuff,,nein,nein,Reparatur
+57,146,2026-10-06,14:30,K-0300,grosser Service,,nein,nein,Service
+58,146,2026-10-06,16:30,K-0176,Service + Öl,erl.,nein,nein,Service
+59,147,2026-10-07,08:30,K-0015,Service + Öl,,nein,nein,Service
+60,147,2026-10-07,09:00,K-0351,Service + Öl,,ja,nein,Service
+61,147,2026-10-07,11:00,K-0076,MFK vorbereiten,erl.,nein,nein,MFK-Vorbereitung
+62,147,2026-10-07,14:00,K-0142,Service,erl.,nein,nein,Service
+63,147,2026-10-07,15:00,K-0136,kl. Service,verschoben,nein,nein,Service
+64,147,2026-10-07,16:00,K-0321,Kupplung,,nein,nein,Reparatur
+65,147,2026-10-07,16:30,K-0284,Kupplung,erl.,nein,nein,Reparatur
+66,147,2026-10-07,,K-0264,Panne,,nein,ja,Reparatur
+67,148,2026-10-08,09:00,K-0097,Batterie,erl.,nein,nein,Reparatur
+68,148,2026-10-08,10:30,K-0079,kl. Service,erl.,nein,nein,Service
+69,148,2026-10-08,11:00,K-0182,Service,,nein,nein,Service
+70,148,2026-10-08,13:30,K-0020,Zahnriemen,,nein,nein,Reparatur
+71,148,2026-10-08,14:00,K-0154,MFK,erl.,nein,nein,MFK-Vorbereitung
+72,148,2026-10-08,14:30,K-0071,Batterie,,nein,nein,Reparatur
+73,148,2026-10-08,15:30,K-0010,MFK,erl.,nein,nein,MFK-Vorbereitung
+74,148,2026-10-08,16:30,K-0299,Ölwechsel,erl.,nein,nein,Service
+75,148,2026-10-08,13:30,K-0142,Service,,nein,nein,Service
+76,149,2026-10-09,08:30,K-0383,Vorführen,,nein,nein,MFK-Vorbereitung
+77,149,2026-10-09,09:00,K-0217,Bremsbeläge hinten,erl.,nein,nein,Reparatur
+78,149,2026-10-09,10:00,K-0088,Service + Öl,,nein,nein,Service
+79,149,2026-10-09,10:30,K-0092,Service,erl.,nein,nein,Service
+80,149,2026-10-09,14:00,K-0084,Kupplung,erl.,nein,nein,Reparatur
+81,149,2026-10-09,15:30,K-0264,Auspuff,,nein,nein,Reparatur
+82,149,2026-10-09,16:00,K-0330,Ölwechsel,,nein,nein,Service
+83,149,2026-10-09,16:30,K-0033,Klima prüfen,erl.,nein,nein,Reparatur
+84,150,2026-10-12,08:00,K-0222,Reifen wechseln,erl.,nein,nein,Reifenwechsel
+85,150,2026-10-12,08:30,K-0166,MFK vorbereiten,,nein,nein,MFK-Vorbereitung
+86,150,2026-10-12,10:00,K-0337,Ölwechsel,,nein,nein,Service
+87,150,2026-10-12,10:30,K-0081,Winterräder,erl.,nein,nein,Reifenwechsel
+88,150,2026-10-12,13:30,K-0113,Bremsbeläge hinten,,nein,nein,Reparatur
+89,150,2026-10-12,14:00,K-0389,Klima prüfen,,nein,nein,Reparatur
+90,150,2026-10-12,14:30,K-0303,kl. Service,erl.,nein,nein,Service
+91,150,2026-10-12,15:00,K-0227,Kupplung,,nein,nein,Reparatur
+92,150,2026-10-12,15:30,K-0221,Kupplung,erl.,nein,nein,Reparatur
+93,150,2026-10-12,16:00,K-0164,Service,erl.,nein,nein,Service
+94,150,2026-10-12,16:30,K-0033,Winterräder,erl.,ja,nein,Reifenwechsel
+95,150,2026-10-12,,K-0120,Panne,,nein,ja,Reparatur
+96,151,2026-10-13,07:30,K-0020,Service,,nein,nein,Service
+97,151,2026-10-13,08:30,K-0062,Ölwechsel,,nein,nein,Service
+98,151,2026-10-13,09:00,K-0168,(unleserlich),erl.,nein,nein,unklar
+99,151,2026-10-13,10:00,K-0235,Geräusch vorne links,erl.,nein,nein,Reparatur
+100,151,2026-10-13,10:30,K-0041,Klima prüfen,,nein,nein,Reparatur
+101,151,2026-10-13,11:00,K-0276,Geräusch vorne links,,nein,nein,Reparatur
+102,151,2026-10-13,13:30,K-0262,Räder,erl.,nein,nein,Reifenwechsel
+103,151,2026-10-13,14:00,K-0238,Geräusch vorne links,erl.,nein,nein,Reparatur
+104,151,2026-10-13,14:30,K-0009,Pneu,,nein,nein,Reifenwechsel
+105,151,2026-10-13,15:30,K-0291,Service,erl.,nein,nein,Service
+106,151,2026-10-13,16:00,K-0349,Service + Öl,,nein,nein,Service
+107,152,2026-10-14,07:30,K-0112,Reifen wechseln,,nein,nein,Reifenwechsel
+108,152,2026-10-14,08:30,K-0034,Zahnriemen,,ja,nein,Reparatur
+109,152,2026-10-14,09:00,K-0339,Ölwechsel,erl.,nein,nein,Service
+110,152,2026-10-14,10:00,K-0248,MFK vorbereiten,,nein,nein,MFK-Vorbereitung
+111,152,2026-10-14,10:30,K-0251,Klima prüfen,erl.,nein,nein,Reparatur
+112,152,2026-10-14,11:00,K-0185,grosser Service,erl.,nein,nein,Service
+113,152,2026-10-14,13:30,K-0389,Kupplung,erl.,nein,nein,Reparatur
+114,152,2026-10-14,14:00,K-0267,,,nein,nein,unklar
+115,152,2026-10-14,14:30,K-0320,Pneu,,nein,nein,Reifenwechsel
+116,152,2026-10-14,15:30,K-0015,Radwechsel,erl.,nein,nein,Reifenwechsel
+117,152,2026-10-14,16:30,K-0220,Serv.,erl.,nein,nein,Service
+118,153,2026-10-15,08:00,K-0385,Bremsen vorne,erl.,nein,nein,Reparatur
+119,153,2026-10-15,08:30,K-0212,Serv.,,nein,nein,Service
+120,153,2026-10-15,09:00,K-0280,kl. Service,verschoben,nein,nein,Service
+121,153,2026-10-15,10:00,K-0114,grosser Service,erl.,nein,nein,Service
+122,153,2026-10-15,10:30,K-0239,Auspuff,,nein,nein,Reparatur
+123,153,2026-10-15,11:00,K-0080,Zahnriemen,,nein,nein,Reparatur
+124,153,2026-10-15,14:00,K-0366,Kupplung,erl.,nein,nein,Reparatur
+125,153,2026-10-15,14:30,K-0320,Winterräder,erl.,ja,nein,Reifenwechsel
+126,153,2026-10-15,15:00,K-0301,Reifen wechseln,,nein,nein,Reifenwechsel
+127,153,2026-10-15,15:30,K-0169,Batterie,,nein,nein,Reparatur
+128,153,2026-10-15,16:00,K-0269,Radwechsel,erl.,nein,nein,Reifenwechsel
+129,153,2026-10-15,16:30,K-0302,Räder,,nein,nein,Reifenwechsel
+130,153,2026-10-15,13:30,K-0166,MFK vorbereiten,,nein,nein,MFK-Vorbereitung
+131,154,2026-10-16,08:00,K-0220,Serv.,erl.,nein,nein,Service
+132,154,2026-10-16,08:30,K-0332,Serv.,,nein,nein,Service
+133,154,2026-10-16,09.00,K-0148,Batterie,,nein,nein,Reparatur
+134,154,2026-10-16,10:30,K-0005,Zahnriemen,erl.,nein,nein,Reparatur
+135,154,2026-10-16,11:00,K-0140,,,nein,nein,unklar
+136,154,2026-10-16,13:30,K-0071,kl. Service,erl.,nein,nein,Service
+137,154,2026-10-16,14:30,K-0317,Radwechsel,erl.,nein,nein,Reifenwechsel
+138,154,2026-10-16,15:30,K-0234,grosser Service,erl.,nein,nein,Service
+139,154,2026-10-16,16:00,K-0358,Bremsen vorne,,nein,nein,Reparatur
+140,154,2026-10-16,16:30,K-0387,Klima prüfen,erl.,nein,nein,Reparatur
+141,154,2026-10-16,,K-0237,Unfall Front,,nein,ja,Reparatur
+142,154,2026-10-16,15:00,K-0339,Ölwechsel,,nein,nein,Service
+143,155,2026-10-19,07:30,K-0368,grosser Service,erl.,nein,nein,Service
+144,155,2026-10-19,08:00,K-0124,(unleserlich),erl.,nein,nein,unklar
+145,155,2026-10-19,08:30,K-0354,kl. Service,erl.,nein,nein,Service
+146,155,2026-10-19,10:00,K-0264,Radwechsel,,nein,nein,Reifenwechsel
+147,155,2026-10-19,10:30,K-0215,grosser Service,erl.,nein,nein,Service
+148,155,2026-10-19,11:00,K-0305,Serv.,erl.,nein,nein,Service
+149,155,2026-10-19,14:00,K-0394,Serv.,erl.,nein,nein,Service
+150,155,2026-10-19,14:30,K-0303,Bremsbeläge hinten,erl.,nein,nein,Reparatur
+151,155,2026-10-19,15:00,K-0264,RW + einlagern,erl.,nein,nein,Reifenwechsel
+152,155,2026-10-19,15.30,K-0197,Radwechsel,,nein,nein,Reifenwechsel
+153,155,2026-10-19,16:00,K-0072,Bremsbeläge hinten,erl.,nein,nein,Reparatur
+154,155,2026-10-19,16:30,K-0388,RW + einlagern,erl.,nein,nein,Reifenwechsel
+155,156,2026-10-20,07:30,K-0362,Serv.,,nein,nein,Service
+156,156,2026-10-20,08:00,K-0224,Pneu,erl.,nein,nein,Reifenwechsel
+157,156,2026-10-20,08:30,K-0282,kl. Service,,nein,nein,Service
+158,156,2026-10-20,10:00,K-0356,grosser Service,erl.,nein,nein,Service
+159,156,2026-10-20,10:30,K-0044,RW + einlagern,verschoben,nein,nein,Reifenwechsel
+160,156,2026-10-20,13:30,K-0334,Vorführen,,nein,nein,MFK-Vorbereitung
+161,156,2026-10-20,14:00,K-0025,kl. Service,erl.,nein,nein,Service
+162,156,2026-10-20,15:30,K-0334,Serv.,erl.,nein,nein,Service
+163,156,2026-10-20,16:00,K-0050,Radwechsel,erl.,nein,nein,Reifenwechsel
+164,156,2026-10-20,16:30,K-0023,Ölwechsel,erl.,nein,nein,Service
+165,156,2026-10-20,08:00,K-0071,kl. Service,,nein,nein,Service
+166,157,2026-10-21,07:30,K-0399,Service + Öl,erl.,ja,nein,Service
+167,157,2026-10-21,08:00,K-0356,Bremsbeläge hinten,erl.,nein,nein,Reparatur
+168,157,2026-10-21,08:30,K-0237,Reifen wechseln,erl.,nein,nein,Reifenwechsel
+169,157,2026-10-21,10:00,K-0072,Service,erl.,nein,nein,Service
+170,157,2026-10-21,10:30,K-0046,kl. Service,verschoben,nein,nein,Service
+171,157,2026-10-21,11:00,K-0323,kl. Service,erl.,nein,nein,Service
+172,157,2026-10-21,13:30,K-0174,RW + einlagern,erl.,nein,nein,Reifenwechsel
+173,157,2026-10-21,14:00,K-0133,Reifen wechseln,,nein,nein,Reifenwechsel
+174,157,2026-10-21,14:30,K-0011,Service + Öl,,nein,nein,Service
+175,157,2026-10-21,15:00,K-0243,Radwechsel,erl.,ja,nein,Reifenwechsel
+176,157,2026-10-21,15.30,K-0156,Serv.,,nein,nein,Service
+177,157,2026-10-21,16:30,K-0349,Service + Öl,abgesagt,nein,nein,Service
+178,158,2026-10-22,07:30,K-0301,kl. Service,erl.,nein,nein,Service
+179,158,2026-10-22,08:30,K-0167,Geräusch vorne links,erl.,nein,nein,Reparatur
+180,158,2026-10-22,10:00,K-0198,Auspuff,verschoben,nein,nein,Reparatur
+181,158,2026-10-22,10:30,K-0394,kl. Service,erl.,nein,nein,Service
+182,158,2026-10-22,11:00,K-0129,grosser Service,erl.,nein,nein,Service
+183,158,2026-10-22,13:30,K-0388,RW + einlagern,erl.,nein,nein,Reifenwechsel
+184,158,2026-10-22,14:30,K-0087,MFK vorbereiten,erl.,nein,nein,MFK-Vorbereitung
+185,158,2026-10-22,15:30,K-0016,Service + Öl,erl.,nein,nein,Service
+186,158,2026-10-22,16:00,K-0145,Pneu,,nein,nein,Reifenwechsel
+187,158,2026-10-22,16:30,K-0065,Winterräder,,nein,nein,Reifenwechsel
+188,158,2026-10-22,,K-0085,Abschlepp,,nein,ja,Reparatur
+189,159,2026-10-23,07:30,K-0371,Pneu,,nein,nein,Reifenwechsel
+190,159,2026-10-23,08:30,K-0288,MFK vorbereiten,erl.,nein,nein,MFK-Vorbereitung
+191,159,2026-10-23,09:00,K-0116,Winterräder,abgesagt,nein,nein,Reifenwechsel
+192,159,2026-10-23,10:30,K-0341,Batterie,,nein,nein,Reparatur
+193,159,2026-10-23,11:00,K-0180,Klima prüfen,,nein,nein,Reparatur
+194,159,2026-10-23,13:30,K-0113,RW + einlagern,erl.,nein,nein,Reifenwechsel
+195,159,2026-10-23,14:30,K-0220,Service + Öl,erl.,nein,nein,Service
+196,159,2026-10-23,15:00,K-0125,grosser Service,,nein,nein,Service
+197,159,2026-10-23,15:30,K-0183,Zahnriemen,,nein,nein,Reparatur
+198,159,2026-10-23,16:00,K-0055,Bremsen vorne,erl.,nein,nein,Reparatur
+199,159,2026-10-23,16:30,K-0252,Kupplung,,nein,nein,Reparatur
