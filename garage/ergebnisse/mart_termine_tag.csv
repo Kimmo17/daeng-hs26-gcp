@@ -1,0 +1,21 @@
+datum,wochentag,n_termine,n_notfaelle,n_radiert,n_auftragsart_unklar,hinweis,datenstatus
+2026-09-28,Montag,7,0,0,0,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-09-29,Dienstag,8,0,0,1,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-09-30,Mittwoch,9,1,1,0,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-01,Donnerstag,8,0,2,0,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-02,Freitag,10,1,1,1,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-05,Montag,9,1,0,1,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-06,Dienstag,7,0,0,0,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-07,Mittwoch,8,1,1,0,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-08,Donnerstag,9,0,0,0,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-09,Freitag,8,0,0,0,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-12,Montag,12,1,1,0,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-13,Dienstag,11,0,0,1,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-14,Mittwoch,11,0,1,1,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-15,Donnerstag,13,0,1,0,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-16,Freitag,12,1,0,1,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-19,Montag,12,0,0,1,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-20,Dienstag,11,0,0,0,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-21,Mittwoch,12,0,2,0,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-22,Donnerstag,11,1,0,0,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch
+2026-10-23,Freitag,11,0,0,0,"Nur Terminzahl. Planungsquote nicht berechenbar, Aufwand fehlt (E-02).",synthetisch

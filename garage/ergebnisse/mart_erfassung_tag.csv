@@ -1,0 +1,11 @@
+datum,anrufe_angenommen,eintraege_telefon,verhaeltnis,befund,datenstatus
+2026-11-16,25,16,0.64,ok,synthetisch
+2026-11-17,18,7,0.389,prüfen,synthetisch
+2026-11-18,8,5,0.625,ok,synthetisch
+2026-11-19,11,7,0.636,ok,synthetisch
+2026-11-20,18,9,0.5,ok,synthetisch
+2026-11-23,16,9,0.563,ok,synthetisch
+2026-11-24,16,6,0.375,prüfen,synthetisch
+2026-11-25,12,5,0.417,prüfen,synthetisch
+2026-11-26,12,9,0.75,ok,synthetisch
+2026-11-27,14,7,0.5,ok,synthetisch
