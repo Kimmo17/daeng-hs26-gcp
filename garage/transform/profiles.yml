@@ -1,0 +1,14 @@
+garage_transform:
+  target: prod
+  outputs:
+    prod:
+      type: bigquery
+      # oauth heisst Application Default Credentials: lokal dein gcloud-Login.
+      # Eine Schlüsseldatei gibt es nicht und braucht es nicht.
+      method: oauth
+      # Aus der Umgebung, damit keine Projekt-ID im Repo steht: export DBT_PROJECT=$(gcloud config get-value project)
+      project: "{{ env_var('DBT_PROJECT') }}"
+      dataset: garage_staging
+      # Gilt auch für die Datasets, die dbt anlegt, wenn sie fehlen.
+      location: europe-west6
+      threads: 4

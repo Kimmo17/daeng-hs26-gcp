@@ -1,0 +1,132 @@
+version: 2
+
+# Zwei Arten von Tests:
+# 1. Harte Tests (severity error, Standard) schützen das Modell: Schlüssel, Verknüpfungen, Körnung.
+#    Schlägt einer fehl, stimmt eine Antwort an den Inhaber nicht, und dbt build endet mit einem Fehler.
+# 2. Datenqualitäts-Tests (severity warn) melden Befunde wie das Profiling aus Woche 7 und 8.
+#    Diese Befunde sind bekannt und dokumentiert (T-03 bis T-05, PR-08, PR-16); sie sollen sichtbar sein,
+#    aber die Antwort nicht verhindern.
+# Weitere Tests als SQL-Dateien in tests/.
+
+models:
+  # --- Staging -------------------------------------------------------------
+  - name: stg_termine
+    description: Das Terminbuch typisiert, eine Zeile pro Eintrag, Zeit einheitlich HH:MM.
+
+  - name: stg_reifenhotel
+    description: Das Reifenhotel typisiert, Reifendimension in einer einheitlichen Schreibweise.
+    columns:
+      - name: wechsel_status
+        # Datenqualität: bei vielen Radsätzen ist kein Herbstwechsel vermerkt (bekannter Befund).
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
+
+  - name: stg_anfragen
+    description: Die Anfrageliste typisiert, mit fehlendem Kanal als "unbekannt" und dem Kennzeichen ist_plausibel.
+    columns:
+      - name: kanal
+        # Hart: ein neuer Kanal würde im Star-Schema keinen Partner finden.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["Telefon", "Theke", "E-Mail", "unbekannt"]
+      - name: erster_angebotener_termin
+        # Datenqualität: ohne angebotenen Termin keine Wartezeit; die Anfrage zählt als unplausibel.
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
+
+  - name: stg_anrufe
+    description: Die Anrufstatistik typisiert, eine Zeile pro Tag.
+    columns:
+      - name: datum
+        # Hart: zwei Zeilen pro Tag würden den Nenner der Kontrolle G-02 verdoppeln.
+        data_tests:
+          - unique
+          - not_null
+
+  # --- Intermediate: Star-Schema -------------------------------------------
+  - name: dim_datum
+    description: Kalender vom ersten bis zum letzten Tag aller Quellen, mit ISO-Woche und Arbeitstag.
+    columns:
+      - name: datum
+        # Hart: ein doppelter Tag würde jeden Fakt dieses Tages im Join verdoppeln.
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_auftragsart
+    description: Die fachlich festgelegten Auftragsarten aus dem Seed auftragsart.
+
+  - name: dim_kanal
+    description: Die fachlich festgelegten Kanäle einer Anfrage aus dem Seed kanal.
+
+  - name: fct_termin
+    description: Fakt Termin, Grain ein Eintrag im Terminbuch.
+    columns:
+      - name: eintrag_nr
+        # Hart: Schlüssel; doppelt würde jeder Termin im Mart doppelt gezählt.
+        data_tests:
+          - unique
+          - not_null
+      - name: datum
+        # Hart: ein Termin ohne Kalendertag fiele im Mart beim Join still weg.
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_datum')
+                field: datum
+      - name: auftragsart
+        # Hart: eine unbekannte Auftragsart hiesse, die Codierung im Terminbuch hat sich geändert.
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_auftragsart')
+                field: auftragsart_code
+
+  - name: fct_anfrage
+    description: Fakt Anfrage, Grain eine Terminanfrage, mit Wartezeit und Verschiebung in Arbeitstagen.
+    columns:
+      - name: anfrage_nr
+        # Hart: Schlüssel; doppelt würde jede Anfrage die Wochenmittel doppelt gewichten.
+        data_tests:
+          - unique
+          - not_null
+      - name: anfrage_datum
+        # Hart: eine Anfrage ohne Kalendertag fiele aus der Wochenauswertung.
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_datum')
+                field: datum
+      - name: kanal
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_kanal')
+                field: kanal_code
+      - name: auftragsart
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_auftragsart')
+                field: auftragsart_code
+
+  # --- Marts ----------------------------------------------------------------
+  - name: mart_wartezeit_woche
+    description: IR-03, Wartezeit bis zum ersten angebotenen Termin in Arbeitstagen, je ISO-Woche, mit Fallzahl.
+
+  - name: mart_termine_tag
+    description: IR-01 eingeschränkt, Anzahl Termine je Arbeitstag; keine Planungsquote, weil der Aufwand fehlt (E-02).
+
+  - name: mart_erfassung_tag
+    description: Kontrolle G-02, Telefon-Einträge in der Anfrageliste im Verhältnis zu den angenommenen Anrufen je Tag.
+
+seeds:
+  - name: auftragsart
+    description: Fachlich festgelegte Auftragsarten der Garage Keller.
+  - name: kanal
+    description: Fachlich festgelegte Kanäle, über die eine Anfrage eingeht.

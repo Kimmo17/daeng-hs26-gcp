@@ -1,0 +1,45 @@
+name: garage_transform
+version: "1.0.0"
+config-version: 2
+profile: garage_transform
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+
+vars:
+  # Die Daten der Wochen 7 und 8 sind erfunden. Jede Mart-Zeile sagt das selbst, damit keine Zahl
+  # ohne diesen Hinweis beim Inhaber landet. Kommen echte Daten, ändert man nur diese Variable.
+  datenstatus: "synthetisch"
+  # Unter dieser Fallzahl ist eine Wochenzahl zu zufällig, um daraus etwas zu schliessen (IR-03).
+  # Variable, weil der Wert mit dem Inhaber noch zu vereinbaren ist.
+  mindestfallzahl: 20
+  # Verhältnis Einträge Telefon zu angenommenen Anrufen, unter dem ein Tag geprüft werden muss (W8).
+  # Variable, weil der Wert mit dem Inhaber noch zu vereinbaren ist.
+  schwelle_erfassung: 0.5
+
+models:
+  garage_transform:
+    # Tabellen statt Views: jede Schicht ist einmal berechnet, und wer sie abfragt, zahlt nicht nochmals für raw.
+    +materialized: table
+    staging:
+      +schema: garage_staging
+    intermediate:
+      +schema: garage_intermediate
+    marts:
+      +schema: garage_marts
+
+seeds:
+  garage_transform:
+    # Die Seeds sind die Dimensionen des Star-Schemas, deshalb liegen sie bei den anderen Dimensionen.
+    +schema: garage_intermediate
+    # Alles STRING, damit BigQuery an den Codes nichts umdeutet.
+    auftragsart:
+      +column_types:
+        auftragsart_code: string
+        bezeichnung: string
+    kanal:
+      +column_types:
+        kanal_code: string
+        bezeichnung: string

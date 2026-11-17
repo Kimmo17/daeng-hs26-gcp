@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: garage_raw
+    description: Die synthetischen Rohdaten der Garage Keller, so wie garage/ingest/load.sh sie geladen hat, alle Spalten STRING.
+    schema: garage_raw
+    tables:
+      - name: terminbuch
+        description: Das synthetische Terminbuch (DS-01), eine Zeile pro Eintrag, abgeschrieben von den Buchseiten.
+      - name: reifenhotel
+        description: Die synthetische Liste des Reifenhotels (DS-02), eine Zeile pro eingelagertem Radsatz.
+      - name: anfragen
+        description: Die synthetische Anfrageliste (DATA-01), eine Zeile pro Terminanfrage mit erstem angebotenem Termin.
+      - name: anrufe
+        description: Die synthetische Anrufstatistik (DATA-02), eine Zeile pro Tag mit angenommenen und verpassten Anrufen.
