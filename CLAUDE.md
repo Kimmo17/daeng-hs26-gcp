@@ -27,5 +27,5 @@ Kurs: ZHAW Data Engineering, GCP-Lektionen. Die Person, mit der du arbeitest, ha
 - `transform/` dbt-Projekt, entsteht in Lektion 2 aus transform/SPEC.md, wächst in Lektion 3 um transform/SPEC-ALERTS.md
 - `referenz/` Musterlösungen. Lies diesen Ordner nur, wenn die Person es ausdrücklich verlangt.
 - `checks/` Dataplex Data-Quality-Regeln
-- `pipeline/` Workflows (Verkettung mit Qualitätsschranke, zweiter Workflow für die Meldungen) und Alarm
+- `pipeline/` Workflows (einer mit Qualitätsschranke für den Fahrplan, einer für die Meldungen) und Alarm
 - `docs/` Tutorials für die Person. Lies diesen Ordner nur, wenn die Person es ausdrücklich verlangt.

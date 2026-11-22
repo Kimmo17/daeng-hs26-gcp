@@ -10,7 +10,7 @@ einem Chat, sondern an vier Orten, und zwischen ihnen stehen Menschen.
 ```mermaid
 flowchart LR
   I["Issue<br/>Warum, Ergebnis, Schnittstellen,<br/>Akzeptanzkriterien"]
-  B["Branch<br/>feature/pipeline-verketten<br/>abgezweigt von main"]
+  B["Branch<br/>feature/pipeline-workflow<br/>abgezweigt von main"]
   PR["Pull Request<br/>Branch gegen main,<br/>Beschreibung sagt wie und warum"]
   RV["Review<br/>Erfüllt der Code das Issue?<br/>Was wurde weggelassen?"]
   CI["CI<br/>dbt build, Deploy auf Test,<br/>Smoke-Lauf, bei jedem Push"]
@@ -29,7 +29,7 @@ Rollen), weil andere Arbeit davon abhängt, und sagt nichts darüber, wie es geb
 endet mit Akzeptanzkriterien, die jemand anderes prüfen kann.
 
 **Der Branch** ist der Arbeitsplatz. `main` ist, was läuft, und niemand schreibt direkt
-hinein. Wer am Issue arbeitet, zweigt einen Branch ab (`feature/pipeline-verketten`), macht
+hinein. Wer am Issue arbeitet, zweigt einen Branch ab (`feature/pipeline-workflow`), macht
 dort so viele Commits wie nötig, und `main` bleibt die ganze Zeit unverändert. Das gilt für
 einen Agenten genauso wie für einen Menschen: Der Agent arbeitet auf dem Branch, und was er
 dort anrichtet, erreicht den Betrieb erst nach den nächsten drei Stationen.
@@ -65,14 +65,14 @@ Team nicht.
 
 ## Ein Issue, wie es im Tracker stünde
 
-Das ist die Verkettung aus Lektion 2, Schritt 5, als Issue geschrieben:
+Das ist der Workflow aus Lektion 2, Schritt 5, als Issue geschrieben:
 
 ```markdown
-# Pipeline verketten: Ingest → Qualitätsschranke → Transform
+# Pipeline als Workflow: Ingest → Qualitätsschranke → Transform
 
 **Warum.** Heute startet der Scheduler nur den Ingest. Der Transform läuft von Hand, und ein
-schlechter Feed landet ungeprüft im Mart. Die drei Teile sollen eine Kette sein, die bei einem
-Fehler stoppt und uns benachrichtigt.
+schlechter Feed landet ungeprüft im Mart. Die drei Teile sollen ein Workflow sein, der bei
+einem Fehler stoppt und uns benachrichtigt.
 
 **Ergebnis.** Ein Cloud Workflow `gtfs-pipeline` in `europe-west6`, Mo und Do 11:30 vom
 Scheduler gestartet, führt aus: `ingest-gtfs`, dann Dataplex-Scan `trips-quality`, dann
@@ -102,7 +102,7 @@ welche Entscheidungen dabei gefallen sind. Sie ist das, was ein Reviewer liest, 
 Code aufmacht:
 
 ```markdown
-# Pipeline verketten: Workflow mit Qualitätsschranke
+# Pipeline als Workflow mit Qualitätsschranke
 
 Closes #12
 
@@ -140,7 +140,7 @@ statt einer Stunde.
 
 Zwei Dinge fallen auf, wenn man das Issue neben den Prompt aus der Lektion legt.
 
-Der Weg des Issues durch die Stationen, in Befehlen: `git switch -c feature/pipeline-verketten`,
+Der Weg des Issues durch die Stationen, in Befehlen: `git switch -c feature/pipeline-workflow`,
 Arbeit und Commits, `git push`, auf GitHub "New pull request", Review und CI, "Merge". Auf
 `main` landet der Code nur über diesen Knopf.
 

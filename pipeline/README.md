@@ -1,4 +1,4 @@
-# pipeline: Verkettung und Alarm
+# pipeline: Workflows und Alarm
 
 Workflow `gtfs-pipeline` (`workflow.yaml`): startet den Job `ingest-gtfs`, dann den Dataplex-Scan `trips-quality`, und nur wenn der Scan bestanden ist, den Job `transform-gtfs`. Scheitert ein Teil, endet der Workflow mit einem Fehler.
 Warum die Schranke: Ohne sie würde dbt auch fehlerhafte Rohdaten in den Mart schreiben; so behält der Mart die letzte gute Version.

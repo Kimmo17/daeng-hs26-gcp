@@ -362,9 +362,9 @@ Checkpoint: Jede Tabelle hat genau eine Partition, `20261017`.
 **Warum.** Ein Job, den jemand von Hand startet, ist kein Betrieb. Cloud Scheduler startet ihn
 Montag und Donnerstag um 11:00, eine Stunde nachdem der Publisher veröffentlicht hat. Auch der
 Scheduler braucht eine Identität, und die bekommt genau ein Recht: diesen einen Job starten.
-Danach lösen wir den Scheduler einmal von Hand aus. Das testet die Kette, und weil der
-Publisher seit Schritt 5 nichts Neues hat, lädt der Job dieselbe Version nochmals. Was dabei
-passiert, ist der Beweis, dass der Job wiederholbar ist.
+Danach lösen wir den Scheduler einmal von Hand aus. Das testet den Weg vom Scheduler bis zum
+Job, und weil der Publisher seit Schritt 5 nichts Neues hat, lädt der Job dieselbe Version
+nochmals. Was dabei passiert, ist der Beweis, dass der Job wiederholbar ist.
 
 Prompt:
 
@@ -430,9 +430,9 @@ Tabelle. Die Prüfung macht Dataplex, der Dienst dafür in Google Cloud. Die Erg
 in einer BigQuery-Tabelle und am Tab der geprüften Tabelle.
 
 Heute startest du den Scan von Hand. Von selbst warnt er niemanden, er schreibt sein Ergebnis
-in die Tabelle und an den Katalog, mehr nicht. In Lektion 2 bekommt er seinen Platz in der
-Kette: erst laden, dann prüfen, und erst wenn die Prüfung besteht, transformieren. Und ein
-Alarm, der aus einem Fehlschlag eine E-Mail macht, ist ebenfalls Lektion 2.
+in die Tabelle und an den Katalog, mehr nicht. In Lektion 2 bekommt er seinen Platz in
+einem Workflow: erst laden, dann prüfen, und erst wenn die Prüfung besteht, transformieren.
+Und ein Alarm, der aus einem Fehlschlag eine E-Mail macht, ist ebenfalls Lektion 2.
 
 Prompt 1:
 
@@ -503,8 +503,8 @@ sind, Werkzeuge wie dlt, Airbyte oder Fivetran. Für die Prüfung Great Expectat
 Monte Carlo. Die Ideen sind dieselben: Original behalten, pro Version laden, wiederholbar,
 geprüft.
 
-Lektion 2: Aus den Rohdaten wird die Antwort. Transformation mit dbt, Verkettung mit
-Workflows, ein Alarm, wenn etwas schiefgeht.
+Lektion 2: Aus den Rohdaten wird die Antwort. Transformation mit dbt, ein Workflow, der
+die Teile verbindet, ein Alarm, wenn etwas schiefgeht.
 
 ---
 
