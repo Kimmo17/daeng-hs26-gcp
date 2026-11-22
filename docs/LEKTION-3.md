@@ -73,7 +73,7 @@ claude
 ```
 
 Das Repo hat neue Dateien (`alerts/`, `transform/SPEC-ALERTS.md`, `referenz/transform-alerts/`,
-`pipeline/workflow-alerts.yaml`) und zwei neue Zeilen in `CLAUDE.md`. Dein eigenes
+`pipeline/workflow-alerts.yaml`) und neue Zeilen in `CLAUDE.md`. Dein eigenes
 `transform/` bleibt vom `git pull` unberührt, die neuen Dateien heissen anders als deine.
 Claude Code neu starten, damit es die neuen Regeln liest.
 
