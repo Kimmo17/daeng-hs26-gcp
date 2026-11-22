@@ -1,60 +1,86 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1044 472" width="1044" height="472" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1044 602" width="1044" height="602" role="img" aria-labelledby="t d">
 <title id="t">Wie die Abfrage den nächsten Nachbarn eines Bahnhofs findet</title>
-<desc id="d">Um den Bahnhof Luzern Verkehrshaus liegt ein Kreis von 200 Metern. Darin liegen drei Stationen: Luzern, Brüelstrasse in 155 Metern, Luzern, Verkehrshaus/Lido in 163 Metern und Luzern, Brüel in 166 Metern. Eine Station ausserhalb des Kreises fällt weg. Die Abfrage ordnet die drei nach Distanz. Am nächsten ist Brüelstrasse, in der Datei steht Verkehrshaus/Lido.</desc>
-<rect width="1044" height="472" fill="#ffffff"/>
-<rect x="16" y="16" width="484" height="440" rx="6" fill="#ffffff" stroke="#d0d7de"/>
-<path d="M16 46 V22 a6 6 0 0 1 6 -6 H494 a6 6 0 0 1 6 6 V46 Z" fill="#f6f8fa" stroke="#d0d7de"/>
-<text x="30.0" y="36.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="13.5" fill="#1f2328" text-anchor="start" font-weight="700">Bahnhof Luzern Verkehrshaus und seine Nachbarn</text>
-<circle cx="258" cy="251" r="150" fill="#f6f8fa" stroke="#8c959f" stroke-width="1.5" stroke-dasharray="6 5"/>
-<text x="258.0" y="92.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#8c959f" text-anchor="middle" font-weight="400">Umkreis von 200 m</text>
-<path d="M258 251 L191.3 155.8" stroke="#bc4c00" stroke-width="1.5"/>
-<text x="238.7" y="209.4" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#bc4c00" text-anchor="start" font-weight="700">155 m</text>
-<path d="M258 251 L363.9 312.1" stroke="#1a7f37" stroke-width="1.5"/>
-<text x="301.9" y="300.6" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1a7f37" text-anchor="middle" font-weight="700">163 m</text>
-<path d="M258 251 L156.0 322.4" stroke="#0969da" stroke-width="1.5"/>
-<text x="197.0" y="284.7" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#0969da" text-anchor="end" font-weight="700">166 m</text>
-<circle cx="191.3" cy="155.8" r="6" fill="#bc4c00" stroke="#ffffff" stroke-width="1.5"/>
-<text x="191.3" y="139.8" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#bc4c00" text-anchor="middle" font-weight="700">① Luzern, Brüelstrasse</text>
-<circle cx="363.9" cy="312.1" r="6" fill="#1a7f37" stroke="#ffffff" stroke-width="1.5"/>
-<text x="353.9" y="336.1" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1a7f37" text-anchor="middle" font-weight="700">② Luzern, Verkehrshaus/Lido</text>
-<circle cx="156.0" cy="322.4" r="6" fill="#0969da" stroke="#ffffff" stroke-width="1.5"/>
-<text x="152.0" y="346.4" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#0969da" text-anchor="middle" font-weight="700">③ Luzern, Brüel</text>
-<circle cx="419.0" cy="138.3" r="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
-<text x="433.0" y="160.3" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#8c959f" text-anchor="middle" font-weight="400">weiter als 200 m:</text>
-<text x="433.0" y="175.3" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#8c959f" text-anchor="middle" font-weight="400">fällt weg</text>
-<rect x="251" y="244" width="14" height="14" fill="#1f2328" stroke="#ffffff" stroke-width="1.5"/>
-<text x="272.0" y="243.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="700">Bahnhof</text>
-<text x="272.0" y="259.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="700">Luzern Verkehrshaus</text>
-<text x="30.0" y="444.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#8c959f" text-anchor="start" font-weight="400">Schema: Distanzen massstäblich, Richtungen frei gewählt.</text>
-<rect x="516" y="16" width="512" height="140" rx="6" fill="#ffffff" stroke="#d0d7de"/>
-<path d="M516 46 V22 a6 6 0 0 1 6 -6 H1022 a6 6 0 0 1 6 6 V46 Z" fill="#f6f8fa" stroke="#d0d7de"/>
-<text x="530.0" y="36.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="13.5" fill="#1f2328" text-anchor="start" font-weight="700">Ergebnis: Nachbarn nach Distanz</text>
-<text y="64" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12" font-weight="700" fill="#8c959f"><tspan x="530">rang</tspan><tspan x="578">nachbar</tspan><tspan x="802">meter</tspan></text>
-<path d="M516 72 H1028" stroke="#d0d7de"/>
-<text y="91" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13"><tspan x="530" fill="#bc4c00" font-weight="700">①</tspan><tspan x="578" fill="#bc4c00" font-weight="700">Luzern, Brüelstrasse</tspan><tspan x="802" fill="#bc4c00" font-weight="700">155</tspan></text>
-<text x="866.0" y="91.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">am nächsten</text>
-<path d="M516 100 H1028" stroke="#d0d7de"/>
-<text y="119" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13"><tspan x="530" fill="#1a7f37" font-weight="700">②</tspan><tspan x="578" fill="#1a7f37" font-weight="700">Luzern, Verkehrshaus/Lido</tspan><tspan x="802" fill="#1a7f37" font-weight="700">163</tspan></text>
-<text x="866.0" y="119.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">steht in der Datei</text>
-<path d="M516 128 H1028" stroke="#d0d7de"/>
-<text y="147" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13"><tspan x="530" fill="#0969da" font-weight="700">③</tspan><tspan x="578" fill="#0969da" font-weight="700">Luzern, Brüel</tspan><tspan x="802" fill="#0969da" font-weight="700">166</tspan></text>
-<rect x="516" y="172" width="512" height="170" rx="6" fill="#ffffff" stroke="#d0d7de"/>
-<path d="M516 202 V178 a6 6 0 0 1 6 -6 H1022 a6 6 0 0 1 6 6 V202 Z" fill="#f6f8fa" stroke="#d0d7de"/>
-<text x="530.0" y="192.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="13.5" fill="#1f2328" text-anchor="start" font-weight="700">Was die Abfrage rechnet, alles in BigQuery</text>
-<text x="530.0" y="221.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="400">location_type = '1'</text>
-<text x="720.0" y="221.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">nur Stationen, keine einzelnen Kanten</text>
+<desc id="d">Um den Bahnhof Luzern Verkehrshaus liegt ein Kreis von 200 Metern. Darin liegen drei Stationen: Luzern, Brüelstrasse in 155 Metern, Luzern, Verkehrshaus/Lido in 163 Metern und Luzern, Brüel in 166 Metern. Die Datei vbl_bahnhoefe.csv enthält nur Namen. Die Position des Bahnhofs steht in raw.stops und wird über den Namen gefunden. Eine Station ausserhalb des Kreises fällt weg. Die Abfrage ordnet die drei nach Distanz. Am nächsten ist Brüelstrasse, in der Datei steht Verkehrshaus/Lido.</desc>
+<rect width="1044" height="602" fill="#ffffff"/>
+<rect x="16" y="16" width="1012" height="114" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<path d="M16 46 V22 a6 6 0 0 1 6 -6 H1022 a6 6 0 0 1 6 6 V46 Z" fill="#f6f8fa" stroke="#d0d7de"/>
+<text x="30.0" y="36.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="13.5" fill="#1f2328" text-anchor="start" font-weight="700">Woher die Abfrage die Position kennt</text>
+<text x="30.0" y="66.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12" fill="#8c959f" text-anchor="start" font-weight="700">vbl_bahnhoefe.csv: nur Namen, keine Koordinaten</text>
+<text x="30.0" y="87.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#8c959f" text-anchor="start" font-weight="400">bahnhof</text>
+<text x="108.0" y="87.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="700">Luzern Verkehrshaus</text>
+<text x="30.0" y="106.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#8c959f" text-anchor="start" font-weight="400">bushalt</text>
+<text x="108.0" y="106.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1a7f37" text-anchor="start" font-weight="700">Luzern, Verkehrshaus/Lido</text>
+<text x="30.0" y="124.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#8c959f" text-anchor="start" font-weight="400">bushalt wird erst am Schluss verglichen, über den Namen.</text>
+<text x="410.0" y="70.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#1f2328" text-anchor="middle" font-weight="400">bahnhof =</text>
+<text x="410.0" y="84.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#1f2328" text-anchor="middle" font-weight="400">stop_name</text>
+<path d="M368 96 H444" stroke="#1f2328" stroke-width="2" fill="none"/>
+<path d="M452 96 l-11 -6 v12 z" fill="#1f2328"/>
+<text x="472.0" y="66.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12" fill="#8c959f" text-anchor="start" font-weight="700">raw.stops: Name und Koordinaten aus dem Fahrplan</text>
+<text x="472.0" y="87.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#8c959f" text-anchor="start" font-weight="400">stop_name</text>
+<text x="624.0" y="87.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="700">Luzern Verkehrshaus</text>
+<text x="472.0" y="106.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#8c959f" text-anchor="start" font-weight="400">stop_lat, stop_lon</text>
+<text x="624.0" y="106.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="700">47.0…, 8.3…</text>
+<text x="472.0" y="125.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#8c959f" text-anchor="start" font-weight="400">location_type</text>
+<text x="624.0" y="125.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="700">1</text>
+<text x="838.0" y="84.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="11.5" fill="#1f2328" text-anchor="middle" font-weight="400">ST_GEOGPOINT</text>
+<path d="M794 96 H874" stroke="#1f2328" stroke-width="2" fill="none"/>
+<path d="M882 96 l-11 -6 v12 z" fill="#1f2328"/>
+<rect x="900" y="89" width="14" height="14" fill="#1f2328"/>
+<text x="922.0" y="93.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="700">Punkt des</text>
+<text x="922.0" y="109.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="700">Bahnhofs</text>
+<rect x="16" y="146" width="484" height="440" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<path d="M16 176 V152 a6 6 0 0 1 6 -6 H494 a6 6 0 0 1 6 6 V176 Z" fill="#f6f8fa" stroke="#d0d7de"/>
+<text x="30.0" y="166.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="13.5" fill="#1f2328" text-anchor="start" font-weight="700">Bahnhof Luzern Verkehrshaus und seine Nachbarn</text>
+<circle cx="258" cy="381" r="150" fill="#f6f8fa" stroke="#8c959f" stroke-width="1.5" stroke-dasharray="6 5"/>
+<text x="258.0" y="222.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#8c959f" text-anchor="middle" font-weight="400">Umkreis von 200 m</text>
+<path d="M258 381 L191.3 285.8" stroke="#bc4c00" stroke-width="1.5"/>
+<text x="238.7" y="339.4" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#bc4c00" text-anchor="start" font-weight="700">155 m</text>
+<path d="M258 381 L363.9 442.1" stroke="#1a7f37" stroke-width="1.5"/>
+<text x="301.9" y="430.6" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1a7f37" text-anchor="middle" font-weight="700">163 m</text>
+<path d="M258 381 L156.0 452.4" stroke="#0969da" stroke-width="1.5"/>
+<text x="197.0" y="414.7" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#0969da" text-anchor="end" font-weight="700">166 m</text>
+<circle cx="191.3" cy="285.8" r="6" fill="#bc4c00" stroke="#ffffff" stroke-width="1.5"/>
+<text x="191.3" y="269.8" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#bc4c00" text-anchor="middle" font-weight="700">① Luzern, Brüelstrasse</text>
+<circle cx="363.9" cy="442.1" r="6" fill="#1a7f37" stroke="#ffffff" stroke-width="1.5"/>
+<text x="353.9" y="466.1" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1a7f37" text-anchor="middle" font-weight="700">② Luzern, Verkehrshaus/Lido</text>
+<circle cx="156.0" cy="452.4" r="6" fill="#0969da" stroke="#ffffff" stroke-width="1.5"/>
+<text x="152.0" y="476.4" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#0969da" text-anchor="middle" font-weight="700">③ Luzern, Brüel</text>
+<circle cx="419.0" cy="268.3" r="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<text x="433.0" y="290.3" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#8c959f" text-anchor="middle" font-weight="400">weiter als 200 m:</text>
+<text x="433.0" y="305.3" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#8c959f" text-anchor="middle" font-weight="400">fällt weg</text>
+<rect x="251" y="374" width="14" height="14" fill="#1f2328" stroke="#ffffff" stroke-width="1.5"/>
+<text x="272.0" y="373.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="700">Bahnhof</text>
+<text x="272.0" y="389.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="700">Luzern Verkehrshaus</text>
+<text x="30.0" y="574.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#8c959f" text-anchor="start" font-weight="400">Schema: Distanzen massstäblich, Richtungen frei gewählt.</text>
+<rect x="516" y="146" width="512" height="140" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<path d="M516 176 V152 a6 6 0 0 1 6 -6 H1022 a6 6 0 0 1 6 6 V176 Z" fill="#f6f8fa" stroke="#d0d7de"/>
+<text x="530.0" y="166.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="13.5" fill="#1f2328" text-anchor="start" font-weight="700">Ergebnis: Nachbarn nach Distanz</text>
+<text y="194" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12" font-weight="700" fill="#8c959f"><tspan x="530">rang</tspan><tspan x="578">nachbar</tspan><tspan x="802">meter</tspan></text>
+<path d="M516 202 H1028" stroke="#d0d7de"/>
+<text y="221" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13"><tspan x="530" fill="#bc4c00" font-weight="700">①</tspan><tspan x="578" fill="#bc4c00" font-weight="700">Luzern, Brüelstrasse</tspan><tspan x="802" fill="#bc4c00" font-weight="700">155</tspan></text>
+<text x="866.0" y="221.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">am nächsten</text>
 <path d="M516 230 H1028" stroke="#d0d7de"/>
-<text x="530.0" y="249.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="400">ST_GEOGPOINT(lon, lat)</text>
-<text x="720.0" y="249.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">aus zwei Zahlen wird ein Punkt</text>
+<text y="249" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13"><tspan x="530" fill="#1a7f37" font-weight="700">②</tspan><tspan x="578" fill="#1a7f37" font-weight="700">Luzern, Verkehrshaus/Lido</tspan><tspan x="802" fill="#1a7f37" font-weight="700">163</tspan></text>
+<text x="866.0" y="249.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">steht in der Datei</text>
 <path d="M516 258 H1028" stroke="#d0d7de"/>
-<text x="530.0" y="277.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="400">ST_DWITHIN(a, b, 200)</text>
-<text x="720.0" y="277.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">nur Paare im Umkreis von 200 m</text>
-<path d="M516 286 H1028" stroke="#d0d7de"/>
-<text x="530.0" y="305.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="400">ST_DISTANCE(a, b)</text>
-<text x="720.0" y="305.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">Luftlinie zwischen zwei Punkten, in Metern</text>
-<path d="M516 314 H1028" stroke="#d0d7de"/>
-<text x="530.0" y="333.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="400">ROW_NUMBER()</text>
-<text x="720.0" y="333.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">Rang pro Bahnhof, 1 ist der nächste</text>
-<text x="518.0" y="370.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">Nur 8 m Unterschied: Am nächsten liegt Brüelstrasse, zum Bahnhof</text>
-<text x="518.0" y="388.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">gehört Verkehrshaus/Lido. Die Abfrage schlägt vor, ein Mensch wählt aus.</text>
+<text y="277" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13"><tspan x="530" fill="#0969da" font-weight="700">③</tspan><tspan x="578" fill="#0969da" font-weight="700">Luzern, Brüel</tspan><tspan x="802" fill="#0969da" font-weight="700">166</tspan></text>
+<rect x="516" y="302" width="512" height="170" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<path d="M516 332 V308 a6 6 0 0 1 6 -6 H1022 a6 6 0 0 1 6 6 V332 Z" fill="#f6f8fa" stroke="#d0d7de"/>
+<text x="530.0" y="322.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="13.5" fill="#1f2328" text-anchor="start" font-weight="700">Was die Abfrage rechnet, alles in BigQuery</text>
+<text x="530.0" y="351.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="400">location_type = '1'</text>
+<text x="720.0" y="351.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">nur Stationen, keine einzelnen Kanten</text>
+<path d="M516 360 H1028" stroke="#d0d7de"/>
+<text x="530.0" y="379.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="400">ST_GEOGPOINT(lon, lat)</text>
+<text x="720.0" y="379.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">aus zwei Zahlen wird ein Punkt</text>
+<path d="M516 388 H1028" stroke="#d0d7de"/>
+<text x="530.0" y="407.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="400">ST_DWITHIN(a, b, 200)</text>
+<text x="720.0" y="407.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">nur Paare im Umkreis von 200 m</text>
+<path d="M516 416 H1028" stroke="#d0d7de"/>
+<text x="530.0" y="435.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="400">ST_DISTANCE(a, b)</text>
+<text x="720.0" y="435.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">Luftlinie zwischen zwei Punkten, in Metern</text>
+<path d="M516 444 H1028" stroke="#d0d7de"/>
+<text x="530.0" y="463.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="400">ROW_NUMBER()</text>
+<text x="720.0" y="463.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">Rang pro Bahnhof, 1 ist der nächste</text>
+<text x="518.0" y="500.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">Nur 8 m Unterschied: Am nächsten liegt Brüelstrasse, zum Bahnhof</text>
+<text x="518.0" y="518.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="400">gehört Verkehrshaus/Lido. Die Abfrage schlägt vor, ein Mensch wählt aus.</text>
 </svg>
