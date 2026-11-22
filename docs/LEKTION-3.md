@@ -716,10 +716,18 @@ Erwartet:
 
 | | Meggen - Immensee | Luzern - Lenzburg |
 |---|---|---|
-| `section_from`, `section_to` | Meggen, Immensee | Luzern, Lenzburg |
-| `line_from`, `line_to` | Luzern, Arth-Goldau | Emmenbrücke Gersag, Waldibrücke |
 | `begin_at` | 2026-10-27 03:32:00 | 2026-10-02 04:11:00 |
+| `end_at` | 2026-10-27 06:30:00, vielleicht 05:00:00 | 2026-10-02 07:00:00 |
 | `bus_stops` | Meggen, Kreuz | Luzern, Bahnhof |
+| `routes` | 24, 25, 27, N3 | 26 Linien, von 1 bis N21 |
+| `section_from` | Meggen | Luzern |
+| `section_to` | Immensee | Lenzburg |
+| `line_from` | Luzern | Emmenbrücke Gersag |
+| `line_to` | Arth-Goldau | Waldibrücke |
+
+Claude Code zeigt die beiden Meldungen vielleicht als Zeilen statt als Spalten, die Werte
+sind dieselben. Bei `end_at` für Meggen hängt der Wert davon ab, welches Ende das Modell
+gelesen hat.
 
 Drei Dinge fallen auf:
 
