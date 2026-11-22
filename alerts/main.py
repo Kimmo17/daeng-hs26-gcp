@@ -1,4 +1,4 @@
-"""Ingest-Job: holt die Bahnverkehrsinformationen der SBB und legt sie roh in den Bucket und nach BigQuery.
+"""Zweiter Ingest-Job: holt die Bahnverkehrsinformationen der SBB und legt sie roh in den Bucket und nach BigQuery.
 
 Die vier Schritte stehen in main(). Die Spezifikation steht in SPEC.md.
 
@@ -76,8 +76,8 @@ def upload_day(bucket, day, body, rows):
 def load_day(bq, uri, day):
     # Ziel ist die Partition des Tages (Partition-Decorator $YYYYMMDD), Schreibmodus WRITE_TRUNCATE:
     # ein zweiter Lauf desselben Tages ersetzt genau diese Partition und sonst nichts.
-    version = day.strftime("%Y%m%d")
-    table_id = f"{bq.project}.{DATASET}.{TABLE}${version}"
+    partition = day.strftime("%Y%m%d")
+    table_id = f"{bq.project}.{DATASET}.{TABLE}${partition}"
     job_config = bigquery.LoadJobConfig(
         source_format=bigquery.SourceFormat.NEWLINE_DELIMITED_JSON,
         schema=[bigquery.SchemaField(column, "STRING") for column in COLUMNS],
@@ -90,7 +90,7 @@ def load_day(bq, uri, day):
     )
     job = bq.load_table_from_uri(uri, table_id, job_config=job_config, location=LOCATION)
     job.result()
-    log(f"{TABLE}${version}  {job.output_rows} Zeilen")
+    log(f"{TABLE}${partition}  {job.output_rows} Zeilen")
     return job.output_rows
 
 
