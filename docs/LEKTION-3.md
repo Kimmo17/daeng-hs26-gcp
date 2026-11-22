@@ -777,7 +777,7 @@ Erwartet:
 | Zeilen in `int_alerts_extracted` | 19 | 19 |
 | `extracted_at` | Zeit des ersten Laufs | unverändert |
 | Aufrufe des Sprachmodells | 19 | 0 |
-| dbt-Log bei `int_alerts_extracted` | rund eine halbe Minute | `MERGE (0.0 rows)` |
+| dbt-Log bei `int_alerts_extracted` | `CREATE TABLE (19.0 rows)`, rund eine halbe Minute | `MERGE (0.0 rows)`, rund zwei Sekunden |
 
 Das Sprachmodell wurde nicht aufgerufen, kein Text ist in die EU gegangen, nichts hat
 gekostet. Das ist die zweite Entscheidung aus Schritt 6, und sie ist der Unterschied
