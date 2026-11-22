@@ -20,8 +20,8 @@ begründen kann. Das Modell liest, die Regel entscheidet. Dieser Satz ist die ga
 
 Dafür kommen heute vier Dinge dazu: eine zweite Quelle mit einem zweiten Ingest-Job. Eine
 Verbindung von BigQuery zu Gemini, damit das Modell aus SQL heraus aufgerufen werden kann. Drei
-dbt-Modelle, die du wieder aus einer Spezifikation erzeugen lässt. Und eine zweite Kette, die
-jeden Tag läuft.
+dbt-Modelle, die du wieder aus einer Spezifikation erzeugen lässt. Und ein zweiter Workflow,
+der jeden Tag läuft.
 
 Nichts aus Lektion 1 und 2 wird geändert. Alles Neue kommt dazu, in neuen Dateien und neuen
 Tabellen, und hängt sich an das, was schon da ist.
@@ -796,15 +796,15 @@ hat `extracted_at` nicht verändert.
 
 ---
 
-## 9. In die Kette
+## 9. In den Workflow
 
 **Warum.** Meldungen kommen jeden Tag, der Fahrplan zweimal pro Woche. Darum bekommt die
-zweite Quelle eine zweite Kette, mit eigenem Takt: `ingest-alerts`, dann `transform-gtfs`.
-Dass beide Ketten im selben Transform-Job enden, ist Absicht. dbt baut, was sich geändert
-hat, das Modell liest nur neue Meldungen, der ganze Lauf dauert eine Minute. Eine Schranke
-zwischen den Schritten gibt es diesmal nicht, die Regeln für die Meldungen sind dbt-Tests und
-laufen im Job selbst. Der Alarm aus Lektion 2 gilt für alle Workflows und alle Jobs im
-Projekt, also auch hier.
+zweite Quelle einen zweiten Workflow, mit eigenem Takt: `ingest-alerts`, dann
+`transform-gtfs`. Dass beide Workflows im selben Transform-Job enden, ist Absicht. dbt baut,
+was sich geändert hat, das Modell liest nur neue Meldungen, der ganze Lauf dauert eine
+Minute. Eine Schranke zwischen den Schritten gibt es diesmal nicht, die Regeln für die
+Meldungen sind dbt-Tests und laufen im Job selbst. Der Alarm aus Lektion 2 gilt für alle
+Workflows und alle Jobs im Projekt, also auch hier.
 
 Prompt:
 
@@ -859,8 +859,8 @@ Checkpoint: Execution von `alerts-pipeline` grün, zwei Scheduler-Jobs.
 Jeden Tag um sechs holt ein Job die Meldungen der letzten drei Tage und ersetzt ihre
 Partitionen. Dann baut dbt alles neu: Meldungen aufräumen, Haltestellen und Linien
 verbinden, neue Meldungen vom Modell lesen lassen, Fakten testen, Stufen vergeben. Zweimal
-pro Woche macht die andere Kette dasselbe mit dem Fahrplan. Scheitert etwas, kommt die E-Mail
-aus Lektion 2.
+pro Woche macht der andere Workflow dasselbe mit dem Fahrplan. Scheitert etwas, kommt die
+E-Mail aus Lektion 2.
 
 Wo das Modell entschieden hat: welche Ursache, welche Auswirkung, welcher Abschnitt, welche
 Zeiten im Text gemeint sind. Das ist Lesen, und Lesen kann es besser als jede Regel.
