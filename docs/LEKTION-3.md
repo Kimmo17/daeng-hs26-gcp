@@ -97,39 +97,56 @@ aus der die Störungsmeldungen in der SBB-App kommen, nur als Tabelle.
 
 Bevor ein Job sie lädt, schaust du eine Meldung an. Drei Dinge wirst du sehen, die später
 Arbeit machen: Der Text ist englisch. Die Zeiten tragen `+00:00`, sind aber Schweizer
-Lokalzeit. Und `published` sieht aus wie ein Zeitstempel, ist beim Publisher aber ein
-Textfeld, weshalb man nicht "alles seit gestern" abfragen kann, sondern "alles von diesem
-Tag".
+Lokalzeit. Und in `description` fehlen die Leerzeichen zwischen den Sätzen, weil dort im
+HTML ein `<br />` stand. Sauber getrennt ist der Text nur in `description_html`.
 
 Prompt:
 
 ```text
 Hole mit curl eine Meldung aus dem Dataset rail-traffic-information auf data.sbb.ch: der
 Export-Endpunkt der Explore-API v2.1 als jsonl, mit dem Filter
-where=startswith(published,'2026-10-27'), und zeige mir die erste Zeile formatiert. Erkläre
-mir die Felder in je einem halben Satz. Schau dir dann startdatetime, published und die
-erste Zeit im Text an und sag mir, was dir auffällt.
+where=startswith(published,'2026-10-27') und der Sortierung order_by=published, und zeige
+mir die erste Zeile formatiert. Erkläre mir die Felder in je einem halben Satz. Schau dir
+dann startdatetime, published und die erste Zeit im Text an und sag mir, was dir auffällt.
 ```
 
 Befehl:
 
 ```bash
 curl -sS -G "https://data.sbb.ch/api/explore/v2.1/catalog/datasets/rail-traffic-information/exports/jsonl" \
-  --data-urlencode "where=startswith(published,'2026-10-27')" | head -n 1
+  --data-urlencode "where=startswith(published,'2026-10-27')" \
+  --data-urlencode "order_by=published" | head -n 1
 ```
 
 Du siehst eine Zeile JSON mit zwölf Feldern: `title`, `link`, `description`, `published`,
 `cause` (immer null), `startdatetime`, `enddatetime`, `dailyvaliditybegin`,
 `dailyvalidityend`, `type` (2 ist eine Störung, 5 die Entwarnung), `author` (immer SBB),
-`description_html`. Was Claude Code auffallen sollte: `startdatetime` endet auf `+00:00`,
-steht aber auf derselben Zeit wie die Lokalzeit am Anfang des Textes. `published` ist
-echtes UTC und liegt darum im Winter eine, im Sommer zwei Stunden vor der Lokalzeit im
-Text. Beides stimmt, nur die Zeitzone am einen Feld ist falsch. Solche Dinge merkt man
-sich, bevor man den Job schreibt, nicht danach.
+`description_html`. Es ist die früheste Meldung des Tages, "Interrupted service: Meggen -
+Immensee". Die Sortierung sorgt dafür, dass alle dieselbe Zeile sehen. Ohne sie liefert der
+Export die Zeilen in wechselnder Reihenfolge.
+
+Was Claude Code auffallen sollte: `startdatetime` steht auf 04:32 und endet auf `+00:00`.
+04:32 ist aber auch die erste Zeit im Text, also Schweizer Lokalzeit. `published` steht auf
+03:34. Wörtlich gelesen wäre die Meldung eine Stunde vor der Störung erschienen.
+`published` ist echtes UTC: 03:34 UTC ist 04:34 in der Schweiz, zwei Minuten nach Beginn.
+Im Winter beträgt der Unterschied eine Stunde, im Sommer zwei. Beides stimmt, nur die
+Zeitzone am einen Feld ist falsch. Solche Dinge merkt man sich, bevor man den Job schreibt,
+nicht danach.
+
+Dazu kommt: In `description` steht `07:30Interrupted train service`, ohne Leerzeichen. In
+`description_html` steht an dieser Stelle `<br />`. Die Transformation nimmt darum später
+`description_html`.
+
+Fragt Claude Code, ob es zur Bestätigung weitere Meldungen holen soll, sag ja und nenne
+den 20. Oktober. Bis zum 24. Oktober galt Sommerzeit, dort sind es zwei Stunden: Die
+früheste Meldung dieses Tages hat `published` 02:43 und `startdatetime` 04:40. Darum
+rechnet die Transformation später mit der Zeitzone Europe/Zurich und nicht mit einer
+festen Stunde.
 
 Console: noch nichts.
 
-Checkpoint: eine JSON-Zeile mit zwölf Feldern, `author` ist `SBB`.
+Checkpoint: eine JSON-Zeile mit zwölf Feldern, `author` ist `SBB`, `title` nennt Meggen -
+Immensee.
 
 ---
 
@@ -150,10 +167,14 @@ Tages passiert. Ändere nichts.
 ```
 
 Was Claude Code nennen sollte: Der Job holt pro Tag eine Datei, weil der Publisher nur
-Tagesfilter erlaubt, und schreibt pro Tag eine Partition. Ohne Angabe nimmt er heute und die
-zwei Tage davor, absichtlich überlappend, damit ein ausgefallener Tag nachgeholt wird. Und
-weil jede Partition ersetzt statt ergänzt wird, erzeugt die Überlappung keine Duplikate. Das
-ist dasselbe Muster wie bei den Versionen in Lektion 1, nur mit Tagen statt Versionen.
+Tagesfilter erlaubt, und schreibt pro Tag eine Partition. Der Grund für den Tagesfilter
+steht im Code: `published` sieht aus wie ein Zeitstempel, ist beim Publisher aber ein
+Textfeld. "Alles seit gestern" lässt sich darum nicht abfragen, "alles von diesem Tag"
+schon. Darum steht in Schritt 1 `startswith` im Filter. Ohne Angabe nimmt der Job heute
+und die zwei Tage davor, absichtlich überlappend, damit ein ausgefallener Tag nachgeholt
+wird. Und weil jede Partition ersetzt statt ergänzt wird, erzeugt die Überlappung keine
+Duplikate. Das ist dasselbe Muster wie bei den Versionen in Lektion 1, nur mit Tagen statt
+Versionen.
 
 Was der Job nicht tut: Er dedupliziert nicht. Eine Meldung, die der Publisher dreimal
 nachgeführt hat, liegt dreimal in `raw.alerts`. Das ist richtig so, die Rohschicht hält fest,
@@ -695,6 +716,9 @@ dann alleine tun darf.
 
 ## Wenn etwas schiefgeht
 
+- **Schritt 1 zeigt eine andere Meldung als Meggen - Immensee, oder data.sbb.ch lehnt
+  `order_by` ab:** Den Filter enger setzen, dann gibt es genau eine Zeile:
+  `where=startswith(published,'2026-10-27T03:34')`, ohne `order_by`.
 - **`gcloud run jobs execute` kennt `--update-env-vars` nicht:** gcloud ist zu alt.
   `gcloud components update`, oder alternativ den Job mit `gcloud run jobs update` auf das
   Fenster setzen, ausführen, und danach die beiden Variablen mit `--remove-env-vars` wieder
