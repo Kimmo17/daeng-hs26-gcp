@@ -1,6 +1,6 @@
 SPEZIFIKATION
 
-Ziel: Ein Cloud-Run-Job holt die Bahnverkehrsinformationen der SBB (Dataset rail-traffic-information auf data.sbb.ch, Opendatasoft-Plattform, kein Schlüssel, Lizenz: offene Nutzung mit Quellenangabe), legt jede Antwort unverändert in den Bucket des Projekts und lädt sie roh nach BigQuery, eine Partition pro Tag. Der Job ist Lehrmaterial: Studierende mit wenig Erfahrung lesen ihn. Deshalb ein einziges main.py, kurze Funktionen, deutsche Kommentare, die sagen warum, nicht was. Er ist das Gegenstück zu ingest/: dort eine Version alle paar Tage, hier laufend einzelne Meldungen.
+Ziel: Ein Cloud-Run-Job holt die Bahnverkehrsinformationen der SBB (Dataset rail-traffic-information auf data.sbb.ch, Opendatasoft-Plattform, kein Schlüssel, Lizenz: offene Nutzung mit Quellenangabe), legt jede Antwort mit Meldungen unverändert in den Bucket des Projekts und lädt sie roh nach BigQuery, eine Partition pro Tag. Der Job ist Lehrmaterial: Studierende mit wenig Erfahrung lesen ihn. Deshalb ein einziges main.py, kurze Funktionen, deutsche Kommentare, die sagen warum, nicht was. Er ist das Gegenstück zu ingest/: dort eine Version alle paar Tage, hier laufend einzelne Meldungen.
 
 Dateien: alerts/main.py, alerts/requirements.txt (google-cloud-bigquery>=3,<4, google-cloud-storage>=3,<4, requests>=2,<3), alerts/Dockerfile (python:3.12-slim, requirements installieren, main.py kopieren, CMD python main.py), alerts/README.md (zehn Zeilen: was der Job tut, welche Dateien, welche Umgebungsvariablen).
 
@@ -14,14 +14,15 @@ Eigenheiten der Quelle, die der Code berücksichtigen und in Kommentaren nennen 
 
 Ablauf, vier Schritte, in dieser Reihenfolge und als solche im Code erkennbar:
 1. Fenster bestimmen: FROM_DATE bis TO_DATE. Standard ist heute und die zwei Tage davor, absichtlich überlappend, damit ein ausgefallener Tag beim nächsten Lauf nachgeholt wird. Weil jede Partition ersetzt wird, erzeugt die Überlappung keine Duplikate.
-2. Pro Tag die Meldungen holen: ein GET auf SOURCE_URL mit dem startswith-Filter, Timeout 60 Sekunden, Antwort als Bytes behalten. Zeilen zählen.
+2. Pro Tag die Meldungen holen: ein GET auf SOURCE_URL mit dem startswith-Filter, Timeout 60 Sekunden, Antwort als Bytes behalten. Zeilen zählen. Ein Tag ohne Meldungen: nichts ablegen und nichts laden, nur eine Zeile ins Log, weiter mit dem nächsten Tag. Grund: Hatte der Tag früher schon Meldungen und liefert der Publisher sie nicht mehr, bleiben Datei und Partition stehen, und Bucket und BigQuery zeigen für jeden Tag dasselbe.
 3. Original ablegen: die Antwort unverändert nach gs://BUCKET/raw/alerts/day=YYYY-MM-DD/alerts.jsonl. Das ist die Landing Zone.
-4. Nach BigQuery laden: Dataset DATASET in LOCATION anlegen falls nötig. Pro Tag ein Load-Job von der GCS-URI in die Partition DATASET.TABLE$YYYYMMDD (Ingestion-Time-Partitionierung nach Tag, Partition-Decorator). Schreibmodus WRITE_TRUNCATE, damit ein zweiter Lauf desselben Tages genau diese Partition ersetzt. Format NEWLINE_DELIMITED_JSON. Schema explizit, zwölf Spalten, alle STRING: title, link, description, published, cause, startdatetime, enddatetime, dailyvaliditybegin, dailyvalidityend, type, author, description_html. ignore_unknown_values, damit ein neues Feld beim Publisher den Lauf nicht bricht. Keine Ablauffrist auf den Partitionen: die Tabelle bleibt klein, und Lektion 3 rechnet auf einem festen Monat. Ein Tag ohne Meldungen hat eine leere Datei: ablegen, aber nicht laden.
+4. Nach BigQuery laden: Dataset DATASET in LOCATION anlegen falls nötig. Pro Tag ein Load-Job von der GCS-URI in die Partition DATASET.TABLE$YYYYMMDD (Ingestion-Time-Partitionierung nach Tag, Partition-Decorator). Schreibmodus WRITE_TRUNCATE, damit ein zweiter Lauf desselben Tages genau diese Partition ersetzt. Format NEWLINE_DELIMITED_JSON. Schema explizit, zwölf Spalten, alle STRING: title, link, description, published, cause, startdatetime, enddatetime, dailyvaliditybegin, dailyvalidityend, type, author, description_html. ignore_unknown_values, damit ein neues Feld beim Publisher den Lauf nicht bricht. Keine Ablauffrist auf den Partitionen: die Tabelle bleibt klein, und Lektion 3 rechnet auf einem festen Monat.
 
 Logging auf stdout, eine Zeile pro Ereignis, genau diese Form, weil die Anleitung sie zitiert:
 - "Quelle <url>, Tage <from> bis <to>"
 - pro Tag in Schritt 3: "gs://<bucket>/<pfad>  <n> Zeilen"
 - pro Tag in Schritt 4: "alerts$<YYYYMMDD>  <n> Zeilen"
+- für einen Tag ohne Meldungen statt dieser beiden Zeilen: "<YYYY-MM-DD>  0 Zeilen, nichts abgelegt, nichts geladen"
 - am Ende: "Fertig: <k> Tage, <n> Zeilen in <projekt>.<dataset>.<table>"
 Fehler nicht abfangen, der Job soll bei einem Fehler mit Exit-Code ungleich null enden, das ist die Grundlage für den Alarm.
 

@@ -191,6 +191,10 @@ Was der Job nicht tut: Er dedupliziert nicht. Eine Meldung, die der Publisher dr
 nachgeführt hat, liegt dreimal in `raw.alerts`. Das ist richtig so, die Rohschicht hält fest,
 was kam. Aufräumen ist Aufgabe der Transformation, in Schritt 6.
 
+Und für einen Tag ohne Meldungen schreibt er nichts, weder Datei noch Partition. Liefert
+der Publisher einen alten Tag später nicht mehr, bleibt darum stehen, was schon da ist, im
+Bucket und in BigQuery.
+
 Console: noch nichts.
 
 Checkpoint: Claude Code hat die Tagespartition, die Überlappung und das Ersetzen genannt.
@@ -244,12 +248,13 @@ Fertig: 31 Tage, 544 Zeilen in daeng-KÜRZEL-XXXX.raw.alerts
 
 Console: [Cloud Run → Jobs](https://console.cloud.google.com/run/jobs) zeigt zwei Jobs,
 `ingest-gtfs` und `ingest-alerts`. [Cloud Storage](https://console.cloud.google.com/storage/browser)
-→ `<projekt-id>-raw` → `raw/alerts/`: ein Ordner pro Tag, je eine kleine Datei.
+→ `<projekt-id>-raw` → `raw/alerts/`: ein Ordner pro Tag mit Meldungen, je eine Datei.
 [BigQuery](https://console.cloud.google.com/bigquery) → `raw` → `alerts` → Details: die
 Tabelle ist nach Tag partitioniert, ein paar hundert Zeilen, alle Spalten STRING.
 
-In BigQuery sind es 30 Partitionen, nicht 31: Am 31. Oktober gab es keine Meldung, die
-Datei für diesen Tag ist leer, und eine leere Datei lädt der Job nicht (`0 Zeilen` im Log).
+Im Bucket sind es 30 Ordner und in BigQuery 30 Partitionen, nicht 31: Am 31. Oktober gab
+es keine Meldung, und für einen Tag ohne Meldungen schreibt der Job nichts (`0 Zeilen` im
+Log).
 
 Checkpoint: `Fertig: 31 Tage, 544 Zeilen`. Die Zahl ist bei allen gleich, der Oktober ist
 vorbei.

@@ -64,8 +64,9 @@ def fetch_day(day):
 
 
 def upload_day(bucket, day, body, rows):
-    # Landing Zone: die Antwort des Publishers unverändert, ein Ordner pro Tag. Was ankam, bleibt
-    # erhalten, auch wenn der Publisher die Meldung später ändert oder löscht.
+    # Landing Zone: die Antwort des Publishers unverändert, ein Ordner pro Tag mit Meldungen. Ein
+    # späterer Lauf desselben Tages ersetzt die Datei durch die neuere Antwort. Liefert der
+    # Publisher für den Tag nichts mehr, bleibt die Datei stehen, siehe main().
     path = f"raw/alerts/day={day.isoformat()}/alerts.jsonl"
     bucket.blob(path).upload_from_string(body, content_type="application/x-ndjson")
     log(f"gs://{bucket.name}/{path}  {rows} Zeilen")
@@ -112,13 +113,17 @@ def main():
         # Schritt 2: Meldungen eines Tages holen
         body, rows = fetch_day(day)
 
-        # Schritt 3: Original ablegen
-        uri = upload_day(bucket, day, body, rows)
-
-        # Schritt 4: Nach BigQuery laden. Ein Tag ohne Meldungen hat eine leere Datei, da gibt
-        # es nichts zu laden. Die Partition bleibt dann, wie sie war.
         if rows:
+            # Schritt 3: Original ablegen
+            uri = upload_day(bucket, day, body, rows)
+
+            # Schritt 4: Nach BigQuery laden
             total += load_day(bq, uri, day)
+        else:
+            # Ein Tag ohne Meldungen: nichts ablegen, nichts laden. Hatte der Tag früher schon
+            # Meldungen und liefert der Publisher sie nicht mehr, bleiben Datei und Partition
+            # stehen. Bucket und BigQuery zeigen so für jeden Tag dasselbe.
+            log(f"{day.isoformat()}  0 Zeilen, nichts abgelegt, nichts geladen")
         day += timedelta(days=1)
 
     log(f"Fertig: {(to_date - from_date).days + 1} Tage, {total} Zeilen in {bq.project}.{DATASET}.{TABLE}")
