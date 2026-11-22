@@ -486,6 +486,18 @@ flowchart LR
   L2A --> IR
   L2B --> AD
   G -. liest Text, füllt Spalten .-> IE
+  classDef tabelle fill:#f6f8fa,stroke:#8c959f,color:#1f2328
+  classDef seed fill:#f6f8fa,stroke:#1a7f37,stroke-width:2px,color:#1f2328
+  classDef lektion2 fill:#ffffff,stroke:#0969da,stroke-width:2px,color:#1f2328
+  classDef modell fill:#ffffff,stroke:#8250df,stroke-width:2px,color:#8250df
+  class RA,RS,RT,SA,SS,IE,IR,AD tabelle
+  class CSV,SEED seed
+  class L2A,L2B lektion2
+  class G modell
+  style Q fill:none,stroke:#8c959f
+  style S fill:none,stroke:#8c959f
+  style I fill:none,stroke:#8c959f
+  style M fill:none,stroke:#8c959f
 ```
 
 **Drei Entscheidungen, die Data Engineering sind und nicht KI.** Sie stehen in der
@@ -643,6 +655,14 @@ flowchart TD
   C -- ja --> D{"Liegt der Bahnhof im Abschnitt, und ist<br/>die Auswirkung Ausfall oder Ersatzverkehr?"}
   D -- ja --> E["Ersatzverkehr prüfen<br/>4 Meldungen"]
   D -- nein --> P["Planungshinweis<br/>13 Meldungen"]
+  classDef frage fill:#f6f8fa,stroke:#8c959f,color:#1f2328
+  classDef ersatz fill:#ffffff,stroke:#bc4c00,stroke-width:2px,color:#bc4c00
+  classDef hinweis fill:#ffffff,stroke:#0969da,stroke-width:2px,color:#0969da
+  classDef keine fill:#ffffff,stroke:#8c959f,stroke-width:2px,color:#57606a
+  class A,B,C,D frage
+  class E ersatz
+  class P hinweis
+  class K1,K2 keine
 ```
 
 Prompt 1:
