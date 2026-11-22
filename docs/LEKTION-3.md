@@ -596,6 +596,19 @@ Checkpoint: Execution grün, dbt-Zusammenfassung ohne `ERROR` und ohne `FAIL`.
 zwar auf zwei Fragen hin: Was hat die Regel entschieden, und woran sieht man, dass es die
 Regel war und nicht das Modell.
 
+So entscheidet die Regel, mit den Zahlen für den Oktober 2026:
+
+```mermaid
+flowchart TD
+  A["19 Meldungen, die das Modell gelesen hat"] --> B{"Nennt die Meldung einen<br/>Bahnhof aus der Seed-Tabelle?"}
+  B -- nein --> K1["keine<br/>2 Meldungen"]
+  B -- ja --> C{"Dauert die Störung<br/>mindestens 30 Minuten?"}
+  C -- nein --> K2["keine<br/>0 Meldungen"]
+  C -- ja --> D{"Liegt der Bahnhof im Abschnitt, und ist<br/>die Auswirkung Ausfall oder Ersatzverkehr?"}
+  D -- ja --> E["Ersatzverkehr prüfen<br/>4 Meldungen"]
+  D -- nein --> P["Planungshinweis<br/>13 Meldungen"]
+```
+
 Prompt 1:
 
 ```text
@@ -607,43 +620,84 @@ title und reason.
 
 Erwartet, Oktober 2026:
 
-| decision | Zeilen |
-|---|---|
-| Ersatzverkehr prüfen | 4 |
-| Planungshinweis | 13 |
-| keine | 2 |
+| decision | Zeilen | Was die Meldungen gemeinsam haben | Beispiele |
+|---|---|---|---|
+| Ersatzverkehr prüfen | 4 | Ein Bahnhof aus der Seed-Tabelle liegt im gestörten Abschnitt | die vier in der Tabelle unten |
+| Planungshinweis | 13 | Kein solcher Bahnhof im Abschnitt, aber die Linie endet in Luzern | Lenzburg - Beinwil am See, Sursee - Sempach-Neuenkirch, Wolhusen - Schüpfheim |
+| keine | 2 | Kein Bahnhof im Gebiet genannt | Aarau - Rupperswil, Aarburg-Oftringen - Rothrist |
 
-Bei den Zeilen mit einer Stufe steht in `reason` der ganze Weg: die Auswirkung, die das
-Modell gelesen hat, ob die Störung im Abschnitt liegt oder nur auf einer Linie nach Luzern,
-die Anzahl Linien an der Haltestelle aus der Seed-Tabelle, die Dauer aus den Zeiten im Text,
-die Schätzung der betroffenen Fahrten aus dem Mart von Lektion 2. Vier Quellen, ein Satz.
-Die vier mit `Ersatzverkehr prüfen` sind die, deren Abschnitt an einem Bahnhof aus der
-Seed-Tabelle liegt: Meggen - Immensee (vier Linien an Meggen, Kreuz), Emmenbrücke -
-Waldibrücke (zwei Linien an Emmenbrücke, Bahnhof), Luzern - Lenzburg und Olten - Luzern
-(alle 26 am Bahnhof Luzern). Die Fahrtenzahl bei Meggen ist bei dir vielleicht 15,
-vielleicht 30: Je nachdem, welches Ende das Modell gelesen hat, 06:00 oder 07:30, dauert die
-Störung 88 oder 178 Minuten. Das ist die Schwankung aus Schritt 4, und der Grund, warum die
-Stufe an der Lage und der Dauer hängt, nicht an einer Fahrtenzahl. Und die Linie 27 steht mit
-null Fahrten in der Liste: Sie hält in Meggen, hat aber im Fenster des Marts keinen
-Verkehrstag. Die dreizehn mit `Planungshinweis` nennen keinen Bahnhof aus
-der Seed-Tabelle im Abschnitt, nur die Linie, die in Luzern endet: Lenzburg - Beinwil am
-See, Sursee - Sempach-Neuenkirch, Wolhusen - Schüpfheim, auch Emmenbrücke Gersag -
-Waldibrücke, denn Gersag steht nicht in der Datei. Dort fahren die Züge nach Luzern verspätet
-oder gar nicht, und das betrifft alle 26 Linien am Bahnhof, als Hinweis, nicht als
-Ersatzverkehr. Bei den zwei mit `keine` ist kein Bahnhof im Gebiet genannt, Aarau -
-Rupperswil und Aarburg-Oftringen - Rothrist.
+Auch "Emmenbrücke Gersag - Waldibrücke" ist ein Planungshinweis: Gersag steht nicht in der
+Datei, also zählt nur das Linienende Luzern, mit allen 26 Linien am Bahnhof.
 
-Zwei Dinge fallen beim Lesen auf. Die Zeiten stehen in UTC, so zeigt BigQuery Zeitstempel
-an: `2026-10-27 03:32` ist die Lokalzeit 04:32 aus Schritt 4. Und bei "Luzern - Lenzburg"
-hat das Modell Abschnitt und Linie vertauscht, in `line_from` steht Emmenbrücke Gersag. Kein
-Test fängt das, die Regel hat trotzdem richtig gestuft, weil Luzern im Abschnitt steht. Merk
-dir die Zeile, in Lektion 4 geht es um genau solche Fälle.
+In `reason` steht der ganze Weg, vier Quellen in einem Satz:
 
-Die Schätzung ist grob, das steht so im Code: Fahrten pro Tag mal Dauer durch 24, als ob
-nachts gleich viel führe wie am Mittag. Für eine Stufe reicht das. Wer es genauer will,
-ändert die Regel, nicht das Modell.
+![Der Satz in reason und woher seine Teile kommen](img/lektion-3-schritt-8.svg)
+
+Die vier mit `Ersatzverkehr prüfen`:
+
+| Meldung | Bahnhof im Abschnitt | Haltestelle aus der Datei | Linien |
+|---|---|---|---|
+| Meggen - Immensee | Meggen | Meggen, Kreuz | 4 |
+| Emmenbrücke - Waldibrücke | Emmenbrücke | Emmenbrücke, Bahnhof | 2 |
+| Luzern - Lenzburg | Luzern | Luzern, Bahnhof | 26 |
+| Olten - Luzern | Luzern | Luzern, Bahnhof | 26 |
+
+Die Fahrtenzahl bei Meggen ist bei dir vielleicht 15, vielleicht 30: Je nachdem, welches
+Ende das Modell gelesen hat, 06:00 oder 07:30, dauert die Störung 88 oder 178 Minuten. Das
+ist die Schwankung aus Schritt 4, und der Grund, warum die Stufe an der Lage und der Dauer
+hängt, nicht an einer Fahrtenzahl.
 
 Prompt 2:
+
+```text
+Zeige mir für die Meldungen "Interrupted service: Meggen - Immensee" und "Limited service:
+Luzern - Lenzburg" aus marts.alert_decisions die Spalten begin_at, end_at, bus_stops und
+routes, und aus intermediate.int_alerts_extracted die Spalten section_from, section_to,
+line_from und line_to. Die beiden Tabellen gehören über alert_id zusammen.
+```
+
+Erwartet:
+
+| | Meggen - Immensee | Luzern - Lenzburg |
+|---|---|---|
+| `section_from`, `section_to` | Meggen, Immensee | Luzern, Lenzburg |
+| `line_from`, `line_to` | Luzern, Arth-Goldau | Emmenbrücke Gersag, Waldibrücke |
+| `begin_at` | 2026-10-27 03:32:00 | 2026-10-02 04:11:00 |
+| `bus_stops` | Meggen, Kreuz | Luzern, Bahnhof |
+
+Drei Dinge fallen auf:
+
+- **Die Zeiten stehen in UTC.** So zeigt BigQuery Zeitstempel an. 03:32 ist die Lokalzeit
+  04:32 aus Schritt 4. Am 2. Oktober galt noch Sommerzeit, dort ist 04:11 die Lokalzeit
+  06:11.
+- **In `routes` steht bei Meggen auch die Linie 27.** Sie hält in Meggen, hat aber im
+  Fenster des Marts keinen Verkehrstag und zählt darum mit null Fahrten.
+- **Bei "Luzern - Lenzburg" stehen Abschnitt und Linie verkehrt herum.** Das Modell hat
+  richtig gelesen. Schon der Text der SBB lautet "Limited train service on the Emmenbrücke
+  Gersag - Waldibrücke line between Luzern and Lenzburg". Der Fehler liegt in der Quelle,
+  und er geht bis in die Entscheidung durch:
+
+| | So steht es im Text | Richtig herum |
+|---|---|---|
+| Linie | Emmenbrücke Gersag - Waldibrücke | Luzern - Lenzburg |
+| Abschnitt | Luzern - Lenzburg | Emmenbrücke Gersag - Waldibrücke |
+| Bahnhof aus der Datei im Abschnitt | Luzern | keiner |
+| Stufe | Ersatzverkehr prüfen | Planungshinweis |
+
+Kein Test fängt das, denn das Modell hat getan, was es soll. Merk dir die Zeile, in
+Lektion 4 geht es um genau solche Fälle.
+
+Die Regel ist an zwei Stellen grob:
+
+- **Die Lage.** Ein Abschnitt zählt, sobald ein Bahnhof aus der Datei eines seiner Enden
+  ist. Bei "Olten - Luzern" kann die Störung weit weg von Luzern liegen, die Stufe heisst
+  trotzdem `Ersatzverkehr prüfen`. Darum steht dort "prüfen".
+- **Die Fahrten.** Fahrten pro Tag mal Dauer durch 24, als ob nachts gleich viel führe wie
+  am Mittag. Das steht so im Code.
+
+Für eine Stufe reicht das. Wer es genauer will, ändert die Regel, nicht das Modell.
+
+Prompt 3:
 
 ```text
 Starte transform-gtfs nochmals und warte auf das Ende. Zeige mir danach aus
@@ -652,11 +706,18 @@ extracted_at, und wie lange das Modell int_alerts_extracted diesmal laut dbt-Log
 hat.
 ```
 
-Erwartet: gleich viele Zeilen wie vorher, `extracted_at` unverändert, und im dbt-Log steht
-bei `int_alerts_extracted` diesmal `MERGE (0.0 rows)`. Das Sprachmodell wurde nicht
-aufgerufen, kein Text ist in die EU gegangen, nichts hat gekostet. Das ist die zweite
-Entscheidung aus Schritt 6, und sie ist der Unterschied zwischen einem Demo und einer
-Pipeline.
+Erwartet:
+
+| | Erster Lauf in Schritt 7 | Zweiter Lauf |
+|---|---|---|
+| Zeilen in `int_alerts_extracted` | 19 | 19 |
+| `extracted_at` | Zeit des ersten Laufs | unverändert |
+| Aufrufe des Sprachmodells | 19 | 0 |
+| dbt-Log bei `int_alerts_extracted` | rund eine halbe Minute | `MERGE (0.0 rows)` |
+
+Das Sprachmodell wurde nicht aufgerufen, kein Text ist in die EU gegangen, nichts hat
+gekostet. Das ist die zweite Entscheidung aus Schritt 6, und sie ist der Unterschied
+zwischen einem Demo und einer Pipeline.
 
 Console: [BigQuery](https://console.cloud.google.com/bigquery) → `marts` →
 `alert_decisions` → Tab **Lineage**: links `raw.alerts` und `raw.stop_times`, dazwischen die
