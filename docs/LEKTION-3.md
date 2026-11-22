@@ -306,6 +306,13 @@ Der Service-Account der Verbindung heisst `bqcx-<projektnummer>-<vier zeichen>@g
 Du hast ihn nicht angelegt, Google hat das beim Anlegen der Verbindung getan. Die beiden APIs
 sind oft schon aktiv, dann ist der erste Befehl ohne Wirkung, das ist in Ordnung.
 
+Console: [BigQuery](https://console.cloud.google.com/bigquery) → im Explorer dein Projekt
+aufklappen → "Verbindungen" (englisch "Connections") → `vertex-ai`. Dort stehen der Typ,
+die Region und der Service-Account der Verbindung. In
+[IAM](https://console.cloud.google.com/iam-admin/iam) hat dieser Account die Rolle Agent
+Platform User. Schau jetzt nach, das Recht braucht ohnehin zwei bis drei Minuten, bis es
+gilt.
+
 Prompt 2:
 
 ```text
@@ -323,6 +330,32 @@ Titel, die Spalten aus dem Schema und status. Dann führe genau dieselbe Abfrage
 Mal aus, ohne Ergebniscache (bq query --nouse_cache), und sag mir, ob sich etwas
 unterscheidet.
 ```
+
+Was die Abfrage tut, an der Meldung aus Meggen: Links steht Text, rechts steht eine Zeile
+mit Spalten. Dazwischen liegt ein einziger Funktionsaufruf.
+
+```mermaid
+flowchart LR
+  subgraph T["Text der Meldung"]
+    t1["27.10.2026 04:32 - 07:30"]
+    t2["Interrupted train service"]
+    t3["between Meggen and Immensee"]
+    t4["exceptional construction work"]
+  end
+  subgraph S["Ergebnis von AI.GENERATE: eine Zeile mit Spalten"]
+    s1["begin: 2026-10-27 04:32:00<br/>end: 2026-10-27 07:30:00"]
+    s2["effect: Ausfall<br/>severity: 3"]
+    s3["section_from: Meggen<br/>section_to: Immensee"]
+    s4["cause: Bauarbeiten"]
+  end
+  t1 --> s1
+  t2 --> s2
+  t3 --> s3
+  t4 --> s4
+```
+
+Die Spaltennamen, die Typen und die erlaubten Werte kommen aus dem `output_schema`, nicht
+aus dem Text.
 
 Die Abfrage, die Claude Code daraus baut, sieht im Kern so aus:
 
@@ -366,10 +399,7 @@ Abfrage aus seinem Ergebniscache, in Millisekunden und garantiert gleich. Das Mo
 gar nicht gefragt worden. Der Cache ist im Betrieb nützlich, hier würde er genau das
 verstecken, was du sehen willst.
 
-Console: [BigQuery](https://console.cloud.google.com/bigquery) → im Explorer dein Projekt
-aufklappen → "Externe Verbindungen" → `vertex-ai`, mit dem Service-Account. Und in
-[IAM](https://console.cloud.google.com/iam-admin/iam) dieser Account mit der Rolle Agent
-Platform User.
+Console: nichts Neues, die Verbindung und die Rolle hast du nach Prompt 1 gesehen.
 
 Checkpoint: eine Zeile mit typisierten Spalten, `status` leer.
 
