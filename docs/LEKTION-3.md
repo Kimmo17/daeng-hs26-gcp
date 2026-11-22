@@ -100,14 +100,15 @@ Arbeit machen: Der Text ist englisch. Die Zeiten tragen `+00:00`, sind aber Schw
 Lokalzeit. Und in `description` fehlen die Leerzeichen zwischen den Sätzen, weil dort im
 HTML ein `<br />` stand. Sauber getrennt ist der Text nur in `description_html`.
 
-Prompt:
+Prompt 1:
 
 ```text
 Hole mit curl eine Meldung aus dem Dataset rail-traffic-information auf data.sbb.ch: der
 Export-Endpunkt der Explore-API v2.1 als jsonl, mit dem Filter
 where=startswith(published,'2026-10-27') und der Sortierung order_by=published, und zeige
-mir die erste Zeile formatiert. Erkläre mir die Felder in je einem halben Satz. Schau dir
-dann startdatetime, published und die erste Zeit im Text an und sag mir, was dir auffällt.
+mir die erste Zeile formatiert. Speichere nichts in einer Datei. Erkläre mir die Felder in
+je einem halben Satz. Schau dir dann startdatetime, published und die erste Zeit im Text an
+und sag mir, was dir auffällt.
 ```
 
 Befehl:
@@ -137,16 +138,26 @@ Dazu kommt: In `description` steht `07:30Interrupted train service`, ohne Leerze
 `description_html` steht an dieser Stelle `<br />`. Die Transformation nimmt darum später
 `description_html`.
 
-Fragt Claude Code, ob es zur Bestätigung weitere Meldungen holen soll, sag ja und nenne
-den 20. Oktober. Bis zum 24. Oktober galt Sommerzeit, dort sind es zwei Stunden: Die
-früheste Meldung dieses Tages hat `published` 02:43 und `startdatetime` 04:40. Darum
-rechnet die Transformation später mit der Zeitzone Europe/Zurich und nicht mit einer
-festen Stunde.
+Claude Code bietet am Ende meist an, weiter zu prüfen, jedes Mal mit einer anderen Frage.
+Geh nicht darauf ein und gib immer denselben zweiten Prompt.
+
+Prompt 2:
+
+```text
+Prüf das an einem zweiten Tag: Hol mit demselben Befehl die früheste Meldung vom
+20. Oktober 2026 und vergleiche startdatetime, published und die erste Zeit im Text.
+```
+
+Der Befehl ist derselbe, nur mit `2026-10-20` im Filter. Du siehst "Interrupted service:
+Rüti ZH - Rapperswil SG". Bis zum 24. Oktober galt Sommerzeit, dort sind es zwei Stunden:
+`published` steht auf 02:43, `startdatetime` auf 04:40. Darum rechnet die Transformation
+später mit der Zeitzone Europe/Zurich und nicht mit einer festen Stunde.
 
 Console: noch nichts.
 
 Checkpoint: eine JSON-Zeile mit zwölf Feldern, `author` ist `SBB`, `title` nennt Meggen -
-Immensee.
+Immensee. Am 20. Oktober liegen `published` und `startdatetime` rund zwei Stunden
+auseinander.
 
 ---
 
