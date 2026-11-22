@@ -784,9 +784,12 @@ gekostet. Das ist die zweite Entscheidung aus Schritt 6, und sie ist der Untersc
 zwischen einem Demo und einer Pipeline.
 
 Console: [BigQuery](https://console.cloud.google.com/bigquery) → `marts` →
-`alert_decisions` → Tab **Lineage**: links `raw.alerts` und `raw.stop_times`, dazwischen die
-Stufen, rechts die Tabelle. Beide Quellen treffen sich hier. Der Modellaufruf selbst ist in
-der Lineage nicht sichtbar, er ist für BigQuery eine Funktion in einer Abfrage, wie `COUNT`.
+`alert_decisions` → Tab **Lineage**. Rechts steht die Tabelle, links davon ihre fünf
+direkten Quellen. Mit dem Pfeil `<` an einem Kasten klappst du auf, woher dieser kommt:
+hinter `stg_alerts` erscheint `alerts` und dahinter dein Bucket, hinter
+`int_routes_per_stop` unter anderem `stop_times`. Es ist dasselbe Bild wie das Diagramm in
+Schritt 6, mit einem Unterschied: Gemini fehlt. Der Modellaufruf ist für BigQuery eine
+Funktion in einer Abfrage, wie `COUNT`.
 
 Checkpoint: 19 Zeilen in `alert_decisions`, 17 davon mit einer Stufe, und der zweite Lauf
 hat `extracted_at` nicht verändert.
