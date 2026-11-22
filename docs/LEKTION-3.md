@@ -500,8 +500,13 @@ sag es, bevor du OK gibst.
 
 Unterwegs fragt Claude Code vielleicht, ob es `dbt parse` ausführen darf, um seine Dateien
 zu prüfen, oder ob es die dbt-Dokumentation lesen darf. Beides darfst du erlauben, es
-liest nur. Wie in Lektion 2 schlägt es nach dem OK vielleicht vor, dbt ganz laufen zu
-lassen. Sag nicht ja, der Job macht das in Schritt 7.
+liest nur.
+
+Nach dem OK fragt Claude Code vielleicht, wie es weitergehen soll, und bietet eine Auswahl
+an. Wähle die Antwort, bei der es auf deinen nächsten Prompt wartet. Nicht lokal bauen: Ein
+`dbt build` auf deinem Rechner liesse das Modell die Meldungen schon lesen, und weil jede
+Meldung nur einmal gelesen wird, bliebe für den Job in Schritt 7 nichts übrig. Und nicht
+gleich deployen: Das Recht und der Job kommen in Schritt 7, mit eigenen Prompts.
 
 Console: noch nichts.
 
@@ -557,9 +562,9 @@ gcloud run jobs execute transform-gtfs --region europe-west6 --wait
 
 Im Log läuft zuerst der Seed, dann die Modelle aus Lektion 2 wie bisher, dann die neuen.
 `int_alerts_extracted` wartet auf das Sprachmodell, für die rund zwanzig Meldungen, die die
-Vorauswahl durchlässt, ein paar Sekunden, BigQuery stellt die Fragen parallel. Danach die
-Tests, und am Ende `Done. PASS=55 WARN=0 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=55`. Die Zahl
-ist höher als in Lektion 2, weil Modelle und Tests dazugekommen sind, und kann bei dir
+Vorauswahl durchlässt, rund eine halbe Minute, BigQuery stellt die Fragen parallel. Danach
+die Tests, und am Ende `Done. PASS=55 WARN=0 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=55`. Die
+Zahl ist höher als in Lektion 2, weil Modelle und Tests dazugekommen sind, und kann bei dir
 leicht abweichen.
 
 Ein `WARN` bei `assert_extracted_stations_exist` ist kein Fehler: Das Modell hat einen
