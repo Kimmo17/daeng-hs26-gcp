@@ -419,6 +419,12 @@ Vergleiche das Ergebnis mit der Spalte bushalt und sag mir, wo die Datei etwas a
 gewählt hat als den nächsten Nachbarn. Kopiere die Datei danach nach transform/seeds/.
 ```
 
+Wie die Abfrage rechnet, am Bahnhof Luzern Verkehrshaus: Sie nimmt alle Stationen im Umkreis
+von 200 Metern, misst die Luftlinie und ordnet nach Distanz. `ST_DISTANCE` und die anderen
+Funktionen sind in BigQuery eingebaut, es gibt nichts zu installieren.
+
+![Wie die Abfrage den nächsten Nachbarn eines Bahnhofs findet](img/lektion-3-schritt-5.svg)
+
 Was du siehst: Um "Luzern" liegen zwei Stationen, "Luzern, Bahnhof" in 64 Metern und
 "Luzern Bahnhofquai" in 113, die Datei hat die nähere, dort halten die Busse. Bei "Luzern
 Verkehrshaus" ist der nächste Nachbar "Luzern, Brüelstrasse" in 155 Metern, die Datei hat
