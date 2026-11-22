@@ -450,31 +450,57 @@ dbt-Modell neben den anderen. Das ist der Punkt der Lektion: Das Sprachmodell is
 eigener Dienst mit eigener Oberfläche, es ist eine Stufe in derselben Transformation,
 gebaut vom selben Job, geprüft von denselben Tests.
 
-**Die drei Stufen, auf die Meldungen übersetzt.**
+**Die drei Stufen, auf die Meldungen übersetzt.** Staging räumt auf, Intermediate rechnet,
+was indirekt in den Daten steht, der Mart beantwortet die Frage: Was bedeutet diese Störung
+für die Verkehrsbetriebe Luzern? Neu sind sechs Tabellen, drei aus Lektion 2 liefern zu.
 
-- Staging räumt auf: pro Meldung nur die neueste Fassung, die Zeiten mit der richtigen
-  Zeitzone, der Text ohne HTML. Dazu die Haltestellen aus der Seed-Tabelle.
-- Intermediate rechnet, was indirekt in den Daten steht. Zwei Tabellen: welche Linie an
-  welcher Haltestelle hält, aus `stop_times`, der grössten Tabelle im Feed. Und die Fakten
-  aus dem Text, hier liest das Modell.
-- Mart beantwortet die Frage: Was bedeutet diese Störung für die Verkehrsbetriebe Luzern?
-  Eine Stufe pro Meldung, mit Begründung.
+```mermaid
+flowchart LR
+  subgraph Q["Quellen"]
+    RA["raw.alerts"]
+    RS["raw.stops"]
+    RT["raw.stop_times"]
+    CSV["vbl_bahnhoefe.csv"]
+  end
+  subgraph S["Staging: räumt auf"]
+    SA["stg_alerts<br/>neueste Fassung, richtige<br/>Zeitzone, Text ohne HTML"]
+    SEED["vbl_bahnhoefe<br/>Bahnhof und Haltestelle"]
+    SS["stg_stops<br/>Haltestellen aus der Datei"]
+  end
+  subgraph I["Intermediate: rechnet"]
+    IE["int_alerts_extracted<br/>Fakten aus dem Text,<br/>hier liest das Modell"]
+    IR["int_routes_per_stop<br/>welche Linie hält wo"]
+  end
+  subgraph M["Mart: antwortet"]
+    AD["alert_decisions<br/>eine Stufe pro Meldung,<br/>mit Begründung"]
+  end
+  L2A["aus Lektion 2:<br/>stg_trips, stg_routes"]
+  L2B["aus Lektion 2:<br/>trips_per_route_day"]
+  G(["Gemini über die<br/>Verbindung vertex-ai"])
+  RA --> SA --> IE --> AD
+  CSV --> SEED --> SS
+  RS --> SS --> IR --> AD
+  RT --> IR
+  SEED --> IE
+  SEED --> AD
+  L2A --> IR
+  L2B --> AD
+  G -. liest Text, füllt Spalten .-> IE
+```
 
 **Drei Entscheidungen, die Data Engineering sind und nicht KI.** Sie stehen in der
 Spezifikation, und du prüfst nachher, ob sie im Code gelandet sind.
 
-1. Das Modell liest nur, was eine Regel vorsortiert hat: Störungen, die einen Bahnhof aus
-   der Seed-Tabelle nennen. Alles andere kann Luzern nicht betreffen, und jeder Aufruf kostet
-   Zeit und Geld.
-2. Das Modell liest jede Meldung genau einmal. Du hast in Schritt 4 gesehen, dass zwei Aufrufe
-   nicht immer dasselbe liefern. Würde die Pipeline bei jedem Lauf alles neu extrahieren,
-   könnte sich eine Entscheidung ändern, ohne dass sich die Welt geändert hat. Darum ist die
-   Tabelle inkrementell: Was drin ist, bleibt drin.
-3. Die Regel ist SQL und fragt dreierlei: Wo liegt die Störung, im Gebiet der
-   Verkehrsbetriebe oder nur auf einer Linie, die in Luzern endet. Was ist die Auswirkung,
-   Ausfall oder nur Verspätung. Und wie lange, unter einer Mindestdauer gibt es keine Stufe.
-   Die Mindestdauer ist eine Variable. Wer sie ändern will, ändert eine Zahl und begründet
-   das, nicht einen Prompt.
+![Von den Rohzeilen zur Stufe, und wer wo entscheidet](img/lektion-3-schritt-6.svg)
+
+1. **Vorauswahl.** Das Modell liest nur Störungen, die einen Bahnhof aus der Seed-Tabelle
+   nennen. Das entscheidet eine Regel, nicht das Modell.
+2. **Einmal lesen.** Du hast in Schritt 4 gesehen, dass zwei Aufrufe nicht immer dasselbe
+   liefern. Würde die Pipeline bei jedem Lauf alles neu extrahieren, könnte sich eine
+   Entscheidung ändern, ohne dass sich die Welt geändert hat. Darum ist die Tabelle
+   inkrementell: Was drin ist, bleibt drin.
+3. **Regel in SQL.** Die Mindestdauer ist eine Variable. Wer sie ändern will, ändert eine
+   Zahl und begründet das, nicht einen Prompt.
 
 **Was jetzt passiert.** `transform/SPEC-ALERTS.md` beschreibt die Modelle, Spalten und Tests.
 Claude Code ergänzt damit dein Projekt aus Lektion 2, ohne dessen Dateien zu ändern. Die
@@ -491,12 +517,18 @@ auf mein OK.
 ```
 
 Das dauert einige Minuten. Prüfe zuerst die Dateiliste gegen den Checkpoint unten. Dann
-liest du, ohne SQL zu können: Steht in `int_alerts_extracted` ein `AI.GENERATE` mit
-`output_schema`, einer Adresse mit `locations/eu` und `gemini-3.8-flash`? Kommt
-`is_incremental` vor? Gibt es vor dem Aufruf einen Filter auf `message_type` und die
-Seed-Tabelle? Und in `alert_decisions`: ein `CASE` mit `Ersatzverkehr prüfen`,
-`Planungshinweis` und `keine`, und ein `var(...)` für die Mindestdauer? Fehlt eines davon,
-sag es, bevor du OK gibst.
+suchst du im Code sechs Dinge, ohne SQL zu können:
+
+| Datei | Was im Code stehen muss | Wofür |
+|---|---|---|
+| `int_alerts_extracted.sql` | `AI.GENERATE` mit `output_schema` | das Modell liefert Spalten mit Typ |
+| `int_alerts_extracted.sql` | eine Adresse mit `locations/eu` und `gemini-3.8-flash` | das Modell rechnet in der EU |
+| `int_alerts_extracted.sql` | vor dem Aufruf ein Filter auf `message_type` und die Seed-Tabelle | Entscheidung 1 |
+| `int_alerts_extracted.sql` | `is_incremental` | Entscheidung 2 |
+| `alert_decisions.sql` | ein `CASE` mit `Ersatzverkehr prüfen`, `Planungshinweis` und `keine` | Entscheidung 3 |
+| `alert_decisions.sql` | ein `var(...)` für die Mindestdauer | die Schwelle ist eine Zahl |
+
+Fehlt eines davon, sag es, bevor du OK gibst.
 
 Unterwegs fragt Claude Code vielleicht, ob es `dbt parse` ausführen darf, um seine Dateien
 zu prüfen, oder ob es die dbt-Dokumentation lesen darf. Beides darfst du erlauben, es
@@ -510,13 +542,17 @@ gleich deployen: Das Recht und der Job kommen in Schritt 7, mit eigenen Prompts.
 
 Console: noch nichts.
 
-Checkpoint: neu in `transform/`: `seeds/vbl_bahnhoefe.csv`, `models/sources_alerts.yml`,
-`models/schema_alerts.yml`, `models/staging/stg_alerts.sql`, `models/staging/stg_stops.sql`,
-`models/intermediate/int_routes_per_stop.sql`, `models/intermediate/int_alerts_extracted.sql`,
-`models/marts/alert_decisions.sql`, in `tests/` die vier Dateien
-`assert_extracted_end_after_begin.sql`, `assert_extracted_begin_matches_source.sql`,
-`assert_extracted_stations_exist.sql`, `assert_stg_stops_covers_seed.sql`. Nichts Altes geändert
-(`git status` zeigt nur neue Dateien in `transform/`, wenn du dort nichts committet hast).
+Checkpoint: zwölf neue Dateien in `transform/`, nichts Altes geändert. `git status` zeigt
+nur neue Dateien in `transform/`, wenn du dort nichts committet hast.
+
+| Ordner in `transform/` | Neue Dateien |
+|---|---|
+| `seeds/` | `vbl_bahnhoefe.csv` |
+| `models/` | `sources_alerts.yml`, `schema_alerts.yml` |
+| `models/staging/` | `stg_alerts.sql`, `stg_stops.sql` |
+| `models/intermediate/` | `int_routes_per_stop.sql`, `int_alerts_extracted.sql` |
+| `models/marts/` | `alert_decisions.sql` |
+| `tests/` | `assert_extracted_end_after_begin.sql`, `assert_extracted_begin_matches_source.sql`, `assert_extracted_stations_exist.sql`, `assert_stg_stops_covers_seed.sql` |
 
 ---
 
