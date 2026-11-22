@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1044 464" width="1044" height="464" role="img" aria-labelledby="t d">
+<title id="t">Was AI.GENERATE mit der Meldung aus Meggen macht</title>
+<desc id="d">Links die Meldung als JSON mit zwölf Feldern, davon gehen title und description_html an das Modell. Rechts die Zeile, die AI.GENERATE liefert: cause Bauarbeiten, effect Ausfall, section_from Meggen, section_to Immensee, begin 2026-10-27 04:32:00, end 2026-10-27 07:30:00, severity 3, status leer.</desc>
+<rect width="1044" height="464" fill="#ffffff"/>
+<rect x="16" y="16" width="516" height="432" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<path d="M16 46 V22 a6 6 0 0 1 6 -6 H526 a6 6 0 0 1 6 6 V46 Z" fill="#f6f8fa" stroke="#d0d7de"/>
+<text x="30" y="36" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="13.5" font-weight="700" fill="#1f2328">Meldung aus Schritt 1, eine Zeile in raw.alerts</text>
+<text x="30.0" y="70" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#1f2328">{</tspan></text>
+<text x="45.6" y="89" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#1f2328">"title": "Interrupted service: Meggen - Immensee",</tspan></text>
+<text x="45.6" y="108" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#8c959f">"link": "https://www.sbb.ch/en/plan/…?poiid=1269176",</tspan></text>
+<text x="45.6" y="127" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#8c959f">"description": "27.10.2026 04:32 - 07:30Interrupted …",</tspan></text>
+<text x="45.6" y="146" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#8c959f">"published": "2026-10-27T03:34:38+00:00",</tspan></text>
+<text x="45.6" y="165" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#8c959f">"cause": null,</tspan></text>
+<text x="45.6" y="184" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#8c959f">"startdatetime": "2026-10-27T04:32:00+00:00",</tspan></text>
+<text x="45.6" y="203" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#8c959f">"enddatetime": "2026-10-27T07:30:00+00:00",</tspan></text>
+<text x="45.6" y="222" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#8c959f">"dailyvaliditybegin": "00:00:00",</tspan></text>
+<text x="45.6" y="241" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#8c959f">"dailyvalidityend": "23:59:00",</tspan></text>
+<text x="45.6" y="260" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#8c959f">"type": "2",</tspan></text>
+<text x="45.6" y="279" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#8c959f">"author": "SBB",</tspan></text>
+<text x="45.6" y="298" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#1f2328">"description_html":</tspan></text>
+<text x="61.2" y="317" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#1f2328">"</tspan><tspan fill="#0969da" font-weight="700">① 27.10.2026 04:32 - 07:30</tspan><tspan fill="#1f2328">&lt;br /&gt;&lt;br /&gt;</tspan></text>
+<text x="61.2" y="336" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#bc4c00" font-weight="700">② Interrupted train service</tspan><tspan fill="#1f2328"> on the Luzern -</tspan></text>
+<text x="61.2" y="355" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#1f2328">Arth-Goldau line </tspan><tspan fill="#1a7f37" font-weight="700">③ between Meggen and Immensee</tspan><tspan fill="#1f2328">.&lt;br /&gt;</tspan></text>
+<text x="61.2" y="374" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#1f2328">This is due to </tspan><tspan fill="#8250df" font-weight="700">④ exceptional construction work</tspan><tspan fill="#1f2328">.&lt;br /&gt;</tspan></text>
+<text x="61.2" y="393" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#1f2328">The restriction lasts until approx. 06:00.&lt;br /&gt;</tspan></text>
+<text x="61.2" y="412" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#1f2328">Line S3 is affected.&lt;br /&gt; …"</tspan></text>
+<text x="30.0" y="431" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" xml:space="preserve"><tspan fill="#1f2328">}</tspan></text>
+<text x="584.0" y="180" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5" font-weight="700" fill="#1f2328">AI.GENERATE</text>
+<path d="M542 196 H620" stroke="#1f2328" stroke-width="2" fill="none"/>
+<path d="M628 196 l-11 -6 v12 z" fill="#1f2328"/>
+<text x="584.0" y="218" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#1f2328">Gemini liest</text>
+<text x="584.0" y="233" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#1f2328">title und</text>
+<text x="584.0" y="248" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#1f2328">description_html</text>
+<rect x="636" y="16" width="392" height="280" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<path d="M636 46 V22 a6 6 0 0 1 6 -6 H1022 a6 6 0 0 1 6 6 V46 Z" fill="#f6f8fa" stroke="#d0d7de"/>
+<text x="650" y="36" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="13.5" font-weight="700" fill="#1f2328">Ergebnis: eine Zeile mit Spalten</text>
+<text y="64" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12" font-weight="700" fill="#8c959f"><tspan x="676">Spalte</tspan><tspan x="788">Typ</tspan><tspan x="856">Wert</tspan></text>
+<path d="M636 72 H1028" stroke="#d0d7de"/>
+<text y="91" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13"><tspan x="650" fill="#8250df" font-weight="700">④</tspan><tspan x="676" fill="#1f2328">cause</tspan><tspan x="788" fill="#8c959f">STRING</tspan><tspan x="856" fill="#8250df" font-weight="700">Bauarbeiten</tspan></text>
+<path d="M636 100 H1028" stroke="#d0d7de"/>
+<text y="119" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13"><tspan x="650" fill="#bc4c00" font-weight="700">②</tspan><tspan x="676" fill="#1f2328">effect</tspan><tspan x="788" fill="#8c959f">STRING</tspan><tspan x="856" fill="#bc4c00" font-weight="700">Ausfall</tspan></text>
+<path d="M636 128 H1028" stroke="#d0d7de"/>
+<text y="147" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13"><tspan x="650" fill="#1a7f37" font-weight="700">③</tspan><tspan x="676" fill="#1f2328">section_from</tspan><tspan x="788" fill="#8c959f">STRING</tspan><tspan x="856" fill="#1a7f37" font-weight="700">Meggen</tspan></text>
+<path d="M636 156 H1028" stroke="#d0d7de"/>
+<text y="175" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13"><tspan x="650" fill="#1a7f37" font-weight="700">③</tspan><tspan x="676" fill="#1f2328">section_to</tspan><tspan x="788" fill="#8c959f">STRING</tspan><tspan x="856" fill="#1a7f37" font-weight="700">Immensee</tspan></text>
+<path d="M636 184 H1028" stroke="#d0d7de"/>
+<text y="203" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13"><tspan x="650" fill="#0969da" font-weight="700">①</tspan><tspan x="676" fill="#1f2328">begin</tspan><tspan x="788" fill="#8c959f">STRING</tspan><tspan x="856" fill="#0969da" font-weight="700">2026-10-27 04:32:00</tspan></text>
+<path d="M636 212 H1028" stroke="#d0d7de"/>
+<text y="231" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13"><tspan x="650" fill="#0969da" font-weight="700">①</tspan><tspan x="676" fill="#1f2328">end</tspan><tspan x="788" fill="#8c959f">STRING</tspan><tspan x="856" fill="#0969da" font-weight="700">2026-10-27 07:30:00</tspan></text>
+<path d="M636 240 H1028" stroke="#d0d7de"/>
+<text y="259" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13"><tspan x="650" fill="#bc4c00" font-weight="700">②</tspan><tspan x="676" fill="#1f2328">severity</tspan><tspan x="788" fill="#8c959f">INT64</tspan><tspan x="856" fill="#bc4c00" font-weight="700">3</tspan></text>
+<path d="M636 268 H1028" stroke="#d0d7de"/>
+<text y="287" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13"><tspan x="676" fill="#1f2328">status</tspan><tspan x="788" fill="#8c959f">STRING</tspan><tspan x="856" fill="#8c959f" font-weight="700">leer</tspan></text>
+<text x="638" y="326" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328">Gleiche Nummer und Farbe: Diese Stelle im Text</text>
+<text x="638" y="344" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328">wird zu dieser Spalte.</text>
+<text x="638" y="370" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328">Spalten, Typen und erlaubte Werte gibt das</text>
+<text x="638" y="388" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#1f2328">output_schema vor, nicht der Text.</text>
+<text x="638" y="414" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="12.5" fill="#8c959f">Grau links: Felder, die nicht an das Modell gehen.</text>
+</svg>

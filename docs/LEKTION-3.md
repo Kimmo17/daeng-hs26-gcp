@@ -331,31 +331,15 @@ Mal aus, ohne Ergebniscache (bq query --nouse_cache), und sag mir, ob sich etwas
 unterscheidet.
 ```
 
-Was die Abfrage tut, an der Meldung aus Meggen: Links steht Text, rechts steht eine Zeile
-mit Spalten. Dazwischen liegt ein einziger Funktionsaufruf.
+Was die Abfrage tut, an der Meldung aus Meggen: Links steht die Meldung als JSON, wie du
+sie aus Schritt 1 kennst. Rechts steht die Zeile, die `AI.GENERATE` daraus macht. Gleiche
+Nummer und Farbe heisst: Diese Stelle im Text wird zu dieser Spalte.
 
-```mermaid
-flowchart LR
-  subgraph T["Text der Meldung"]
-    t1["27.10.2026 04:32 - 07:30"]
-    t2["Interrupted train service"]
-    t3["between Meggen and Immensee"]
-    t4["exceptional construction work"]
-  end
-  subgraph S["Ergebnis von AI.GENERATE: eine Zeile mit Spalten"]
-    s1["begin: 2026-10-27 04:32:00<br/>end: 2026-10-27 07:30:00"]
-    s2["effect: Ausfall<br/>severity: 3"]
-    s3["section_from: Meggen<br/>section_to: Immensee"]
-    s4["cause: Bauarbeiten"]
-  end
-  t1 --> s1
-  t2 --> s2
-  t3 --> s3
-  t4 --> s4
-```
+![Was AI.GENERATE mit der Meldung aus Meggen macht](img/lektion-3-schritt-4.svg)
 
-Die Spaltennamen, die Typen und die erlaubten Werte kommen aus dem `output_schema`, nicht
-aus dem Text.
+Von den zwölf Feldern gehen nur `title` und `description_html` an das Modell. Die
+Spaltennamen, die Typen und die erlaubten Werte kommen aus dem `output_schema`, nicht aus
+dem Text.
 
 Die Abfrage, die Claude Code daraus baut, sieht im Kern so aus:
 
