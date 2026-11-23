@@ -27,5 +27,13 @@ Kurs: ZHAW Data Engineering, GCP-Lektionen. Die Person, mit der du arbeitest, ha
 - `transform/` dbt-Projekt, entsteht in Lektion 2 aus transform/SPEC.md, wächst in Lektion 3 um transform/SPEC-ALERTS.md
 - `referenz/` Musterlösungen. Lies diesen Ordner nur, wenn die Person es ausdrücklich verlangt.
 - `checks/` Dataplex Data-Quality-Regeln
-- `pipeline/` Workflows (einer mit Qualitätsschranke für den Fahrplan, einer für die Meldungen) und Alarm
+- `pipeline/` Workflows (einer mit Qualitätsschranke für den Fahrplan, einer für die Meldungen, und ab Lektion 4 die Fassung des Fahrplan-Workflows mit Triage) und Alarm
+- `agent/` Cloud-Run-Job triage, der Agent, der eine fehlgeschlagene Execution untersucht (Lektion 4)
+- `incidents/` drei Vorfälle zum Nachstellen (Lektion 4)
 - `docs/` Tutorials für die Person. Lies diesen Ordner nur, wenn die Person es ausdrücklich verlangt.
+
+## Lektion 4
+- `incidents/` enthält Befehle, die die Pipeline absichtlich kaputt machen. Führe sie nur aus, wenn die Person es in diesem Chat ausdrücklich verlangt, und sag vorher in einem Satz, was kaputtgeht.
+- Der Agent in `agent/` liest nur. Schlage kein Werkzeug vor, das etwas schreibt, deployt, startet oder löscht, und gib `triage-sa` keine Rolle, die nicht in `agent/README.md` steht.
+- In `ops.incidents` schreibt der Job triage. Du änderst dort nur `status`, `closed_by` und `closed_at`, und nur auf Verlangen.
+- Den Job triage startest du nur mit einer Execution-ID oder mit `--selftest` als Argument, nie ohne Argument.

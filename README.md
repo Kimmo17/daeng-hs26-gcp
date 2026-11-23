@@ -8,6 +8,7 @@ Reihenfolge:
 3. [docs/LEKTION-2.md](docs/LEKTION-2.md), von den Rohdaten zur Antwort, jede Woche
 4. [docs/SPEC-IM-TEAM.md](docs/SPEC-IM-TEAM.md), wie die Spezifikation im Team aussieht
 5. [docs/LEKTION-3.md](docs/LEKTION-3.md), ein Sprachmodell als Funktion in der Pipeline
+6. [docs/LEKTION-4.md](docs/LEKTION-4.md), der Agent im Betrieb
 
 Ordner:
 - `ingest/` Cloud-Run-Job, der die Daten lädt (Lektion 1)
@@ -15,7 +16,9 @@ Ordner:
 - `transform/` dbt-Projekt, entsteht in Lektion 2 aus `transform/SPEC.md` und wächst in Lektion 3 um `transform/SPEC-ALERTS.md`
 - `referenz/` Musterlösungen: `referenz/transform/` (Lektion 2) und `referenz/transform-alerts/` (Lektion 3)
 - `checks/` Dataplex Data-Quality-Regeln (Lektion 1 und 2)
-- `pipeline/` Workflows (einer mit Qualitätsschranke für den Fahrplan, einer für die Meldungen) und Alarm (Lektion 2 und 3)
+- `agent/` Cloud-Run-Job triage, der Agent, der eine fehlgeschlagene Execution untersucht (Lektion 4)
+- `incidents/` drei Vorfälle zum Nachstellen (Lektion 4)
+- `pipeline/` Workflows (einer mit Qualitätsschranke für den Fahrplan, einer für die Meldungen, und ab Lektion 4 die Fassung des Fahrplan-Workflows mit Triage) und Alarm (Lektion 2 bis 4)
 - `docs/` Tutorials
 - `CLAUDE.md` Regeln für Claude Code in diesem Repo
 - `.claude/settings.json` welche Befehle Claude Code ohne Rückfrage ausführen darf

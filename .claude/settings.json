@@ -25,6 +25,8 @@
       "Bash(gcloud run jobs get-iam-policy:*)",
       "Bash(gcloud run jobs executions list:*)",
       "Bash(gcloud run jobs executions describe:*)",
+      "Bash(gcloud builds list:*)",
+      "Bash(gcloud builds describe:*)",
       "Bash(gcloud scheduler jobs describe:*)",
       "Bash(gcloud scheduler jobs list:*)",
       "Bash(gcloud dataplex datascans describe:*)",
