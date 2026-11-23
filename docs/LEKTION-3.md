@@ -862,6 +862,17 @@ verbinden, neue Meldungen vom Modell lesen lassen, Fakten testen, Stufen vergebe
 pro Woche macht der andere Workflow dasselbe mit dem Fahrplan. Scheitert etwas, kommt die
 E-Mail aus Lektion 2.
 
+Eines tut der tägliche Lauf noch nicht, solange das Fenster auf Oktober steht:
+
+| | Jeden Tag um sechs | Solange das Fenster auf Oktober steht |
+|---|---|---|
+| `raw.alerts` | die letzten drei Tage werden ersetzt | wächst jeden Tag |
+| `stg_alerts` bis `alert_decisions` | dbt baut alles neu | bleiben beim Oktober, 19 Zeilen |
+| Sprachmodell | liest nur neue Meldungen im Fenster | 0 Aufrufe |
+
+Das Fenster wandert mit, sobald der Job dbt mit den Variablen `alerts_from` und `alerts_to`
+startet. Hier bleibt es stehen, damit die Zahlen der Lektion für alle gleich sind.
+
 Wo das Modell entschieden hat: welche Ursache, welche Auswirkung, welcher Abschnitt, welche
 Zeiten im Text gemeint sind. Das ist Lesen, und Lesen kann es besser als jede Regel.
 
