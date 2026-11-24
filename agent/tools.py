@@ -118,9 +118,15 @@ def list_workflow_executions() -> dict:
     out = []
     for ex in executions_v1.ExecutionsClient().list_executions(request=req):
         steps = [e.step for e in ex.error.stack_trace.elements] if ex.error and ex.error.stack_trace else []
-        out.append({"execution_id": ex.name.rsplit("/", 1)[-1], "state": ex.state.name,
-                    "start": _ts(ex.start_time), "end": _ts(ex.end_time),
-                    "failed_step": steps[0] if steps else None})
+        failed = steps[0] if steps else None
+        row = {"execution_id": ex.name.rsplit("/", 1)[-1], "state": ex.state.name,
+               "start": _ts(ex.start_time), "end": _ts(ex.end_time),
+               "failed_step": None if failed in _EXCEPT_STEPS else failed}
+        if failed in _EXCEPT_STEPS:
+            row["note"] = "im except-Zweig weitergeworfen, Schritt siehe Meldung"
+        if ex.error and ex.error.payload:
+            row["error_head"] = ex.error.payload[:120]
+        out.append(row)
         if len(out) == 5:
             break
     return {"workflow": WORKFLOW, "executions": out}

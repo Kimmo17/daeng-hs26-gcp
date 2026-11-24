@@ -453,10 +453,12 @@ bq query --use_legacy_sql=false \
    FROM ops.incidents WHERE workflow_execution = 'EXECUTION-ID'"
 ```
 
-Die Triage dauert ein bis zwei Minuten, zehn Sekunden davon ist der Kaltstart. Im Log der
-Execution siehst du währenddessen eine Zeile pro Werkzeugaufruf, `WERKZEUG
-get_workflow_execution {"execution_id": ...}`, dann `WERKZEUG get_datascan {}`, dann
-`WERKZEUG get_admin_activity {"resource": "trips-quality", ...}`, und am Ende den Bericht.
+Die Triage dauert zwei bis drei Minuten, zwanzig Sekunden davon ist der Kaltstart, der Rest
+hängt vom Tempo des Modells ab, das zwischen fünf und zwanzig Sekunden pro Aufruf
+schwankt. Im Log der Execution siehst du währenddessen eine Zeile pro Werkzeugaufruf,
+`WERKZEUG get_workflow_execution {"execution_id": ...}`, dann `WERKZEUG get_datascan {}`,
+dann `WERKZEUG get_admin_activity {"resource": "trips-quality", ...}`, dazu pro Modellaufruf
+eine Zeile `MODELL` mit seiner Dauer, und am Ende den Bericht.
 
 Was der Agent finden sollte: Kategorie `Regel zu streng`, Konfidenz `hoch`. In den Fakten:
 Die Execution scheiterte in `check_gate`, Regel `min-one-million-rows-per-version`
@@ -665,7 +667,7 @@ Version veröffentlicht, und der erste Lauf mit Anhängen hat sie in eine leere 
 geschrieben, sauber. Starte den Workflow nochmals, der zweite Lauf hängt sie an sich selbst
 an. Acht Minuten.
 
-Diese Triage dauert länger, zwei bis drei Minuten, mit fünfzehn bis zwanzig
+Diese Triage dauert länger, drei bis acht Minuten, mit fünfzehn bis zwanzig
 Werkzeugaufrufen. Der Agent sucht. Er liest den Scan (Regel `trip-id-unique-per-version`,
 Duplikate in einer Partition), die Partitionen (die neueste hat 5.2 Millionen Zeilen, die
 anderen 2.6), die Audit-Logs von Workflow, Scan und Jobs (ein Deploy von `ingest-gtfs` durch
@@ -778,8 +780,8 @@ Zwei Minuten nach dem ersten Befehl, Prompt 3:
 
 ```text
 Starte gtfs-pipeline und warte auf das Ende. Erwartung: Die Execution scheitert innert
-Sekunden mit 403 in run_ingest. Zeige mir den Fehlertext und dann die Executions des Jobs
-triage.
+Sekunden mit 403 beim Start von ingest-gtfs. Zeige mir den Fehlertext und dann die
+Executions des Jobs triage.
 ```
 
 Befehle:
@@ -791,14 +793,17 @@ gcloud run jobs executions list --job=triage --region=europe-west6 --limit=3
 ```
 
 Die Execution scheitert nach wenigen Sekunden, `PERMISSION_DENIED`, `workflow-sa` darf
-`ingest-gtfs` nicht starten. Und in der Liste der `triage`-Executions steht eine neue, eben
-gestartet, die du nicht gestartet hast. Ein bis zwei Minuten später liegt die dritte Zeile
-in `ops.incidents`: Kategorie `Berechtigung`, Konfidenz `hoch`, in den Fakten der 403 aus
-`run_ingest` und der `SetIamPolicy`-Eintrag auf `ingest-gtfs` von deinem Konto, mit dem
-entfernten Binding `roles/run.invoker serviceAccount:workflow-sa@...`. Vorschlag: das
-Binding wieder setzen, dann den Workflow einmal laufen lassen.
+`ingest-gtfs` nicht starten. Als Schritt nennt die Execution `rethrow`, nicht `run_ingest`:
+Das ist die Stelle, an der der Workflow den Fehler weitergeworfen hat, und die Meldung
+nennt den Job. Der Agent weiss das, sein Werkzeug sagt es ihm. In der Liste der
+`triage`-Executions steht eine neue, in derselben Sekunde gestartet wie der Fehlschlag,
+"Ausgeführt von" `workflow-sa`, nicht du. Drei Minuten später liegt die dritte Zeile in
+`ops.incidents`: Kategorie `Berechtigung`, Konfidenz `hoch`, in den Fakten der 403 beim
+Start von `ingest-gtfs` und der `SetIamPolicy`-Eintrag auf `ingest-gtfs` von deinem Konto,
+mit dem entfernten Binding `roles/run.invoker serviceAccount:workflow-sa@...`. Vorschlag:
+das Binding wieder setzen, dann den Workflow einmal laufen lassen.
 
-Prompt 4, nach zwei Minuten:
+Prompt 4, nach drei Minuten:
 
 ```text
 Zeige mir aus ops.incidents die neueste Zeile: created_at, category, confidence, cause,
@@ -927,11 +932,13 @@ wenn es behoben ist.
 
 | Vorfall | Scheitert nach | Diagnose nach | Werkzeugaufrufe | Kosten |
 |---|---|---|---|---|
-| Regel zu streng | 6 Minuten (Ingest, Scan) | plus 1 bis 2 Minuten | 6 bis 10 | 5 bis 7 Rappen |
-| Code-Änderung | 7 Minuten (Ingest, Scan) | plus 2 bis 3 Minuten | 15 bis 20 | 25 bis 30 Rappen |
-| Berechtigung | Sekunden | plus 1 bis 2 Minuten | 5 bis 8 | 4 bis 6 Rappen |
+| Regel zu streng | 6 Minuten (Ingest, Scan) | plus 2 bis 3 Minuten | 6 bis 10 | 5 bis 7 Rappen |
+| Code-Änderung | 7 Minuten (Ingest, Scan) | plus 3 bis 8 Minuten | 15 bis 20 | 25 bis 30 Rappen |
+| Berechtigung | Sekunden | plus 2 bis 3 Minuten | 5 bis 8 | 4 bis 6 Rappen |
 
-Die Zahlen sind aus der Musterlösung, deine liegen in `ops.incidents`. Der teure Fall ist
+Die Zahlen sind aus zwei Projekten, deine liegen in `ops.incidents`. Die Spanne bei der
+Diagnose kommt vom Modell: In einem Projekt brauchte es acht Sekunden pro Aufruf, im
+anderen zwanzig, bei gleicher Anweisung und gleichen Werkzeugen. Der teure Fall ist
 der, in dem die Ursache nirgends direkt steht und der Agent sie aus vier Stellen
 zusammensetzen muss. Das ist auch der Fall, der einen Menschen am längsten kostet.
 

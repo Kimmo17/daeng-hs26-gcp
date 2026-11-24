@@ -130,13 +130,15 @@ def build_agent(stats: dict) -> LlmAgent:
                      "execute_sql"])
 
     def before_model(callback_context, llm_request):
-        # Eine Logzeile pro Modellaufruf mit der Zeit seit dem vorigen: so sieht man im Log,
-        # ob das Modell oder die Werkzeuge langsam sind.
-        now = time.monotonic()
         stats["model_calls"] += 1
-        since = now - stats.get("last_model_call", now)
-        stats["last_model_call"] = now
-        print(f"MODELL Aufruf {stats['model_calls']}, {since:.0f} s seit dem vorigen", flush=True)
+        stats["model_started"] = time.monotonic()
+
+    def after_model(callback_context, llm_response):
+        # Eine Logzeile pro Modellaufruf mit seiner Dauer, ohne die Werkzeuge: so sieht man im
+        # Log, ob das Modell oder die Werkzeuge langsam sind.
+        took = time.monotonic() - stats.get("model_started", time.monotonic())
+        print(f"MODELL Aufruf {stats['model_calls']}: {took:.0f} s", flush=True)
+        return None
 
     # Jeden Werkzeugaufruf mitschreiben: Name, Argumente, Länge und Anfang der Antwort. Das ist
     # der Nachweis, was der Agent gelesen hat, und landet in ops.incidents.
@@ -149,7 +151,8 @@ def build_agent(stats: dict) -> LlmAgent:
     return LlmAgent(name="triage", model=MODEL, instruction=INSTRUCTION,
                     tools=[*map(tools.safe, tools.ALL), bq],
                     output_schema=Diagnose, output_key="diagnose",
-                    before_model_callback=before_model, after_tool_callback=after_tool)
+                    before_model_callback=before_model, after_model_callback=after_model,
+                    after_tool_callback=after_tool)
 
 
 # 4. Der Lauf.
