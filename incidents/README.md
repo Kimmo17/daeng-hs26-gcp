@@ -16,7 +16,7 @@ Die Schwelle der Regel `min-one-million-rows-per-version` steigt auf 3 Millionen
 sed 's/< 1000000/< 3000000/' checks/trips_quality.yaml > /tmp/trips_quality_3m.yaml
 gcloud dataplex datascans update data-quality trips-quality --location=europe-west6 \
   --data-quality-spec-file=/tmp/trips_quality_3m.yaml
-gcloud workflows run gtfs-pipeline --location=europe-west6 --async
+gcloud workflows execute gtfs-pipeline --location=europe-west6
 ```
 
 Rückgängig: dieselbe Zeile mit `checks/trips_quality.yaml` aus dem Repo (deiner Kopie mit deiner
@@ -34,7 +34,7 @@ und erst der zweite scheitert.
 git apply incidents/ingest-append.patch
 gcloud run jobs deploy ingest-gtfs --source ingest --region europe-west6 \
   --service-account=ingest-sa@PROJEKT-ID.iam.gserviceaccount.com
-gcloud workflows run gtfs-pipeline --location=europe-west6 --async
+gcloud workflows execute gtfs-pipeline --location=europe-west6
 ```
 
 Rückgängig: `git checkout ingest/main.py`, denselben Deploy nochmals, den Workflow einmal laufen
@@ -50,7 +50,7 @@ gcloud run jobs remove-iam-policy-binding ingest-gtfs --region=europe-west6 \
   --member="serviceAccount:workflow-sa@PROJEKT-ID.iam.gserviceaccount.com" \
   --role="roles/run.invoker"
 # zwei Minuten warten, so lange braucht der Entzug, bis er überall gilt
-gcloud workflows run gtfs-pipeline --location=europe-west6 --async
+gcloud workflows execute gtfs-pipeline --location=europe-west6
 ```
 
 Rückgängig: `add-iam-policy-binding` mit denselben Argumenten.

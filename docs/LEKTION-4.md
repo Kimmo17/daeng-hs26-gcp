@@ -126,7 +126,8 @@ Lies incidents/README.md, Abschnitt B, und erkläre mir in zwei Sätzen, was pas
 Dann: Erzeuge aus checks/trips_quality.yaml eine Kopie in /tmp, in der die Schwelle der
 Regel min-one-million-rows-per-version 3000000 statt 1000000 ist, und ändere die Datei im
 Repo nicht. Aktualisiere den Scan trips-quality mit dieser Kopie. Starte dann gtfs-pipeline,
-ohne auf das Ende zu warten, und zeige mir die ID der Execution.
+ohne auf das Ende zu warten (gcloud workflows execute), und zeige mir die ID der
+Execution.
 ```
 
 Befehle:
@@ -137,7 +138,7 @@ sed 's/< 1000000/< 3000000/' checks/trips_quality.yaml > /tmp/trips_quality_3m.y
 gcloud dataplex datascans update data-quality trips-quality --location=europe-west6 \
   --data-quality-spec-file=/tmp/trips_quality_3m.yaml
 
-gcloud workflows run gtfs-pipeline --location=europe-west6 --async
+gcloud workflows execute gtfs-pipeline --location=europe-west6
 ```
 
 Claude Code merkt vielleicht an, dass die Regel damit für alle Versionen scheitern wird,
@@ -529,7 +530,8 @@ Lies incidents/README.md, Abschnitt C, und incidents/ingest-append.patch, und er
 zwei Sätzen, was der Patch ändert und warum die Begründung im Patch trotzdem falsch ist.
 Dann wende den Patch auf ingest/main.py an, deploye ingest-gtfs neu aus ingest/ wie in
 Lektion 1 (ingest-sa, 2 GiB, 1 CPU, Task-Timeout 30 Minuten, keine Wiederholungen), und
-starte gtfs-pipeline, ohne auf das Ende zu warten. Committe nichts.
+starte gtfs-pipeline, ohne auf das Ende zu warten (gcloud workflows execute). Committe
+nichts.
 ```
 
 Befehle:
@@ -541,7 +543,7 @@ gcloud run jobs deploy ingest-gtfs --source ingest --region europe-west6 \
   --service-account=ingest-sa@daeng-KÜRZEL-XXXX.iam.gserviceaccount.com \
   --memory=2Gi --cpu=1 --task-timeout=30m --max-retries=0
 
-gcloud workflows run gtfs-pipeline --location=europe-west6 --async
+gcloud workflows execute gtfs-pipeline --location=europe-west6
 ```
 
 Was Claude Code zur Begründung sagen sollte: Ersetzen war Absicht. Die Partition gehört zu
