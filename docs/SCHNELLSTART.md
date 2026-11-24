@@ -317,9 +317,10 @@ Run Invoker auf den Jobs ingest-gtfs und transform-gtfs, Cloud Run Viewer auf de
 Dataplex DataScan Editor auf dem Scan trips-quality (per get-iam-policy, Datei ergänzen,
 set-iam-policy mit etag), Logs Writer auf dem Projekt. Deploye dann pipeline/workflow.yaml
 als Workflow gtfs-pipeline in europe-west6 mit workflow-sa und call-log-level
-log-all-calls. Warte danach zwei Minuten (sleep 120), die Rollen brauchen so lange, bis
-sie überall gelten. Starte den Workflow dann einmal und warte auf das Ende, das dauert
-etwa sechs Minuten. Zeige mir das Ergebnis.
+log-all-calls. Warte danach zwei Minuten (sleep 120), dann starte den Workflow und warte
+auf das Ende, das dauert etwa sechs Minuten. Scheitert er innert Sekunden in run_ingest
+mit 403 oder AuthError, gelten die Rollen noch nicht überall: warte drei Minuten und starte
+ihn nochmals, bis er durchläuft, höchstens dreimal. Zeige mir das Ergebnis.
 ```
 
 Befehle:
@@ -351,9 +352,10 @@ sleep 120
 gcloud workflows run gtfs-pipeline --location=europe-west6
 ```
 
-Die zwei Minuten sind kein Schmuck: Startet der Workflow früher, scheitert er in
-`run_ingest` mit 403, weil `workflow-sa` die Rolle auf dem Job noch nicht überall hat.
-Passiert das trotzdem, nochmals starten, sonst nichts.
+Die Rollen von `workflow-sa` brauchen in einem frischen Projekt bis zu acht Minuten, bis
+sie überall gelten. Solange scheitert der Workflow innert Sekunden in `run_ingest` mit
+`AuthError`, und das kostet nichts. Darum die Regel im Prompt: scheitert er so, drei
+Minuten warten, nochmals starten. Im Testlauf lief der zweite Start durch.
 
 Das Ergebnis ist ein kleines Dict mit der Ingest-Execution, dem Scan-Job, `passed: true`
 und der Transform-Execution.
@@ -503,9 +505,11 @@ Lektion 3 nicht.
 - **Schritt 6: `gcloud workflows deploy` scheitert mit einem Hinweis auf den Service Agent:**
   `gcloud beta services identity create --service=workflows.googleapis.com`, eine Minute
   warten, Deploy nochmals.
-- **Schritt 6: die Execution scheitert in `run_ingest` mit 403:** `workflow-sa` fehlt Cloud
-  Run Invoker auf dem Job, oder die Rolle gilt noch nicht. Zwei Minuten warten, nochmals
-  starten.
+- **Schritt 6: die Execution scheitert in `run_ingest` mit 403 oder `AuthError`:** Die
+  Rollen gelten noch nicht überall, das dauert in einem frischen Projekt bis zu acht
+  Minuten. Drei Minuten warten, nochmals starten. Scheitert es nach dem dritten Mal noch,
+  fehlt `workflow-sa` Cloud Run Invoker auf `ingest-gtfs`, `gcloud run jobs get-iam-policy
+  ingest-gtfs` zeigt es.
 - **Schritt 7: keine E-Mail nach zehn Minuten:** [Monitoring → Alerting](https://console.cloud.google.com/monitoring/alerting)
   zeigt, ob ein Vorfall da ist. Ist er da, fehlt der Kanal in der Richtlinie. Ist keiner da,
   ist die Richtlinie nicht angelegt, `gcloud alpha monitoring policies list` zeigt es.
