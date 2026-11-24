@@ -182,9 +182,17 @@ Checkpoint: Execution grün, acht Tabellen im Dataset `raw`.
 ## 3. Eine zweite Version
 
 Die Transformation und der Scan sollen mit mehreren Versionen umgehen, also lädst du eine
-ältere nach. Öffne https://data.opentransportdata.swiss/dataset/timetable-2026-gtfs2020,
-dort steht jede Version mit eigener Download-URL. Kopiere die URL der zweitneuesten
-(Rechtsklick auf den Download-Link) und setze sie im Prompt ein. Drei Minuten.
+ältere nach. Das ist der einzige Prompt mit einer Angabe, die du selbst holst, Claude Code
+kann sie nicht nachschlagen, die Katalog-API der Seite ist für Skripte gesperrt. Zuerst die
+URL, dann der Prompt:
+
+Öffne https://data.opentransportdata.swiss/dataset/timetable-2026-gtfs2020. Dort steht
+jede Version mit eigener Download-URL, die neueste zuoberst, die hat der Job in Schritt 2
+geladen. Rechtsklick auf den Download-Link der zweitneuesten, "Link kopieren", und die URL
+im Prompt anstelle von `URL-DER-ÄLTEREN-VERSION` einsetzen. Sie sieht so aus:
+`https://data.opentransportdata.swiss/dataset/.../download/gtfs_fp2026_2026MMTT.zip`.
+Vergisst du es, fragt Claude Code nach der URL, dann schickst du sie ihm im Chat. Drei
+Minuten.
 
 ```text
 Starte den Job ingest-gtfs einmal mit einer anderen Quelle, nur für diese eine Execution,
