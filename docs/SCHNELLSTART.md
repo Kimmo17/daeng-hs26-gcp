@@ -37,6 +37,11 @@ gcloud auth application-default login
 claude
 ```
 
+Hast du auf diesem Rechner schon andere Google-Cloud-Projekte: Lege vor den zwei Logins
+eine eigene gcloud-Konfiguration an, `gcloud config configurations create daeng`. Sonst
+biegt Schritt 1 deine bestehende Konfiguration auf das Kursprojekt um. Auf einem frischen
+Rechner spielt das keine Rolle.
+
 Wie in den Lektionen: Prompt einfügen, jeden Befehl lesen und mit der Liste darunter
 vergleichen, freigeben. Sperrt der Auto-Modus einen Befehl, zeigt Claude Code ihn dir mit
 `!` am Anfang, dann liest du ihn und führst ihn selbst aus. Die IDs in den Befehlslisten
@@ -68,16 +73,19 @@ Schritte:
    billingbudgets, iam, storage, bigquery, run, cloudbuild, artifactregistry, cloudscheduler,
    logging, monitoring, datalineage, dataplex, dataform, workflows, workflowexecutions,
    bigqueryconnection, aiplatform (jeweils mit .googleapis.com).
-5. Setze europe-west6 als Standardregion für Cloud Run und Compute.
-6. Lies mit `gcloud billing accounts describe` die Währung des Rechnungskontos. Erstelle für
-   das Rechnungskonto ein Budget daeng-budget über 50 in dieser Währung, Warnungen bei 50,
-   90 und 100 Prozent, credit-types-treatment exclude-all-credits.
-7. Lege einen Bucket an: Name ist die Projekt-ID plus "-raw", Region europe-west6,
+5. Setze europe-west6 als Standardregion für Cloud Run. Schalte keine weitere API ein,
+   auch nicht, wenn gcloud danach fragt.
+6. Lege einen Bucket an: Name ist die Projekt-ID plus "-raw", Region europe-west6,
    einheitlicher Zugriff auf Bucket-Ebene.
-8. Lege die Service Agents für Dataplex und Workflows an (gcloud beta services identity
+7. Lege die Service Agents für Dataplex und Workflows an (gcloud beta services identity
    create), in einem frischen Projekt gibt es sie noch nicht.
+8. Lies mit `gcloud billing accounts describe` die Währung des Rechnungskontos. Erstelle für
+   das Rechnungskonto ein Budget daeng-budget über 50 in dieser Währung, Warnungen bei 50,
+   90 und 100 Prozent, credit-types-treatment exclude-all-credits, ohne Filter auf das
+   Projekt. Scheitert der Befehl mit USER_PROJECT_DENIED, ist die Budget-API noch nicht
+   überall aktiv: warte drei Minuten und wiederhole ihn unverändert.
 9. Zeige mir zum Schluss: Projekt-ID, Projektnummer, Rechnungskonto und Währung, die
-   Anzahl aktivierter APIs, das Budget, den Bucket.
+   Anzahl aktivierter APIs, den Bucket, das Budget.
 ```
 
 Befehle:
@@ -97,22 +105,24 @@ gcloud services enable cloudresourcemanager.googleapis.com serviceusage.googleap
   workflowexecutions.googleapis.com bigqueryconnection.googleapis.com \
   aiplatform.googleapis.com
 gcloud config set run/region europe-west6
-gcloud config set compute/region europe-west6
+gcloud storage buckets create gs://daeng-KÜRZEL-XXXX-raw --location=europe-west6 \
+  --uniform-bucket-level-access
+gcloud beta services identity create --service=dataplex.googleapis.com
+gcloud beta services identity create --service=workflows.googleapis.com
 gcloud billing accounts describe XXXXXX-XXXXXX-XXXXXX
 gcloud billing budgets create --billing-account=XXXXXX-XXXXXX-XXXXXX \
   --display-name="daeng-budget" --budget-amount=50CHF \
   --credit-types-treatment=exclude-all-credits \
   --threshold-rule=percent=0.5 --threshold-rule=percent=0.9 --threshold-rule=percent=1.0
-gcloud storage buckets create gs://daeng-KÜRZEL-XXXX-raw --location=europe-west6 \
-  --uniform-bucket-level-access
-gcloud beta services identity create --service=dataplex.googleapis.com
-gcloud beta services identity create --service=workflows.googleapis.com
 ```
 
-Bei Punkt 3 und 6 kann Claude Code stoppen und dir den Befehl zum Selbst-Ausführen geben,
+Bei Punkt 3 und 8 kann Claude Code stoppen und dir den Befehl zum Selbst-Ausführen geben,
 weil es Änderungen an Rechnungskonten als heikel einstuft. Dann führst du ihn im Terminal
 aus und sagst Claude Code, dass es weitermachen soll. `50CHF` ist bei dir `50USD`, wenn das
-Rechnungskonto in Dollar abrechnet.
+Rechnungskonto in Dollar abrechnet. Das Budget gilt für das ganze Rechnungskonto, nicht nur
+für dieses Projekt, das ist Absicht: Legst du aus Versehen ein zweites Projekt an, warnt es
+trotzdem. Das Budget kommt als letzter Punkt, weil die Budget-API nach dem Einschalten ein
+paar Minuten braucht, bis sie für das Projekt gilt.
 
 Checkpoint: In der Console steht oben links `daeng-KÜRZEL-XXXX`, und
 [Cloud Storage](https://console.cloud.google.com/storage/browser) zeigt den Bucket.
@@ -453,6 +463,11 @@ Lektion 3 nicht.
 - **Schritt 1: Claude Code stoppt beim Rechnungskonto oder beim Budget:** Den gezeigten
   Befehl selbst im Terminal ausführen, dann Claude Code sagen, es soll mit dem nächsten
   Punkt weitermachen.
+- **Schritt 1: das Budget scheitert mit `USER_PROJECT_DENIED`:** Die Budget-API ist eben
+  erst eingeschaltet und gilt noch nicht. Drei Minuten warten, denselben Befehl nochmals.
+- **Schritt 1: gcloud fragt, ob es eine API einschalten soll (`Would you like to enable
+  and retry?`):** `N`. Jede API, die der Kurs braucht, steht in Punkt 4, alles andere
+  bleibt aus.
 - **Schritt 2: `gcloud storage` stürzt mit einem Python-Fehler ab:** Alte gcloud-Version mit
   neuem Python. `gcloud components update`, Terminal neu öffnen.
 - **Schritt 2: der Build scheitert mit "permission denied" auf Artifact Registry oder Cloud
