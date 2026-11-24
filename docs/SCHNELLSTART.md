@@ -186,13 +186,15 @@ Die Transformation und der Scan sollen mit mehreren Versionen umgehen, also läd
 kann sie nicht nachschlagen, die Katalog-API der Seite ist für Skripte gesperrt. Zuerst die
 URL, dann der Prompt:
 
-Öffne https://data.opentransportdata.swiss/dataset/timetable-2026-gtfs2020. Dort steht
-jede Version mit eigener Download-URL, die neueste zuoberst, die hat der Job in Schritt 2
-geladen. Rechtsklick auf den Download-Link der zweitneuesten, "Link kopieren", und die URL
-im Prompt anstelle von `URL-DER-ÄLTEREN-VERSION` einsetzen. Sie sieht so aus:
-`https://data.opentransportdata.swiss/dataset/.../download/gtfs_fp2026_2026MMTT.zip`.
-Vergisst du es, fragt Claude Code nach der URL, dann schickst du sie ihm im Chat. Drei
-Minuten.
+Öffne https://data.opentransportdata.swiss/dataset/timetable-2026-gtfs2020. Links steht
+die Liste der Versionen, die neueste zuoberst, die hat der Job in Schritt 2 geladen. Klick
+auf die zweitneueste, `GTFS_FP2026_2026MMTT.zip`. Auf ihrer Seite steht unter dem Titel ein
+Feld "URL:" mit einem Link, der auf `/download/gtfs_fp2026_2026MMTT.zip` endet. Das ist die
+Download-URL, kopiere sie (Rechtsklick, "Link kopieren", der Knopf "Herunterladen" hat
+denselben Link) und setze sie im Prompt anstelle von `URL-DER-ÄLTEREN-VERSION` ein. Die
+Adresse der Seite selbst (`.../resource/<id>` ohne `/download/`) ist es nicht, damit lädt
+der Job eine HTML-Seite und bricht ab. Vergisst du den Platzhalter, fragt Claude Code nach
+der URL, dann schickst du sie ihm im Chat. Drei Minuten.
 
 ```text
 Starte den Job ingest-gtfs einmal mit einer anderen Quelle, nur für diese eine Execution,
