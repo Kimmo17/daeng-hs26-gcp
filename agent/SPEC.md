@@ -14,7 +14,7 @@ Anweisung an das Modell: allgemein, ohne Nennung bestimmter Vorfälle. Vorgehen 
 
 Werkzeuge: feste Namen aus der Umgebung (Projekt, Region, Workflow, Scan, erlaubte Jobs), knappe Antworten (Felder, Obergrenzen: 5 Executions, 40 Logzeilen, 20 Audit-Einträge, 3 Scan-Jobs, 5 Builds, 10 Load-Jobs), Fehler als Ergebnis statt Exception. Das Audit-Werkzeug rechnet bei SetIamPolicy das Delta der Bindungen und bei UpdateDataScan die geänderten Regeln gegenüber der vorigen Fassung aus.
 
-Nachweis: pro Lauf jeden Werkzeugaufruf mit Argumenten, Länge und den ersten 300 Zeichen der Antwort in ops.incidents.tool_calls, dazu Modellversion, Token, Dauer. Obergrenze 30 Modellaufrufe pro Diagnose.
+Nachweis: pro Lauf jeden Werkzeugaufruf mit Argumenten, Länge und den ersten 300 Zeichen der Antwort in ops.incidents.tool_calls, dazu Modellversion, Token, Dauer. Obergrenze 30 Modellaufrufe pro Diagnose, und ein Zeitbudget von 10 Minuten unterhalb des Task-Timeouts: läuft es ab, schreibt der Job trotzdem eine Zeile, Kategorie unklar, Konfidenz tief, mit den Werkzeugaufrufen bis dahin und dem Hinweis, die Triage zu wiederholen. Der Agent endet nie ohne Zeile. Im Log steht pro Modellaufruf eine Zeile MODELL mit der Zeit seit dem vorigen, damit man sieht, ob das Modell oder die Werkzeuge langsam waren.
 
 Selbsttest: main.py --selftest ruft jedes Werkzeug einmal auf und meldet pro Werkzeug OK oder den Fehler. Das ist die Prüfung der Rollen, bevor der erste Vorfall kommt.
 

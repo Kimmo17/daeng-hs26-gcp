@@ -41,6 +41,10 @@ OPS_DATASET = os.environ.get("OPS_DATASET", "ops")
 # Obergrenze für Modellaufrufe pro Diagnose. Ein Vorfall braucht 5 bis 20, die Grenze schützt
 # vor einer Schleife, nicht vor Kosten: die entstehen durch die Werkzeugantworten im Prompt.
 MAX_LLM_CALLS = int(os.environ.get("MAX_LLM_CALLS", "30"))
+# Zeitbudget für den Lauf des Modells, in Sekunden. Läuft es ab, schreibt der Job trotzdem
+# eine Zeile (Kategorie unklar, mit dem, was er bis dahin gelesen hat), statt am Task-Timeout
+# des Jobs still zu sterben. Muss unter dem Task-Timeout des Cloud-Run-Jobs liegen.
+TIME_BUDGET_SECONDS = int(os.environ.get("TIME_BUDGET_SECONDS", "600"))
 
 # Das SDK warnt bei jeder Antwort mit einem Werkzeugaufruf, dass sie keinen Text enthält.
 # Das ist hier der Normalfall, die Zeile hat keinen Wert.
@@ -124,7 +128,13 @@ def build_agent(stats: dict) -> LlmAgent:
                      "execute_sql"])
 
     def before_model(callback_context, llm_request):
+        # Eine Logzeile pro Modellaufruf mit der Zeit seit dem vorigen: so sieht man im Log,
+        # ob das Modell oder die Werkzeuge langsam sind.
+        now = time.monotonic()
         stats["model_calls"] += 1
+        since = now - stats.get("last_model_call", now)
+        stats["last_model_call"] = now
+        print(f"MODELL Aufruf {stats['model_calls']}, {since:.0f} s seit dem vorigen", flush=True)
 
     # Jeden Werkzeugaufruf mitschreiben: Name, Argumente, Länge und Anfang der Antwort. Das ist
     # der Nachweis, was der Agent gelesen hat, und landet in ops.incidents.
@@ -141,30 +151,54 @@ def build_agent(stats: dict) -> LlmAgent:
 
 
 # 4. Der Lauf.
-async def triage(execution_id: str) -> tuple[Diagnose, dict]:
-    stats = {"model_calls": 0, "calls": []}
+async def triage(execution_id: str, stats: dict) -> Diagnose:
     runner = InMemoryRunner(agent=build_agent(stats), app_name="triage")
     session = await runner.session_service.create_session(app_name="triage", user_id="job")
     msg = types.Content(role="user", parts=[types.Part(
         text=f"Fehlgeschlagene Execution von {tools.WORKFLOW}: {execution_id}")])
-    usage = defaultdict(int)
-    model_version = None
+    # Token und Modellversion landen direkt in stats, damit sie auch bei einem Abbruch da sind.
+    usage = stats["usage"]
     t0 = time.monotonic()
     async for ev in runner.run_async(user_id="job", session_id=session.id, new_message=msg,
                                      run_config=RunConfig(max_llm_calls=MAX_LLM_CALLS)):
         if ev.usage_metadata and not ev.partial:
             u = ev.usage_metadata
-            usage["prompt"] += u.prompt_token_count or 0
-            usage["output"] += (u.candidates_token_count or 0) + (u.thoughts_token_count or 0)
-        model_version = getattr(ev, "model_version", None) or model_version
+            usage["prompt"] = usage.get("prompt", 0) + (u.prompt_token_count or 0)
+            usage["output"] = usage.get("output", 0) + (u.candidates_token_count or 0) + (u.thoughts_token_count or 0)
+        stats["model_version"] = getattr(ev, "model_version", None) or stats["model_version"]
         for c in ev.get_function_calls():
             print(f"WERKZEUG {c.name} {json.dumps(dict(c.args or {}), ensure_ascii=False)[:200]}", flush=True)
     stats["seconds"] = round(time.monotonic() - t0, 1)
-    stats["usage"] = dict(usage)
-    stats["model_version"] = model_version or MODEL
     # Die Diagnose liegt validiert im Session-State, unter dem output_key des Agenten.
     s = await runner.session_service.get_session(app_name="triage", user_id="job", session_id=session.id)
-    return Diagnose.model_validate(s.state["diagnose"]), stats
+    return Diagnose.model_validate(s.state["diagnose"])
+
+
+async def triage_with_budget(execution_id: str) -> tuple[Diagnose, dict]:
+    # stats wird von den Callbacks gefüllt und bleibt auch dann erhalten, wenn der Lauf
+    # abgebrochen wird. Darum liegt es hier und nicht in triage().
+    stats = {"model_calls": 0, "calls": [], "usage": {}, "model_version": MODEL}
+    t0 = time.monotonic()
+    try:
+        d = await asyncio.wait_for(triage(execution_id, stats), timeout=TIME_BUDGET_SECONDS)
+    except asyncio.TimeoutError:
+        stats["seconds"] = round(time.monotonic() - t0, 1)
+        tools_used = [c["tool"] for c in stats["calls"]]
+        print(f"ZEITBUDGET {TIME_BUDGET_SECONDS} s überschritten nach {stats['model_calls']} "
+              f"Modellaufrufen und {len(tools_used)} Werkzeugaufrufen", flush=True)
+        d = Diagnose(
+            category="unklar", confidence="tief",
+            what_happened=(f"Die Triage hat ihr Zeitbudget von {TIME_BUDGET_SECONDS} Sekunden überschritten, "
+                           f"nach {stats['model_calls']} Modellaufrufen und {len(tools_used)} Werkzeugaufrufen. "
+                           "Es liegt keine Diagnose vor."),
+            where_to_look=[f"Werkzeuge bis zum Abbruch: {', '.join(tools_used) or 'keine'}",
+                           "tool_calls dieser Zeile: Argumente und Anfang jeder Antwort",
+                           "Log der triage-Execution: Dauer pro Modellaufruf (Zeilen MODELL)"],
+            facts=[], inferences=[],
+            cause="Keine Diagnose, Zeitbudget überschritten.",
+            proposed_fix=("Triage nochmals starten. Bleibt es dabei, die Execution von Hand prüfen, "
+                          "tool_calls zeigt, was der Agent schon gelesen hat."))
+    return d, stats
 
 
 def wait_until_finished(execution_id: str, max_seconds: int = 120):
@@ -296,7 +330,7 @@ def main():
         return
     execution_id = sys.argv[1]
     wait_until_finished(execution_id)
-    d, stats = asyncio.run(triage(execution_id))
+    d, stats = asyncio.run(triage_with_budget(execution_id))
     print_report(d, stats)
     if os.environ.get("OPS_WRITE", "1") != "0":
         write_row(execution_id, d, stats)

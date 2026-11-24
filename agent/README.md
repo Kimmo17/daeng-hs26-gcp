@@ -15,6 +15,7 @@ Selbsttest der Rollen: `--args --selftest`.
 Umgebungsvariablen: `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION` (Vertex, `eu`),
 `GOOGLE_GENAI_USE_VERTEXAI=1`. Optional `MODEL` (Standard `gemini-3.8-flash`), `PIPELINE_REGION`,
 `WORKFLOW_NAME`, `DATASCAN_NAME`, `PIPELINE_JOBS`, `OPS_DATASET`, `MAX_LLM_CALLS` (Standard 30),
+`TIME_BUDGET_SECONDS` (Standard 600, danach eine Zeile mit Kategorie unklar statt keiner),
 `OPS_WRITE=0` zum Testen ohne Schreiben.
 
 Rollen des Service-Accounts `triage-sa`, alle auf dem Projekt, ausser der letzten:
