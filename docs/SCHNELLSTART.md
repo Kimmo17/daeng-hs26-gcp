@@ -317,8 +317,9 @@ Run Invoker auf den Jobs ingest-gtfs und transform-gtfs, Cloud Run Viewer auf de
 Dataplex DataScan Editor auf dem Scan trips-quality (per get-iam-policy, Datei ergänzen,
 set-iam-policy mit etag), Logs Writer auf dem Projekt. Deploye dann pipeline/workflow.yaml
 als Workflow gtfs-pipeline in europe-west6 mit workflow-sa und call-log-level
-log-all-calls. Starte ihn einmal und warte auf das Ende, das dauert etwa sechs Minuten.
-Zeige mir das Ergebnis.
+log-all-calls. Warte danach zwei Minuten (sleep 120), die Rollen brauchen so lange, bis
+sie überall gelten. Starte den Workflow dann einmal und warte auf das Ende, das dauert
+etwa sechs Minuten. Zeige mir das Ergebnis.
 ```
 
 Befehle:
@@ -346,8 +347,13 @@ gcloud workflows deploy gtfs-pipeline --source=pipeline/workflow.yaml \
   --location=europe-west6 \
   --service-account=workflow-sa@daeng-KÜRZEL-XXXX.iam.gserviceaccount.com \
   --call-log-level=log-all-calls
+sleep 120
 gcloud workflows run gtfs-pipeline --location=europe-west6
 ```
+
+Die zwei Minuten sind kein Schmuck: Startet der Workflow früher, scheitert er in
+`run_ingest` mit 403, weil `workflow-sa` die Rolle auf dem Job noch nicht überall hat.
+Passiert das trotzdem, nochmals starten, sonst nichts.
 
 Das Ergebnis ist ein kleines Dict mit der Ingest-Execution, dem Scan-Job, `passed: true`
 und der Transform-Execution.
