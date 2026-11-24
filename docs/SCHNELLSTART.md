@@ -226,10 +226,11 @@ und wird nie committet, und Lektion 4 braucht sie so. Drei Minuten.
 
 ```text
 Ersetze in checks/trips_quality.yaml die Projekt-ID daeng-pect-olw5 überall durch meine
-Projekt-ID, sonst nichts. Lege das Dataset checks in europe-west6 an. Lege einen
+Projekt-ID, sonst nichts. Die Änderung bleibt in meinem Klon: nicht committen, nicht
+zurücksetzen, auch nicht am Ende. Lege das Dataset checks in europe-west6 an. Lege einen
 Dataplex-Data-Quality-Scan trips-quality in europe-west6 auf die Tabelle raw.trips an, mit
-dem Regelwerk checks/trips_quality.yaml. Starte den Scan, warte bis er fertig ist, und
-zeige mir das Ergebnis pro Regel.
+dem Regelwerk checks/trips_quality.yaml, das Anlegen dauert zwei bis drei Minuten. Starte
+den Scan, warte bis er fertig ist, und zeige mir das Ergebnis pro Regel.
 ```
 
 Befehle:
@@ -245,7 +246,12 @@ gcloud dataplex datascans jobs describe JOB-ID --datascan=trips-quality \
   --location=europe-west6 --view=FULL
 ```
 
-Checkpoint: fünf Regeln, alle `passed: true`.
+Beim Anlegen des Scans zeigt gcloud zwei bis drei Minuten lang nur eine Reihe Punkte. Das
+ist kein Hänger, nicht abbrechen. Bei den zwei SQL-Regeln fehlt im Ergebnis das Feld
+`assertionRowCount`: Dataplex lässt es weg, wenn es 0 ist, und 0 heisst keine Verstösse.
+
+Checkpoint: fünf Regeln, alle `passed: true`, und `git status` zeigt
+`checks/trips_quality.yaml` als geändert. So bleibt es.
 
 ---
 
