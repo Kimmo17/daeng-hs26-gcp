@@ -281,7 +281,10 @@ Standardabfragen, aber keinen Vorfall. Die Werkzeuge lesen Workflow, Jobs, Logs,
 Scan, Builds und Load-Jobs, keines ändert etwas. Die Zeile schreibt das Programm, nicht das
 Modell. `MAX_LLM_CALLS` begrenzt die Anzahl Modellaufrufe pro Diagnose auf 30, gegen eine
 Schleife, nicht gegen Kosten. Die Kosten entstehen durch die Werkzeugantworten im Prompt,
-und die begrenzen die Werkzeuge selbst.
+und die begrenzen die Werkzeuge selbst. Daneben gibt es ein Zeitbudget von zehn Minuten:
+Läuft es ab, schreibt der Job trotzdem eine Zeile, Kategorie `unklar`, mit dem, was er bis
+dahin gelesen hat. Der Agent endet nie ohne Zeile, das ist die Regel für alles, was
+unbeaufsichtigt läuft.
 
 Was `tool_calls` ist: Der Agent schreibt zu jeder Diagnose mit, welche Werkzeuge er in
 welcher Reihenfolge aufgerufen hat, mit Argumenten und dem Anfang jeder Antwort. Das ist der
@@ -986,6 +989,13 @@ schauen könnte und nicht auf `cause`.
   Rolle setzen, eine Minute warten, Selbsttest nochmals.
 - **Schritt 4: `SELFTEST` meldet `ERROR` bei allen Werkzeugen gleichzeitig:** Die Rollen
   sind gerade erst gesetzt und gelten noch nicht. Eine Minute, dann nochmals.
+- **Die Zeile in `ops.incidents` hat Kategorie `unklar` und "Zeitbudget überschritten":**
+  Das Modell war langsam, nicht der Agent falsch. Der Job hat nach zehn Minuten abgebrochen
+  und die Zeile mit dem geschrieben, was er bis dahin gelesen hatte. Im Log der
+  `triage`-Execution steht pro Modellaufruf eine Zeile `MODELL` mit der Dauer. Sind es
+  Dutzende Sekunden pro Aufruf, drosselt Vertex AI das Projekt gerade, oder die Region ist
+  langsam: zehn Minuten warten, Triage nochmals starten. Die zweite Zeile ist dann die
+  Diagnose, die erste bleibt als Beleg.
 - **Die Triage endet ohne Bericht, im Log steht `max_llm_calls` oder
   `LlmCallsLimitExceeded`:** Der Agent hat 30 Modellaufrufe gebraucht, ohne fertig zu
   werden. Selten. Nochmals starten, der zweite Lauf geht meist einen kürzeren Weg. Kommt es
