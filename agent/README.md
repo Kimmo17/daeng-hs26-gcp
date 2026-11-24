@@ -1,7 +1,7 @@
 # agent: Triage einer fehlgeschlagenen Pipeline
 
 Cloud-Run-Job `triage`: bekommt die ID einer fehlgeschlagenen Execution des Workflows
-`gtfs-pipeline`, liest mit zehn Lese-Werkzeugen nach (Execution, Jobs und ihre Logs, Audit-Log,
+`gtfs-pipeline`, liest mit zehn eigenen Lese-Werkzeugen und dem BigQuery-Werkzeug von ADK nach (Execution, Jobs und ihre Logs, Audit-Log,
 Scan-Spezifikation und -Ergebnisse, Builds, Load-Jobs, BigQuery lesend), und schreibt eine Diagnose
 als Zeile nach `ops.incidents`: Kategorie, was geschah, wo nachschauen, Fakten, Schlüsse, Ursache,
 vorgeschlagene Massnahme, Konfidenz. Er führt nichts aus.

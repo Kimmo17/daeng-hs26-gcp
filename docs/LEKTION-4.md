@@ -15,7 +15,7 @@ sondern selbst entscheidet, was es als Nächstes nachschaut, ein Werkzeug aufruf
 Ergebnis liest, und wieder entscheidet, bis es genug weiss. In Lektion 3 war das Modell eine
 Funktion: ein Text rein, Spalten raus, einmal. Heute hat es Werkzeuge: die Execution lesen,
 die Logs eines Jobs, das Audit-Log, die Regeln des Scans, die Load-Jobs einer Tabelle. Zehn
-Werkzeuge, und alle zehn lesen nur.
+eigene Werkzeuge und das BigQuery-Werkzeug von ADK, und alle lesen nur.
 
 Das ist die Entscheidung dieser Lektion, und sie ist dieselbe wie in Lektion 3, eine Stufe
 höher: Das Modell liest, der Mensch entscheidet. Der Agent darf alles lesen und darf eine
@@ -269,8 +269,9 @@ Prompt:
 
 ```text
 Lies agent/main.py, agent/tools.py und agent/SPEC.md. Erkläre mir in je einem Satz: was die
-Klasse Diagnose festlegt, was in INSTRUCTION steht und was absichtlich nicht, welche zehn
-Werkzeuge der Agent hat und was keines davon kann, wer die Zeile in ops.incidents schreibt,
+Klasse Diagnose festlegt, was in INSTRUCTION steht und was absichtlich nicht, welche
+Werkzeuge der Agent hat (die eigenen und die von ADK) und was keines davon kann, wer die
+Zeile in ops.incidents schreibt,
 und was MAX_LLM_CALLS begrenzt. Ändere nichts.
 ```
 
@@ -289,7 +290,8 @@ gelesen hat.
 
 Console: noch nichts.
 
-Checkpoint: Claude Code hat die vier Teile, die zehn Werkzeuge und die Grenze genannt.
+Checkpoint: Claude Code hat die vier Teile, die zehn eigenen Werkzeuge plus BigQuery und
+die Grenze genannt.
 
 ---
 
