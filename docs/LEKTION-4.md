@@ -739,10 +739,11 @@ Prompt 2:
 
 ```text
 Lies incidents/README.md, Abschnitt D. Entferne dann workflow-sa die Rolle Cloud Run Invoker
-auf dem Job ingest-gtfs und sag mir die Uhrzeit. Gib workflow-sa Cloud Run Invoker auf dem
-Job triage. Deploye pipeline/workflow-gtfs-triage.yaml als Workflow gtfs-pipeline in
-europe-west6, derselbe Name wie bisher, mit workflow-sa und call-log-level log-all-calls.
-Starte ihn noch nicht.
+auf dem Job ingest-gtfs und sag mir die Uhrzeit. Gib workflow-sa auf dem Job triage die
+Rolle roles/run.jobsExecutorWithOverrides, nicht Invoker: der Workflow startet triage mit
+einem Argument, und das ist ein Override. Deploye pipeline/workflow-gtfs-triage.yaml als
+Workflow gtfs-pipeline in europe-west6, derselbe Name wie bisher, mit workflow-sa und
+call-log-level log-all-calls. Starte ihn noch nicht.
 ```
 
 Befehle:
@@ -754,13 +755,19 @@ gcloud run jobs remove-iam-policy-binding ingest-gtfs --region=europe-west6 \
 
 gcloud run jobs add-iam-policy-binding triage --region=europe-west6 \
   --member="serviceAccount:workflow-sa@daeng-KÜRZEL-XXXX.iam.gserviceaccount.com" \
-  --role="roles/run.invoker"
+  --role="roles/run.jobsExecutorWithOverrides"
 
 gcloud workflows deploy gtfs-pipeline --source=pipeline/workflow-gtfs-triage.yaml \
   --location=europe-west6 \
   --service-account=workflow-sa@daeng-KÜRZEL-XXXX.iam.gserviceaccount.com \
   --call-log-level=log-all-calls
 ```
+
+Warum nicht Invoker wie bei den anderen Jobs: Invoker erlaubt `run.jobs.run`, einen Job so
+starten, wie er deployt ist. Die Execution-ID als Argument ist ein Override, und dafür gibt
+es eine eigene Berechtigung, `run.jobs.runWithOverrides`, in der Rolle Cloud Run Jobs
+Executor with Overrides. Wer dem Workflow nur Invoker gibt, sieht im Log `Triage nicht
+gestartet` mit einem 403, und die E-Mail kommt trotzdem, das ist der innere `try`-Block.
 
 Console, während du wartest: [Workflows](https://console.cloud.google.com/workflows) →
 `gtfs-pipeline` → Tab Quelle: eine neue Revision, im Diagramm der `try`-Block mit dem
@@ -1023,9 +1030,10 @@ schauen könnte und nicht auf `cause`.
 - **Schritt 9: die Execution ist grün statt rot:** Der Rollenentzug galt noch nicht. Sechs
   Minuten warten, dann nochmals starten. Die Rolle nicht nochmals entfernen, sie ist weg.
 - **Schritt 9: die Execution ist rot, aber keine `triage`-Execution erscheint:**
-  `workflow-sa` fehlt Cloud Run Invoker auf `triage`, oder der Workflow läuft noch in der
-  alten Revision. Im Log der Workflow-Execution steht dann `Triage nicht gestartet` mit dem
-  Grund. [Workflows](https://console.cloud.google.com/workflows) → Tab Quelle zeigt die
+  `workflow-sa` fehlt Cloud Run Jobs Executor with Overrides auf `triage` (Invoker reicht
+  nicht, siehe Schritt 9), oder der Workflow läuft noch in der alten Revision. Im Log der
+  Workflow-Execution steht dann `Triage nicht gestartet` mit dem Grund, bei der Rolle
+  `Permission 'run.jobs.runWithOverrides' denied`. [Workflows](https://console.cloud.google.com/workflows) → Tab Quelle zeigt die
   aktive Revision.
 - **Schritt 9: die Triage läuft, aber `ops.incidents` bekommt keine Zeile:** Log der
   `triage`-Execution lesen. Steht dort der Bericht, aber danach ein Fehler bei `load_table`,

@@ -115,7 +115,9 @@ main:
           steps:
             - start_triage:
                 # Den Job starten und nicht auf ihn warten (skip_polling). Die Execution-ID geht
-                # als Argument an den Container, dort landet sie in sys.argv.
+                # als Argument an den Container, dort landet sie in sys.argv. Das Argument ist
+                # ein Override, dafür braucht workflow-sa auf dem Job triage die Rolle
+                # roles/run.jobsExecutorWithOverrides, Invoker reicht nicht.
                 # Eigener try-Block: scheitert der Start der Triage, darf das den eigentlichen
                 # Fehler nicht verdecken. Dann steht eine Warnung im Log, und der Alarm kommt trotzdem.
                 try:

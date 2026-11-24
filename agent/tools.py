@@ -16,6 +16,7 @@ Drei Regeln gelten für jedes Werkzeug hier:
 import functools
 import json
 import os
+import re
 from datetime import datetime, timedelta, timezone
 
 PROJECT = os.environ["GOOGLE_CLOUD_PROJECT"]
@@ -25,6 +26,9 @@ DATASCAN = os.environ.get("DATASCAN_NAME", "trips-quality")
 JOBS = [j.strip() for j in os.environ.get("PIPELINE_JOBS", "ingest-gtfs,transform-gtfs").split(",")]
 
 _WF = f"projects/{PROJECT}/locations/{REGION}/workflows/{WORKFLOW}"
+# Schritte im except-Zweig des Workflows: scheitert die Execution dort, ist das der Ort des
+# raise, nicht die Ursache.
+_EXCEPT_STEPS = {"rethrow", "start_triage", "log_triage_error", "pipeline"}
 _SCAN = f"projects/{PROJECT}/locations/{REGION}/dataScans/{DATASCAN}"
 
 
@@ -77,6 +81,13 @@ def get_workflow_execution(execution_id: str) -> dict:
     if ex.error and ex.error.payload:
         steps = [e.step for e in ex.error.stack_trace.elements] if ex.error.stack_trace else []
         out["failed_step"] = steps[0] if steps else None
+        if out["failed_step"] in _EXCEPT_STEPS:
+            # Der Workflow hat den Fehler in seinem except-Zweig weitergeworfen. Die Execution
+            # nennt dann den Schritt des raise, nicht den, der scheiterte. Den verrät die Meldung.
+            out["failed_step"] = None
+            out["note"] = (f"Fehler im except-Zweig weitergeworfen (Schritt {steps[0]}). Der Schritt, "
+                           "der scheiterte, steht nicht in der Execution: aus error_message und "
+                           "resource_in_error schliessen.")
         out["error_context"] = (ex.error.context or "").split("\n")[0][:200]
         try:
             p = json.loads(ex.error.payload)
@@ -86,6 +97,9 @@ def get_workflow_execution(execution_id: str) -> dict:
             out["error_message"] = (err.get("message") or p.get("message") or str(p))[:500]
         except (ValueError, AttributeError):
             out["error_message"] = ex.error.payload[:500]
+        m = re.search(r"(jobs|dataScans|workflows)/([A-Za-z0-9_-]+)", out.get("error_message") or "")
+        if m:
+            out["resource_in_error"] = f"{m.group(1)}/{m.group(2)}"
     if ex.result:
         try:
             out["result"] = json.loads(ex.result)

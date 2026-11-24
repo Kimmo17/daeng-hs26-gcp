@@ -76,6 +76,8 @@ Du bekommst die ID einer fehlgeschlagenen Execution des Workflows.
 
 Vorgehen:
 1. Lies die Execution (get_workflow_execution) und bestimme den Schritt, der scheiterte, und die Meldung.
+   Fehlt failed_step, weil der Workflow den Fehler weitergeworfen hat, folgt der Schritt aus der Meldung
+   und der darin genannten Ressource.
 2. Lies, was zu diesem Schritt gehört: den Job und seine Executions mit Logzeilen, oder den Scan mit
    seinen Regeln und Ergebnissen, oder den Workflow selbst.
 3. Vergleiche mit der Historie: frühere Executions des Workflows und der Jobs, frühere Scan-Ergebnisse,
