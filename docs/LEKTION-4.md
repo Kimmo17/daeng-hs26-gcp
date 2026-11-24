@@ -72,7 +72,8 @@ flowchart LR
 Voraussetzung ist Lektion 2: `gtfs-pipeline` läuft mit Qualitätsschranke, `workflow-sa` ist
 da, der Alarm schickt E-Mails, und in `raw.trips` liegen mindestens zwei Versionen. Aus
 Lektion 3 brauchst du nur die Verbindung `vertex-ai`, für einen einzigen Aufruf in Schritt
-2. Wer Lektion 3 nicht gemacht hat, legt sie dort in drei Befehlen an.
+2. Wer Lektion 3 nicht gemacht hat, legt sie dort in drei Befehlen an. Wer Lektion 1 und 2
+nicht gemacht hat: [SCHNELLSTART.md](SCHNELLSTART.md) stellt diesen Stand in einer Stunde her.
 
 Im Terminal, im Ordner `daeng-hs26-gcp`:
 

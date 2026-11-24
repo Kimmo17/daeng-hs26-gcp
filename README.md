@@ -10,6 +10,8 @@ Reihenfolge:
 5. [docs/LEKTION-3.md](docs/LEKTION-3.md), ein Sprachmodell als Funktion in der Pipeline
 6. [docs/LEKTION-4.md](docs/LEKTION-4.md), der Agent im Betrieb
 
+Wer bei Lektion 3 oder 4 einsteigt: [docs/SCHNELLSTART.md](docs/SCHNELLSTART.md) stellt den Stand nach Lektion 2 in einer Stunde her.
+
 Ordner:
 - `ingest/` Cloud-Run-Job, der die Daten lädt (Lektion 1)
 - `alerts/` Cloud-Run-Job, der die Bahnverkehrsinformationen der SBB lädt (Lektion 3)

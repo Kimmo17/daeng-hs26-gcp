@@ -62,6 +62,8 @@ flowchart LR
 Voraussetzung ist Lektion 2: `transform/` enthält dein dbt-Projekt, der Job `transform-gtfs`
 läuft, `marts.trips_per_route_day` existiert, und `workflow-sa`, `scheduler-sa` und der Alarm
 sind da. Welche Fahrplan-Version in `raw` liegt, spielt heute keine Rolle, es ist die neueste.
+Wer Lektion 1 und 2 nicht gemacht hat: [SCHNELLSTART.md](SCHNELLSTART.md) stellt diesen
+Stand in einer Stunde her.
 
 Im Terminal, im Ordner `daeng-hs26-gcp`:
 
