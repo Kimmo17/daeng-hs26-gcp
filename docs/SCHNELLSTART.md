@@ -258,16 +258,14 @@ Checkpoint: fünf Regeln, alle `passed: true`, und `git status` zeigt
 ## 5. Die Transformation
 
 In Lektion 2 lässt man Claude Code das dbt-Projekt aus `transform/SPEC.md` erzeugen und
-liest es. Hier nimmst du die Musterlösung. Im Terminal, nicht in Claude Code:
-
-```bash
-cp -r referenz/transform/. transform/
-```
-
-Dann in Claude Code. Fünf Minuten: drei für den Build, eine für dbt.
+liest es. Hier nimmst du die Musterlösung aus `referenz/`. Claude Code fasst diesen Ordner
+nur an, wenn du es ausdrücklich verlangst, darum steht es so im Prompt. Fünf Minuten: drei
+für den Build, eine für dbt.
 
 ```text
-Lege einen Service-Account transform-sa an, warte, bis describe ihn zeigt, und gib ihm
+Kopiere die Musterlösung referenz/transform/ vollständig nach transform/ (cp -r
+referenz/transform/. transform/), das verlange ich ausdrücklich. Committe nichts. Lege
+einen Service-Account transform-sa an, warte, bis describe ihn zeigt, und gib ihm
 genau zwei Rechte auf dem Projekt: BigQuery Data Editor und BigQuery Job User. Deploye
 transform/ als Cloud-Run-Job transform-gtfs in europe-west6, gebaut aus dem Quellcode, mit
 transform-sa, 1 GiB Speicher, 1 CPU, 20 Minuten Timeout, ohne Wiederholung, mit der
@@ -280,6 +278,7 @@ von n_trips.
 Befehle:
 
 ```bash
+cp -r referenz/transform/. transform/
 gcloud iam service-accounts create transform-sa --display-name="Transform-Job dbt"
 gcloud projects add-iam-policy-binding daeng-KÜRZEL-XXXX \
   --member="serviceAccount:transform-sa@daeng-KÜRZEL-XXXX.iam.gserviceaccount.com" \
