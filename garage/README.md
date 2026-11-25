@@ -19,6 +19,14 @@ data/version=2026-11-17/*.csv   →  gs://<projekt>-raw/garage/version=2026-11-1
                                 →  3 Marts für den Inhaber                           (Serving)
 ```
 
+## Neue Lieferung einspielen
+
+1. Ordner `garage/data/version=JJJJ-MM-TT/` mit den vier CSV anlegen (gleiche Dateinamen und Kopfzeilen wie bisher, siehe `ingest-job/schema.json`).
+2. Committen: `git add garage/data/version=JJJJ-MM-TT && git commit -m "Lieferung JJJJ-MM-TT"`.
+3. `bash garage/neue-version.sh JJJJ-MM-TT` prüft die Lieferung, lädt sie in den Bucket, startet den Workflow `garage-pipeline` und zeigt danach `mart_wartezeit_woche`.
+
+Eine Version ist unveränderlich: Liegt sie schon im Bucket und unterscheidet sich, bricht das Skript ab. Für eine Korrektur gibt es eine neue Version mit neuem Datum. Details in `pipeline/README.md`.
+
 ## Dateien
 
 | Datei | Inhalt |

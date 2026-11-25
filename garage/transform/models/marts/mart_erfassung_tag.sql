@@ -16,7 +16,8 @@ verglichen AS (
         r.datum,
         r.anrufe_angenommen,
         COALESCE(e.eintraege_telefon, 0) AS eintraege_telefon,
-        SAFE_DIVIDE(COALESCE(e.eintraege_telefon, 0), r.anrufe_angenommen) AS verhaeltnis_roh
+        SAFE_DIVIDE(COALESCE(e.eintraege_telefon, 0), r.anrufe_angenommen) AS verhaeltnis_roh,
+        r.datenversion
     FROM {{ ref('stg_anrufe') }} AS r
     LEFT JOIN eintraege AS e
         ON e.datum = r.datum
@@ -29,5 +30,6 @@ SELECT
     ROUND(verhaeltnis_roh, 3) AS verhaeltnis,
     -- Verglichen wird der ungerundete Wert, damit die Rundung keinen Tag über die Schwelle hebt.
     CASE WHEN verhaeltnis_roh < {{ var('schwelle_erfassung') }} THEN 'prüfen' ELSE 'ok' END AS befund,
-    '{{ var("datenstatus") }}' AS datenstatus
+    '{{ var("datenstatus") }}' AS datenstatus,
+    datenversion
 FROM verglichen

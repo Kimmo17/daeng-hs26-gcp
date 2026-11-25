@@ -1,0 +1,7 @@
+# Lokale Umgebung und Ergebnisse früherer Läufe gehören nicht ins Image: gross und an den Laptop gebunden.
+.venv
+target
+logs
+.user.yml
+Dockerfile
+.dockerignore

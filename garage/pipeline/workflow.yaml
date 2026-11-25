@@ -1,0 +1,68 @@
+# Workflow garage-pipeline: eine Lieferung laden, dann die Marts neu bauen.
+#
+# Aufruf mit {"version": "JJJJ-MM-TT"}, normalerweise über garage/neue-version.sh.
+# Die Schranke ist die Reihenfolge: garage-transform startet nur, wenn garage-ingest gelungen ist.
+# garage-ingest prüft Dateien, Kopfzeilen und Zeilenzahlen und bricht bei einer Abweichung ab;
+# dann läuft dbt nicht, und die Marts behalten die letzte gute Version.
+# Keine Wiederholungen: eine fehlerhafte Lieferung wird durch einen zweiten Versuch nicht besser.
+# Keine Parallelität: die Transformation braucht das Ergebnis des Ingest.
+
+main:
+  params: [args]
+  steps:
+    - init:
+        assign:
+          # Projekt und Region liefert Workflows zur Laufzeit, damit keine ID im Code steht.
+          - project: ${sys.get_env("GOOGLE_CLOUD_PROJECT_ID")}
+          - location: ${sys.get_env("GOOGLE_CLOUD_LOCATION")}
+          - ingest_job: "garage-ingest"
+          - transform_job: "garage-transform"
+          - version: ""
+
+    - read_version:
+        # Ein Aufruf ganz ohne Daten übergibt args als null; dann bleibt version leer, und check_version meldet es.
+        switch:
+          - condition: ${args != null}
+            assign:
+              - version: ${default(map.get(args, "version"), "")}
+
+    - check_version:
+        # Früh und mit klarer Meldung abbrechen, statt den Ingest mit einer leeren Version zu starten.
+        switch:
+          - condition: ${not(text.match_regex(version, "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"))}
+            raise: '${"Eingabe fehlt oder falsch: erwartet {\"version\": \"JJJJ-MM-TT\"}, erhalten: " + json.encode_to_string(args)}'
+
+    - run_ingest:
+        # Der Connector startet den Job mit überschriebener Umgebungsvariable VERSION und wartet,
+        # bis die Execution fertig ist. Scheitert sie, wirft er einen Fehler, und der Workflow endet hier.
+        call: googleapis.run.v2.projects.locations.jobs.run
+        args:
+          name: ${"projects/" + project + "/locations/" + location + "/jobs/" + ingest_job}
+          body:
+            overrides:
+              containerOverrides:
+                - env:
+                    - name: VERSION
+                      value: ${version}
+          connector_params:
+            # Der Job selbst darf 10 Minuten laufen; der Workflow wartet etwas länger.
+            timeout: 900
+        result: ingest_execution
+
+    - run_transform:
+        # Ohne Override: dbt wählt die Version selbst aus dem ladeprotokoll (neueste vollständige),
+        # deshalb bleibt ein späterer Lauf einer älteren Version ohne Wirkung auf die Marts.
+        call: googleapis.run.v2.projects.locations.jobs.run
+        args:
+          name: ${"projects/" + project + "/locations/" + location + "/jobs/" + transform_job}
+          connector_params:
+            # Der Job selbst darf 15 Minuten laufen.
+            timeout: 1200
+        result: transform_execution
+
+    - done:
+        # Die Namen führen in Console und Logs direkt zu den einzelnen Läufen.
+        return:
+          version: ${version}
+          ingest_execution: ${ingest_execution.response.name}
+          transform_execution: ${transform_execution.response.name}

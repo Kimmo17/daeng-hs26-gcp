@@ -12,8 +12,9 @@ SELECT
     ROUND(SAFE_DIVIDE(COUNTIF(a.ist_angenommen = FALSE), COUNT(*)), 3) AS ablehnungsquote,
     COUNTIF(NOT a.ist_plausibel) AS n_unplausibel,
     COUNT(a.wartezeit_arbeitstage) >= {{ var('mindestfallzahl') }} AS ist_aussagekraeftig,
-    '{{ var("datenstatus") }}' AS datenstatus
+    '{{ var("datenstatus") }}' AS datenstatus,
+    a.datenversion
 FROM {{ ref('fct_anfrage') }} AS a
 JOIN {{ ref('dim_datum') }} AS d
     ON d.datum = a.anfrage_datum
-GROUP BY d.iso_jahr, d.iso_woche
+GROUP BY d.iso_jahr, d.iso_woche, a.datenversion

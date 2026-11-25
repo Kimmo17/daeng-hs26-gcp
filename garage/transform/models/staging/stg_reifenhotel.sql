@@ -8,5 +8,9 @@ SELECT
     UPPER(REPLACE(dimension, ' ', '')) AS dimension,
     lagerplatz,
     -- Leer heisst "kein Wechsel vermerkt"; als NULL zählt es der Datenqualitäts-Test.
-    NULLIF(TRIM(wechsel_herbst_2026), '') AS wechsel_status
+    NULLIF(TRIM(wechsel_herbst_2026), '') AS wechsel_status,
+    -- Die Mart-Zeilen sollen sagen, aus welcher Lieferung sie stammen.
+    {{ neueste_version() }} AS datenversion
 FROM {{ source('garage_raw', 'reifenhotel') }}
+-- Literal statt Unterabfrage: so liest BigQuery nur die Partition dieser Version.
+WHERE _PARTITIONDATE = {{ neueste_version() }}

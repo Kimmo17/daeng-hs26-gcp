@@ -18,5 +18,6 @@ SELECT
     END AS wartezeit_arbeitstage,
     CASE WHEN ist_plausibel
         THEN {{ arbeitstage_zwischen('wunschtag', 'erster_angebotener_termin') }}
-    END AS verschiebung_ggue_wunsch
+    END AS verschiebung_ggue_wunsch,
+    datenversion
 FROM {{ ref('stg_anfragen') }}

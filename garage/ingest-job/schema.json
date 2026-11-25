@@ -1,0 +1,24 @@
+{
+  "dateien": [
+    {
+      "datei": "ds01_terminbuch.csv",
+      "tabelle": "terminbuch",
+      "spalten": ["eintrag_nr", "buchseite", "datum", "zeit", "kunde_pseudo", "arbeit_freitext", "status_vermerk", "radiert", "nachgetragen", "auftragsart_codiert"]
+    },
+    {
+      "datei": "ds02_reifenhotel.csv",
+      "tabelle": "reifenhotel",
+      "spalten": ["satz_nr", "kunde_pseudo", "einlagerung_datum", "eingelagert", "dimension", "lagerplatz", "wechsel_herbst_2026", "bemerkung"]
+    },
+    {
+      "datei": "data01_anfragen.csv",
+      "tabelle": "anfragen",
+      "spalten": ["anfrage_nr", "anfrage_datum", "anfrage_zeit", "kanal", "auftragsart", "wunschtag", "erster_angebotener_termin", "angenommen", "grund_ablehnung"]
+    },
+    {
+      "datei": "data02_anrufe.csv",
+      "tabelle": "anrufe",
+      "spalten": ["datum", "anrufe_total", "anrufe_verpasst", "anrufe_angenommen"]
+    }
+  ]
+}

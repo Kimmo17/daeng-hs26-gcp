@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: garage_raw
-    description: Die synthetischen Rohdaten der Garage Keller, so wie garage/ingest/load.sh sie geladen hat, alle Spalten STRING.
+    description: Die synthetischen Rohdaten der Garage Keller, geladen vom Job garage-ingest, alle Spalten STRING, eine Tagespartition pro Lieferung (version).
     schema: garage_raw
     tables:
       - name: terminbuch
@@ -13,3 +13,5 @@ sources:
         description: Die synthetische Anfrageliste (DATA-01), eine Zeile pro Terminanfrage mit erstem angebotenem Termin.
       - name: anrufe
         description: Die synthetische Anrufstatistik (DATA-02), eine Zeile pro Tag mit angenommenen und verpassten Anrufen.
+      - name: ladeprotokoll
+        description: Log des Jobs garage-ingest, eine Zeile pro Tabelle und Lauf (version, tabelle, zeilen, quelle, geladen_um). Eine Version mit allen vier Tabellen ist vollständig geladen; das Makro neueste_version wählt daraus.

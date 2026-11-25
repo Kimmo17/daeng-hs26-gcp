@@ -13,8 +13,12 @@ WITH typisiert AS (
         COALESCE(NULLIF(TRIM(kanal), ''), 'unbekannt') AS kanal,
         TRIM(auftragsart) AS auftragsart,
         CASE angenommen WHEN 'ja' THEN TRUE WHEN 'nein' THEN FALSE END AS ist_angenommen,
-        NULLIF(TRIM(grund_ablehnung), '') AS grund_ablehnung
+        NULLIF(TRIM(grund_ablehnung), '') AS grund_ablehnung,
+        -- Die Mart-Zeilen sollen sagen, aus welcher Lieferung sie stammen.
+        {{ neueste_version() }} AS datenversion
     FROM {{ source('garage_raw', 'anfragen') }}
+    -- Literal statt Unterabfrage: so liest BigQuery nur die Partition dieser Version.
+    WHERE _PARTITIONDATE = {{ neueste_version() }}
 )
 
 SELECT

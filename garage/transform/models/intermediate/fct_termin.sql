@@ -9,5 +9,6 @@ SELECT
     kunde_pseudo,
     ist_radiert,
     ist_nachgetragen,
-    status_vermerk
+    status_vermerk,
+    datenversion
 FROM {{ ref('stg_termine') }}
