@@ -1,0 +1,19 @@
+From: Ein Kollege <kollege@example.invalid>
+Subject: [PATCH] Ingest: bei erneutem Lauf nichts verlieren
+
+Bei einem zweiten Lauf derselben Version hat der Job die Partition
+ersetzt. Jetzt hängt er an, damit nichts verloren geht.
+---
+diff --git a/ingest/main.py b/ingest/main.py
+index bc5ec03..efad907 100644
+--- a/ingest/main.py
++++ b/ingest/main.py
+@@ -103,7 +103,7 @@ def load_table(bq, uri, table_id, columns):
+         # Alles STRING: die Rohschicht hält fest, was kam; Typen setzen erst die Transformationen.
+         schema=[bigquery.SchemaField(column, "STRING") for column in columns],
+         # Ersetzt nur die Partition dieser Version, ein zweiter Lauf erzeugt also keine Duplikate.
+-        write_disposition=bigquery.WriteDisposition.WRITE_TRUNCATE,
++        write_disposition=bigquery.WriteDisposition.WRITE_APPEND,
+         # Eine neue Spalte in einer künftigen Version kommt dazu, statt den Lauf abzubrechen.
+         schema_update_options=[bigquery.SchemaUpdateOption.ALLOW_FIELD_ADDITION],
+         time_partitioning=bigquery.TimePartitioning(

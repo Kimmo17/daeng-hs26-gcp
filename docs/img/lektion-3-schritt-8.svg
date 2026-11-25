@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1044 248" width="1044" height="248" role="img" aria-labelledby="t d">
+<title id="t">Der Satz in reason und woher seine Teile kommen</title>
+<desc id="d">Beispiel: Ausfall im Abschnitt: 26 Linien an Luzern, Bahnhof, 3.1 Stunden, etwa 393 Fahrten betroffen. Ausfall und die Dauer kommen vom Sprachmodell. Im Abschnitt kommt vom Sprachmodell und von der Seed-Tabelle. Die Linien an der Haltestelle kommen aus der Seed-Tabelle und dem Fahrplan. Die Fahrten kommen aus dem Mart von Lektion 2.</desc>
+<rect width="1044" height="248" fill="#ffffff"/>
+<rect x="16" y="16" width="1012" height="216" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<path d="M16 46 V22 a6 6 0 0 1 6 -6 H1022 a6 6 0 0 1 6 6 V46 Z" fill="#f6f8fa" stroke="#d0d7de"/>
+<text x="30.0" y="36.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="13.5" fill="#1f2328" text-anchor="start" font-weight="700">reason: vier Quellen in einem Satz</text>
+<rect x="39.0" y="72" width="104" height="36" rx="6" fill="#f6f8fa" stroke="#8c959f"/>
+<text x="91.0" y="95.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="700">Ausfall</text>
+<path d="M91.0 108 V122" stroke="#8c959f" stroke-width="1.5"/>
+<rect x="41.0" y="124" width="100" height="22" rx="11" fill="#8250df"/>
+<text x="91.0" y="139.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#ffffff" text-anchor="middle" font-weight="700">Sprachmodell</text>
+<text x="91.0" y="170.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#1f2328" text-anchor="middle" font-weight="400">Spalte effect</text>
+<rect x="159.0" y="72" width="204" height="36" rx="6" fill="#f6f8fa" stroke="#8c959f"/>
+<text x="261.0" y="95.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="700">im Abschnitt:</text>
+<path d="M261.0 108 V122" stroke="#8c959f" stroke-width="1.5"/>
+<rect x="159.0" y="124" width="100" height="22" rx="11" fill="#8250df"/>
+<text x="209.0" y="139.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#ffffff" text-anchor="middle" font-weight="700">Sprachmodell</text>
+<rect x="267.0" y="124" width="96" height="22" rx="11" fill="#1a7f37"/>
+<text x="315.0" y="139.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#ffffff" text-anchor="middle" font-weight="700">Seed-Tabelle</text>
+<text x="261.0" y="170.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#1f2328" text-anchor="middle" font-weight="400">Abschnitt aus dem Text,</text>
+<text x="261.0" y="186.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#1f2328" text-anchor="middle" font-weight="400">Bahnhof steht in der Datei</text>
+<rect x="379.0" y="72" width="250" height="36" rx="6" fill="#f6f8fa" stroke="#8c959f"/>
+<text x="504.0" y="95.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="700">26 Linien an Luzern, Bahnhof,</text>
+<path d="M504.0 108 V122" stroke="#8c959f" stroke-width="1.5"/>
+<rect x="415.0" y="124" width="96" height="22" rx="11" fill="#1a7f37"/>
+<text x="463.0" y="139.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#ffffff" text-anchor="middle" font-weight="700">Seed-Tabelle</text>
+<rect x="519.0" y="124" width="74" height="22" rx="11" fill="#bc4c00"/>
+<text x="556.0" y="139.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#ffffff" text-anchor="middle" font-weight="700">Fahrplan</text>
+<text x="504.0" y="170.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#1f2328" text-anchor="middle" font-weight="400">Haltestelle aus der Datei,</text>
+<text x="504.0" y="186.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#1f2328" text-anchor="middle" font-weight="400">Linien dort aus stop_times</text>
+<rect x="645.0" y="72" width="118" height="36" rx="6" fill="#f6f8fa" stroke="#8c959f"/>
+<text x="704.0" y="95.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="700">3.1 Stunden,</text>
+<path d="M704.0 108 V122" stroke="#8c959f" stroke-width="1.5"/>
+<rect x="654.0" y="124" width="100" height="22" rx="11" fill="#8250df"/>
+<text x="704.0" y="139.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#ffffff" text-anchor="middle" font-weight="700">Sprachmodell</text>
+<text x="704.0" y="170.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#1f2328" text-anchor="middle" font-weight="400">begin und end</text>
+<text x="704.0" y="186.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#1f2328" text-anchor="middle" font-weight="400">aus dem Text</text>
+<rect x="779.0" y="72" width="226" height="36" rx="6" fill="#f6f8fa" stroke="#8c959f"/>
+<text x="892.0" y="95.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="700">etwa 393 Fahrten betroffen</text>
+<path d="M892.0 108 V122" stroke="#8c959f" stroke-width="1.5"/>
+<rect x="823.0" y="124" width="138" height="22" rx="11" fill="#0969da"/>
+<text x="892.0" y="139.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#ffffff" text-anchor="middle" font-weight="700">Mart aus Lektion 2</text>
+<text x="892.0" y="170.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#1f2328" text-anchor="middle" font-weight="400">Fahrten pro Tag der Linien</text>
+<text x="892.0" y="186.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#1f2328" text-anchor="middle" font-weight="400">mal Dauer durch 24</text>
+<text x="30.0" y="218.0" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif" font-size="11.5" fill="#8c959f" text-anchor="start" font-weight="400">Beispiel: die Meldung Olten - Luzern. Der Wortlaut hängt von deinem erzeugten Code ab, die Teile sind dieselben.</text>
+</svg>

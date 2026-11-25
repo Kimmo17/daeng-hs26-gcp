@@ -2,7 +2,8 @@
 
 Cloud-Run-Job `ingest-alerts`: holt die Bahnverkehrsinformationen der SBB von data.sbb.ch, einen
 Tag pro Anfrage, legt jede Antwort unverändert unter `gs://BUCKET/raw/alerts/day=<tag>/` ab und
-lädt sie als STRING-Spalten in die Partition `alerts$<tag>` im Dataset `raw`.
+lädt sie als STRING-Spalten in die Partition `alerts$<tag>` im Dataset `raw`. Für einen Tag ohne
+Meldungen schreibt er nichts.
 
 Dateien: `main.py` (der Job, vier Schritte), `requirements.txt`, `Dockerfile`, `SPEC.md`
 (Spezifikation).

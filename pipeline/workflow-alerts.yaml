@@ -1,8 +1,8 @@
 # Workflow alerts-pipeline: Meldungen laden, dann Transformation.
 #
-# Die zweite Kette im Projekt, neben gtfs-pipeline aus Lektion 2. Eine eigene Kette, weil der Takt
-# ein anderer ist: der Fahrplan kommt zweimal pro Woche, Meldungen kommen jeden Tag. Beide Ketten
-# enden im selben Job transform-gtfs, denn dbt baut ohnehin alles, was sich geändert hat, und ein
+# Der zweite Workflow im Projekt, neben gtfs-pipeline aus Lektion 2. Ein eigener Workflow, weil der
+# Takt ein anderer ist: der Fahrplan kommt zweimal pro Woche, Meldungen kommen jeden Tag. Beide
+# Workflows enden im selben Job transform-gtfs, denn dbt baut ohnehin alles, was sich geändert hat, und ein
 # ganzer Lauf dauert eine Minute. Das Sprachmodell liest dabei nur Meldungen, die es noch nicht
 # kennt (int_alerts_extracted ist inkrementell).
 #

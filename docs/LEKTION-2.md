@@ -10,7 +10,7 @@ wenn etwas schiefgeht.
 
 Dafür kommen heute drei Dinge dazu: eine Transformation mit dbt, die du diesmal nicht liest,
 sondern aus einer Spezifikation erzeugen lässt. Ein Workflow, der Ingest, Prüfung und
-Transformation zu einer Kette verbindet, mit einer Schranke dazwischen. Und ein Alarm.
+Transformation verbindet, mit einer Schranke dazwischen. Und ein Alarm.
 
 Wie die Spezifikation zur Transformation in einem Team aussähe, steht in
 [SPEC-IM-TEAM.md](SPEC-IM-TEAM.md). Lies das vor oder nach der Lektion, es erklärt, warum
@@ -380,11 +380,11 @@ Checkpoint: 370 Zeilen, 60 554 Fahrten.
 
 ---
 
-## 5. Die Kette
+## 5. Der Workflow
 
 **Warum.** Bis jetzt startet der Scheduler den Ingest, und alles andere startet jemand von
 Hand. Ein Workflow verbindet die drei Teile: erst der Ingest, dann der Scan, und erst wenn
-der Scan bestanden ist, die Transformation. Schlägt ein Teil fehl, stoppt die Kette dort.
+der Scan bestanden ist, die Transformation. Schlägt ein Teil fehl, stoppt der Workflow dort.
 Der Mart behält dann die letzte gute Version, statt mit fehlerhaften Daten überschrieben zu
 werden. Das ist die Qualitätsschranke, und sie ist der Grund, warum der Scan aus Lektion 1
 überhaupt da ist.

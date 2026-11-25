@@ -13,6 +13,7 @@ Kurs: ZHAW Data Engineering, GCP-Lektionen. Die Person, mit der du arbeitest, ha
 - Lösche nichts ohne ausdrückliche Bestätigung in diesem Chat. Keine --quiet Flags bei Lösch-Befehlen.
 - Wenn ein Befehl fehlschlägt: zeige die Fehlermeldung, erkläre sie, schlage einen Fix vor, führe ihn nicht automatisch aus.
 - Lies den Ordner `referenz/` nur, wenn die Person es ausdrücklich verlangt.
+- Lies den Ordner `docs/` nur, wenn die Person es ausdrücklich verlangt. Die Tutorials sind für die Person geschrieben, du arbeitest aus dem Prompt und aus dem Code.
 
 ## Projekt
 - Standardprojekt: das Ergebnis von `gcloud config get-value project`. Region: europe-west6. BigQuery-Location: europe-west6.
@@ -26,5 +27,13 @@ Kurs: ZHAW Data Engineering, GCP-Lektionen. Die Person, mit der du arbeitest, ha
 - `transform/` dbt-Projekt, entsteht in Lektion 2 aus transform/SPEC.md, wächst in Lektion 3 um transform/SPEC-ALERTS.md
 - `referenz/` Musterlösungen. Lies diesen Ordner nur, wenn die Person es ausdrücklich verlangt.
 - `checks/` Dataplex Data-Quality-Regeln
-- `pipeline/` Workflows (Verkettung mit Qualitätsschranke, zweite Kette für die Meldungen) und Alarm
-- `docs/` Tutorials
+- `pipeline/` Workflows (einer mit Qualitätsschranke für den Fahrplan, einer für die Meldungen, und ab Lektion 4 die Fassung des Fahrplan-Workflows mit Triage) und Alarm
+- `agent/` Cloud-Run-Job triage, der Agent, der eine fehlgeschlagene Execution untersucht (Lektion 4)
+- `incidents/` drei Vorfälle zum Nachstellen (Lektion 4)
+- `docs/` Tutorials für die Person. Lies diesen Ordner nur, wenn die Person es ausdrücklich verlangt.
+
+## Lektion 4
+- `incidents/` enthält Befehle, die die Pipeline absichtlich kaputt machen. Führe sie nur aus, wenn die Person es in diesem Chat ausdrücklich verlangt, und sag vorher in einem Satz, was kaputtgeht.
+- Der Agent in `agent/` liest nur. Schlage kein Werkzeug vor, das etwas schreibt, deployt, startet oder löscht, und gib `triage-sa` keine Rolle, die nicht in `agent/README.md` steht.
+- In `ops.incidents` schreibt der Job triage. Du änderst dort nur `status`, `closed_by` und `closed_at`, und nur auf Verlangen.
+- Den Job triage startest du nur mit einer Execution-ID oder mit `--selftest` als Argument, nie ohne Argument.
